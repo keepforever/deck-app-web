@@ -1,6 +1,8 @@
 import React from 'react';
 import { useQuery } from '@apollo/react-hooks';
 import ALL_USERS_QUERY from '../graphql/q/ALL_USERS';
+// locals
+import GridDemo from '../comps/GridDemo';
 
 const Home = props => {
     const { loading, data } = useQuery(ALL_USERS_QUERY);
@@ -20,6 +22,7 @@ const Home = props => {
     return (
         <div>
             <h3>Hello Home</h3>
+            {data && data.feedUsers && <GridDemo users={data.feedUsers}/>}
         </div>
     );
 };

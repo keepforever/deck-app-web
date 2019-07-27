@@ -1,9 +1,16 @@
 import React from 'react';
+// locals
+import RegisterForm from '../comps/RegisterForm';
 
 const Register = props => {
     return (
-        <div>
-            <h3>Hello Register</h3>
+        <div style={{
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center'
+        }}>
+            <RegisterForm />
         </div>
     );
 };
