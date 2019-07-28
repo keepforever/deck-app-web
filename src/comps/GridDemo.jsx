@@ -16,7 +16,7 @@ const styles = theme => ({
         color: theme.palette.text.secondary
     },
     container: {
-        padding: '30px'
+        padding: '0px'
     }
 });
 

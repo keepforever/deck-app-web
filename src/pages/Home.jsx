@@ -20,7 +20,7 @@ const Home = props => {
     #########################################################
     `);
     return (
-        <div>
+        <div style={{margin: 'auto'}}>
             <h3>Hello Home</h3>
             {data && data.feedUsers && <GridDemo users={data.feedUsers}/>}
         </div>

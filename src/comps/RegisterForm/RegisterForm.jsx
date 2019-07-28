@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 // apollo
-import { useMutation, useQuery } from '@apollo/react-hooks';
+import { useMutation } from '@apollo/react-hooks';
 // material-ui
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
@@ -13,7 +13,7 @@ import { useStyles, makeString } from './utils';
 // graphql
 import REGISTER_MUTATION from '../../graphql/m/REGISTER_MUTATION';
 import ALL_USERS_QUERY from '../../graphql/q/ALL_USERS';
-
+import ALL_DECKS_QUERY from '../../graphql/q/ALL_DECKS_QUERY';
 
 const RegisterForm = props => {
     const classes = useStyles();
@@ -27,7 +27,11 @@ const RegisterForm = props => {
 
     const [signup, { loading }] = useMutation(REGISTER_MUTATION, {
         variables: values,
-        refetchQueries: [{query: ALL_USERS_QUERY}]
+        // you can refetch multiple queries, along with any variables associated
+        // with them using the refetchQueries option on useMutation.
+        refetchQueries: [{query: ALL_USERS_QUERY /* variables: {...} */}, {query: ALL_DECKS_QUERY}]
+        // Video on updating the cache manually with update
+        // https://www.youtube.com/watch?v=lQ7t20gFR14
     });
 
     const register = () => {
