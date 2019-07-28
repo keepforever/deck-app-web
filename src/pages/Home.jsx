@@ -24,10 +24,7 @@ const Home = props => {
     `);
     return (
         <div>
-            <TabNavigationWithRoutes />
-            <div style={{ padding: '30px' }}>
-                {data && data.feedUsers && <GridDemo users={data.feedUsers} />}
-            </div>
+            <TabNavigationWithRoutes gridDemoData={data && data.feedUsers} />
         </div>
     );
 };
