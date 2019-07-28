@@ -60,7 +60,7 @@ function SubNav (props) {
                 path="/home/page3"
                 render={() => (
                     <Typography component="div" className={classes.tabContent}>
-                        {context.user && JSON.stringify(context.user)}
+                        {context.user && JSON.stringify(context.user.user)}
                         {!context.user && <h3>Not logged in</h3>}
                     </Typography>
                 )}

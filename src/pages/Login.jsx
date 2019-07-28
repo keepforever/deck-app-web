@@ -3,7 +3,7 @@ import React from 'react';
 // import ALL_DECKS_QUERY from '../graphql/q/ALL_DECKS_QUERY';
 // import ALL_USERS_QUERY from '../graphql/q/ALL_USERS';
 // locals
-import LoginForm from '../comps/LoginForm/LoginForm';
+import LoginForm from '../comps/LoginForm';
 
 const Login = props => {
     return (

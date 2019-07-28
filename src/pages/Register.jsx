@@ -1,6 +1,6 @@
 import React from 'react';
 // locals
-import RegisterForm from '../comps/RegisterForm/RegisterForm';
+import RegisterForm from '../comps/RegisterForm';
 
 const Register = props => {
     return (
