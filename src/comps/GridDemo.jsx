@@ -22,7 +22,7 @@ const styles = theme => ({
 
 const GridDemo = withStyles(styles)(({ classes, users = [] }) => (
     <div className={classes.root}>
-        <Grid className={classes.container} container spacing={10}>
+        <Grid className={classes.container} container spacing={1}>
             {users.map((u, i) => {
                 return (
                     <Grid key={u.id} item xs={12} sm={6} md={3} lg={12}>
