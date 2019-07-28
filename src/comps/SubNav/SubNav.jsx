@@ -7,8 +7,8 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 // locals
-import GridDemo from './GridDemo';
-import { AuthContext } from '../context/auth';
+import GridDemo from '../GridDemo';
+import { AuthContext } from '../../context/auth';
 
 const styles = theme => ({
     mainContainer: {
@@ -23,17 +23,9 @@ const styles = theme => ({
         padding: theme.spacing(2)
     }
 });
-function TabNavigationWithRoutes (props) {
+function SubNav (props) {
     const context = useContext(AuthContext);
-    console.log(
-        '\n',
-        '\n',
-        `TabNavigationWithRoutes, props = `,
-        TabNavigationWithRoutes,
-        props,
-        '\n',
-        '\n'
-    );
+    console.log('\n', '\n', `Subnav, props = `, props, '\n', '\n');
     const { classes, gridDemoData = [] } = props;
     const [value, setValue] = useState(0);
     const onChange = (e, value) => {
@@ -69,10 +61,11 @@ function TabNavigationWithRoutes (props) {
                 render={() => (
                     <Typography component="div" className={classes.tabContent}>
                         {context.user && JSON.stringify(context.user)}
+                        {!context.user && <h3>Not logged in</h3>}
                     </Typography>
                 )}
             />{' '}
         </div>
     );
 }
-export default withStyles(styles)(TabNavigationWithRoutes);
+export default withStyles(styles)(SubNav);

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 // material ui
 import PropTypes from 'prop-types';
@@ -7,7 +7,8 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-// redux
+// locals
+import { AuthContext } from '../../context/auth';
 
 const styles = {
     root: {
@@ -25,27 +26,9 @@ const styles = {
     }
 };
 
-// const logInLink = (
-//     <Button color="inherit" component={Link} to="/auth">
-//         Login
-//     </Button>
-// );
-//
-// const logOutLink = (
-//     <Button color="inherit" component={Link} to="/logout">
-//         Logout
-//     </Button>
-// );
-//
-// const Add = (
-//     <Button color="inherit" component={Link} to="/add">
-//         Add
-//     </Button>
-// );
-
 function Navbar (props) {
     const { classes } = props;
-    // console.log("Navbar.js, isLoggedIn = ", isLoggedIn, "\n");
+    const context = useContext(AuthContext);
 
     return (
         <div className={classes.root}>
@@ -61,12 +44,14 @@ function Navbar (props) {
                     <Button color="inherit" component={Link} to="/home/page1">
                         Home
                     </Button>
-                    <Button color="inherit" component={Link} to="/login">
-                        Login
-                    </Button>
-                    <Button color="inherit" component={Link} to="/register">
+                    {!context.user &&
+                        <Button color="inherit" component={Link} to="/login">
+                            Login
+                        </Button>
+                    }
+                    {!context.user && <Button color="inherit" component={Link} to="/register">
                         Register
-                    </Button>
+                    </Button>}
                 </Toolbar>
             </AppBar>
         </div>

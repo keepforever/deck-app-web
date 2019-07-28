@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useContext } from 'react';
 // apollo
 import { useMutation } from '@apollo/react-hooks';
 // material-ui
@@ -14,25 +14,31 @@ import { useStyles } from './utils';
 import LOGIN_MUTATION from '../../graphql/m/LOGIN_MUTATION';
 import ALL_USERS_QUERY from '../../graphql/q/ALL_USERS';
 import ALL_DECKS_QUERY from '../../graphql/q/ALL_DECKS_QUERY';
+// context
+import { AuthContext } from '../../context/auth';
 
-const RegisterForm = props => {
+const LoginForm = props => {
+    const context = useContext(AuthContext)
     const classes = useStyles();
     const [values, handleChange] = useForm({
-        email: '',
-        password: ''
+        email: 'a',
+        password: 'a'
     });
 
     const [login, { loading }] = useMutation(LOGIN_MUTATION, {
         variables: values,
-        // you can refetch multiple queries, along with any variables associated
-        // with them using the refetchQueries option on useMutation.
+        update: (_, {data: {login: loginData}}) => {
+            console.log('\n', '\n', `context = `, context, '\n', '\n');
+            context.login(loginData);
+            props.history.push('/home/page3')
+        },
+        // you can refetch multiple queries, along with any variables associated with them using the refetchQueries option on useMutation.
         refetchQueries: [{query: ALL_USERS_QUERY /* variables: {...} */}, {query: ALL_DECKS_QUERY}]
-        // Video on updating the cache manually with update
-        // https://www.youtube.com/watch?v=lQ7t20gFR14
+        // Video on updating the cache manually with update https://www.youtube.com/watch?v=lQ7t20gFR14
     });
 
-    const register = async () => {
-        console.log('\n', '\n', `values = `, values, '\n', '\n');
+    const submitLogin = async () => {
+        // console.log('\n', '\n', `values = `, values, '\n', '\n');
         const { data: { login: loginResp } } = await login();
         console.log('\n', '\n', `loginResp = `, loginResp, '\n', '\n');
     };
@@ -95,7 +101,7 @@ const RegisterForm = props => {
                             variant="outlined"
                             className={classes.loginButton}
                             fullWidth
-                            onClick={() => register()}
+                            onClick={() => submitLogin()}
                         >
                             SIGN IN
                         </Button>
@@ -106,4 +112,4 @@ const RegisterForm = props => {
     );
 };
 
-export default RegisterForm;
+export default LoginForm;
