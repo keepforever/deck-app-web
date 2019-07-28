@@ -58,7 +58,7 @@ function Navbar (props) {
                     >
                         Decktopia
                     </Typography>
-                    <Button color="inherit" component={Link} to="/">
+                    <Button color="inherit" component={Link} to="/home/page1">
                         Home
                     </Button>
                     <Button color="inherit" component={Link} to="/login">
