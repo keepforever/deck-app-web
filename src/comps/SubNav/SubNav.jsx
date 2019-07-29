@@ -7,7 +7,7 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 // locals
-import GridDemo from '../GridDemo';
+import Decks from '../../pages/deck/Decks';
 import AddDeck from './AddDeck';
 import { AuthContext } from '../../context/auth';
 
@@ -29,10 +29,17 @@ const styles = theme => ({
         padding: theme.spacing(2)
     }
 });
+
 function SubNav (props) {
     const context = useContext(AuthContext);
+
+    if (!context.user) {
+        props.history.push('/login');
+    }
+
     console.log('\n', '\n', `Subnav, props = `, props, '\n', '\n');
-    const { classes, gridDemoData = [] } = props;
+
+    const { classes } = props;
     const [value, setValue] = useState(0);
     const onChange = (e, value) => {
         setValue(value);
@@ -41,16 +48,16 @@ function SubNav (props) {
         <div className={classes.mainContainer}>
             <AppBar position="static">
                 <Tabs value={value} onChange={onChange}>
-                    <Tab label="Decks" component={Link} to="/home/page1" />
+                    <Tab label="Decks" component={Link} to="/home/decks" />
                     <Tab label="Add Deck" component={Link} to="/home/page2" />
                     <Tab label="Friends" component={Link} to="/home/page3" />
                 </Tabs>
             </AppBar>
             <Route
-                path="/home/page1"
+                path="/home/decks"
                 render={() => (
                     <div className={classes.root}>
-                        <GridDemo users={gridDemoData} />
+                        {context.user && <Decks decks={context.user.decks} />}
                     </div>
                 )}
             />

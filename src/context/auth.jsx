@@ -3,7 +3,12 @@ import React, { createContext, useReducer } from 'react';
 const AuthContext = createContext({
     user: null,
     login: userData => {},
-    logout: () => {}
+    logout: () => {},
+    snackbar: {}
+    // snackbar: {
+    //     isOpen: false,
+    //     message: 'empty message'
+    // }
 });
 
 const initialState = {};
@@ -14,6 +19,32 @@ const addedDeck = (state, action) => {
         user: {
             ...state.user,
             decks: [...state.user.decks, action.payload]
+        }
+    };
+};
+
+const showSnack = (state, action) => {
+    return {
+        ...state,
+        user: {
+            ...state.user
+        },
+        snackbar: {
+            isOpen: true,
+            message: action.payload
+        }
+    };
+};
+
+const hideSnack = (state, action) => {
+    return {
+        ...state,
+        user: {
+            ...state.user
+        },
+        snackbar: {
+            isOpen: false,
+            message: ''
         }
     };
 };
@@ -35,6 +66,10 @@ function authReducer (state = initialState, action) {
             };
         case 'ADDED_DECK':
             return addedDeck(state, action);
+        case 'SHOW_SNACK':
+            return showSnack(state, action);
+        case 'HIDE_SNACK':
+            return hideSnack(state, action);
         default:
             return state;
     }
@@ -42,7 +77,7 @@ function authReducer (state = initialState, action) {
 
 function AuthProvider (props) {
     //                  useReducer(reducer,     initialState)
-    const [state, dispatch] = useReducer(authReducer, { user: null });
+    const [state, dispatch] = useReducer(authReducer, { user: null, snackbar: {isOpen: false, message: 'no message'} });
 
     function login (userData) {
         dispatch({
@@ -64,15 +99,45 @@ function AuthProvider (props) {
         });
     }
 
+    function addMessage (message) {
+        console.log(`
+        #########################################################
+                        addMessage
+        #########################################################
+        `);
+
+        console.log('\n', '\n', `message = `, message, '\n', '\n');
+
+        console.log(`
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        #########################################################
+        `);
+        dispatch({
+            type: 'SHOW_SNACK',
+            payload: message
+        });
+    }
+
+    function removeMessage () {
+        dispatch({
+            type: 'HIDE_SNACK'
+        });
+    }
+
     // must return the provider to use elsewhere
     return (
         <AuthContext.Provider
             {...props}
             value={{
                 user: state.user,
+                snackbar: {
+                    ...state.snackbar
+                },
                 login,
                 logout,
-                updateUserDecks
+                updateUserDecks,
+                addMessage,
+                removeMessage
             }}
         />
     );

@@ -41,17 +41,29 @@ function Navbar (props) {
                     >
                         Decktopia
                     </Typography>
-                    <Button color="inherit" component={Link} to="/home/page1">
+                    <Button color="inherit" component={Link} to="/home/decks">
                         Home
                     </Button>
-                    {!context.user &&
+                    {context.user && (
+                        <Button
+                            color="inherit"
+                            onClick={() => {
+                                context.logout();
+                            }}
+                        >
+                            Logout
+                        </Button>
+                    )}
+                    {!context.user && (
                         <Button color="inherit" component={Link} to="/login">
                             Login
                         </Button>
-                    }
-                    {!context.user && <Button color="inherit" component={Link} to="/register">
-                        Register
-                    </Button>}
+                    )}
+                    {!context.user && (
+                        <Button color="inherit" component={Link} to="/register">
+                            Register
+                        </Button>
+                    )}
                 </Toolbar>
             </AppBar>
         </div>

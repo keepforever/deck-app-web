@@ -18,7 +18,7 @@ import ALL_DECKS_QUERY from '../../graphql/q/ALL_DECKS_QUERY';
 import { AuthContext } from '../../context/auth';
 
 const LoginForm = props => {
-    const context = useContext(AuthContext)
+    const context = useContext(AuthContext);
     const classes = useStyles();
     const [values, handleChange] = useForm({
         email: 'c',
@@ -27,19 +27,25 @@ const LoginForm = props => {
 
     const [login, { loading }] = useMutation(LOGIN_MUTATION, {
         variables: values,
-        update: (_, {data: {login: loginData}}) => {
-            console.log('\n', '\n', `context = `, context, '\n', '\n');
+        update: (_, { data: { login: loginData } }) => {
             context.login(loginData);
-            props.history.push('/home/page3')
+            context.addMessage('You\'ve logged in!');
+            props.history.push('/home/decks');
         },
         // you can refetch multiple queries, along with any variables associated with them using the refetchQueries option on useMutation.
-        refetchQueries: [{query: ALL_USERS_QUERY /* variables: {...} */}, {query: ALL_DECKS_QUERY}]
+        refetchQueries: [
+            // eslint-disable-next-line
+            { query: ALL_USERS_QUERY /* variables: {...} */ },
+            { query: ALL_DECKS_QUERY }
+        ]
         // Video on updating the cache manually with update https://www.youtube.com/watch?v=lQ7t20gFR14
     });
 
     const submitLogin = async () => {
         // console.log('\n', '\n', `values = `, values, '\n', '\n');
-        const { data: { login: loginResp } } = await login();
+        const {
+            data: { login: loginResp }
+        } = await login();
         console.log('\n', '\n', `loginResp = `, loginResp, '\n', '\n');
     };
 
@@ -65,9 +71,7 @@ const LoginForm = props => {
                     <Grid item>
                         <Grid container className={classes.headingContainer}>
                             <Grid item>
-                                <Typography variant="h5">
-                                    Login Form
-                                </Typography>
+                                <Typography variant="h5">Login Form</Typography>
                             </Grid>
                         </Grid>
                     </Grid>
