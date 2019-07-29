@@ -32,6 +32,7 @@ const RegisterForm = props => {
         update: (_, {data: { createDeck: createDeckData }}) => {
             console.log('\n', '\n', `ADD_DECK_MUTATION successful = `, createDeckData, '\n', '\n');
             context.updateUserDecks(createDeckData);
+            context.addMessage(`Deck ${createDeckData.title} Created!`);
         },
         /* eslint-disable-next-line */
         refetchQueries: [{query: ALL_USERS_QUERY /* variables: {...} */}, {query: ALL_DECKS_QUERY}]

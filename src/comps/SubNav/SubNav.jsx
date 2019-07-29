@@ -8,6 +8,7 @@ import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 // locals
 import Decks from '../../pages/deck/Decks';
+import Deck from '../Deck';
 import AddDeck from './AddDeck';
 import { AuthContext } from '../../context/auth';
 
@@ -49,11 +50,16 @@ function SubNav (props) {
             <AppBar position="static">
                 <Tabs value={value} onChange={onChange}>
                     <Tab label="Decks" component={Link} to="/home/decks" />
-                    <Tab label="Add Deck" component={Link} to="/home/page2" />
-                    <Tab label="Friends" component={Link} to="/home/page3" />
+                    <Tab
+                        label="Add Deck"
+                        component={Link}
+                        to="/home/add-deck"
+                    />
+                    <Tab label="Friends" component={Link} to="/home/friends" />
                 </Tabs>
             </AppBar>
             <Route
+                exact
                 path="/home/decks"
                 render={() => (
                     <div className={classes.root}>
@@ -62,7 +68,22 @@ function SubNav (props) {
                 )}
             />
             <Route
-                path="/home/page2"
+                exact
+                path="/home/decks/:id"
+                render={() => {
+                    console.log('\n', '\n', `/home/decks/:id HAVE RENDERED `, '\n', '\n');
+                    return (
+                        <div className={classes.root}>
+                            <h1>`/home/decks/:id`</h1>
+                            {context.user && (
+                                <Deck deck={context.user.decks[0]} />
+                            )}
+                        </div>
+                    );
+                }}
+            />
+            <Route
+                path="/home/add-deck"
                 render={() => (
                     <div className={classes.addDeckTab}>
                         <AddDeck />
@@ -70,13 +91,20 @@ function SubNav (props) {
                 )}
             />{' '}
             <Route
-                path="/home/page3"
+                path="/home/friends"
                 render={() => (
                     <Typography component="div" className={classes.tabContent}>
                         {context.user && (
                             <div>
                                 {context.user.decks.map(d => {
-                                    console.log('\n', '\n', `d = `, d, '\n', '\n');
+                                    console.log(
+                                        '\n',
+                                        '\n',
+                                        `d = `,
+                                        d,
+                                        '\n',
+                                        '\n'
+                                    );
                                     return <p key={d.title}>{d.title}</p>;
                                 })}
                             </div>

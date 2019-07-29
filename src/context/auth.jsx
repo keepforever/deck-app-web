@@ -76,8 +76,11 @@ function authReducer (state = initialState, action) {
 }
 
 function AuthProvider (props) {
-    //                  useReducer(reducer,     initialState)
-    const [state, dispatch] = useReducer(authReducer, { user: null, snackbar: {isOpen: false, message: 'no message'} });
+    // useReducer(reducer, initialState)
+    const [state, dispatch] = useReducer(authReducer, {
+        user: null,
+        snackbar: { isOpen: false, message: 'no message' }
+    });
 
     function login (userData) {
         dispatch({
@@ -100,18 +103,6 @@ function AuthProvider (props) {
     }
 
     function addMessage (message) {
-        console.log(`
-        #########################################################
-                        addMessage
-        #########################################################
-        `);
-
-        console.log('\n', '\n', `message = `, message, '\n', '\n');
-
-        console.log(`
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-        #########################################################
-        `);
         dispatch({
             type: 'SHOW_SNACK',
             payload: message

@@ -29,7 +29,11 @@ const RegisterForm = props => {
         variables: values,
         // you can refetch multiple queries, along with any variables associated
         // with them using the refetchQueries option on useMutation.
-        refetchQueries: [{query: ALL_USERS_QUERY /* variables: {...} */}, {query: ALL_DECKS_QUERY}]
+        refetchQueries: [
+            /* eslint-disable-next-line */
+            { query: ALL_USERS_QUERY /* variables: {...} */ },
+            { query: ALL_DECKS_QUERY }
+        ]
         // Video on updating the cache manually with update
         // https://www.youtube.com/watch?v=lQ7t20gFR14
     });
@@ -119,7 +123,7 @@ const RegisterForm = props => {
                             fullWidth
                             onClick={() => register()}
                         >
-                            SIGN IN
+                            Register New Account
                         </Button>
                     </Grid>
                 </Grid>
