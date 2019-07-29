@@ -1,4 +1,5 @@
 import gql from 'graphql-tag';
+import DECK_FRAGMENT from './DECK_FRAGMENT';
 
 export default gql`
     fragment UserInfo on User {
@@ -7,8 +8,8 @@ export default gql`
         name
         email
         decks {
-            id
-            list
+            ...DeckInfo
         }
     }
+    ${DECK_FRAGMENT}
 `;

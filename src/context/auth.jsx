@@ -8,22 +8,37 @@ const AuthContext = createContext({
 
 const initialState = {};
 
+const addedDeck = (state, action) => {
+    return {
+        ...state,
+        user: {
+            ...state.user,
+            decks: [...state.user.decks, action.payload]
+        }
+    };
+};
+
 function authReducer (state = initialState, action) {
     switch (action.type) {
         case 'LOGIN':
             return {
                 ...state,
-                user: action.payload
+                user: {
+                    token: action.payload.token,
+                    ...action.payload.user
+                }
             };
         case 'LOGOUT':
             return {
                 ...state,
                 user: null
             };
+        case 'ADDED_DECK':
+            return addedDeck(state, action);
         default:
             return state;
     }
-};
+}
 
 function AuthProvider (props) {
     //                  useReducer(reducer,     initialState)
@@ -42,6 +57,13 @@ function AuthProvider (props) {
         });
     }
 
+    function updateUserDecks (deckData) {
+        dispatch({
+            type: 'ADDED_DECK',
+            payload: deckData
+        });
+    }
+
     // must return the provider to use elsewhere
     return (
         <AuthContext.Provider
@@ -49,10 +71,11 @@ function AuthProvider (props) {
             value={{
                 user: state.user,
                 login,
-                logout
+                logout,
+                updateUserDecks
             }}
         />
     );
-};
+}
 
 export { AuthContext, AuthProvider };

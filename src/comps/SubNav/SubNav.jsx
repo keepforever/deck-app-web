@@ -8,6 +8,7 @@ import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 // locals
 import GridDemo from '../GridDemo';
+import AddDeck from './AddDeck';
 import { AuthContext } from '../../context/auth';
 
 const styles = theme => ({
@@ -18,6 +19,11 @@ const styles = theme => ({
         flexGrow: 1,
         backgroundColor: 'grey',
         padding: '30px'
+    },
+    addDeckTab: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center'
     },
     tabContent: {
         padding: theme.spacing(2)
@@ -51,16 +57,23 @@ function SubNav (props) {
             <Route
                 path="/home/page2"
                 render={() => (
-                    <Typography component="div" className={classes.tabContent}>
-                        Item Two
-                    </Typography>
+                    <div className={classes.addDeckTab}>
+                        <AddDeck />
+                    </div>
                 )}
             />{' '}
             <Route
                 path="/home/page3"
                 render={() => (
                     <Typography component="div" className={classes.tabContent}>
-                        {context.user && JSON.stringify(context.user.user)}
+                        {context.user && (
+                            <div>
+                                {context.user.decks.map(d => {
+                                    console.log('\n', '\n', `d = `, d, '\n', '\n');
+                                    return <p key={d.title}>{d.title}</p>;
+                                })}
+                            </div>
+                        )}
                         {!context.user && <h3>Not logged in</h3>}
                     </Typography>
                 )}

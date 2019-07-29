@@ -21,8 +21,8 @@ const LoginForm = props => {
     const context = useContext(AuthContext)
     const classes = useStyles();
     const [values, handleChange] = useForm({
-        email: 'a',
-        password: 'a'
+        email: 'c',
+        password: 'c'
     });
 
     const [login, { loading }] = useMutation(LOGIN_MUTATION, {
