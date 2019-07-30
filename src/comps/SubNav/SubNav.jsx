@@ -67,7 +67,7 @@ function SubNav (props) {
                     </div>
                 )}
             />
-            <Route
+            {/* <Route
                 exact
                 path="/home/decks/:id"
                 render={() => {
@@ -81,6 +81,11 @@ function SubNav (props) {
                         </div>
                     );
                 }}
+            /> */}
+            <Route
+                exact
+                path="/home/decks/:id"
+                component={Deck}
             />
             <Route
                 path="/home/add-deck"

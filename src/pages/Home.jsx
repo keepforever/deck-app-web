@@ -18,7 +18,7 @@ const Home = props => {
             <SubNav {...props} gridDemoData={data && data.feedUsers} />
             <Snackbar
                 open={context.snackbar.isOpen}
-                autoHideDuration={5000}
+                autoHideDuration={2000}
                 onClose={() => context.removeMessage()}
                 message={context.snackbar.message}
                 anchorOrigin={{

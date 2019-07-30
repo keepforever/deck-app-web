@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
 // locals
 import Layout from './comps/layout/Layout';
 import Home from './pages/Home';
@@ -15,6 +15,11 @@ function App () {
         <AuthProvider>
             <Router>
                 <Layout>
+                    <Route
+                        exact
+                        path="/"
+                        render={() => <Redirect to="/home/decks" />}
+                    />
                     <Route path="/home" component={Home} />
                     <Route path="/login" component={Login} />
                     <Route path="/register" component={Register} />
