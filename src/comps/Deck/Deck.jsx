@@ -1,17 +1,12 @@
 import React, { useContext, useState, useEffect } from 'react';
 // locals
 import { AuthContext } from '../../context/auth';
+import { CardContext } from '../../context/card';
+
+import CardItem from '../CardItem';
 // utils
 
-const Deck = (props) => {
-    const context = useContext(AuthContext);
-
-    const deck =
-        context.user &&
-        context.user.decks.filter(d => {
-            return d.id === props.match.params.id;
-        })[0];
-
+const Deck = props => {
     console.log(`
     #########################################################
                     Deck
@@ -23,12 +18,29 @@ const Deck = (props) => {
     #########################################################
     `);
 
+    const context = useContext(AuthContext);
+    const cardContext = useContext(CardContext);
+
+    const deck =
+        context.user &&
+        context.user.decks.filter(d => {
+            return d.id === props.match.params.id;
+        })[0];
+
+    // deck.list.split('\n').forEach(card => {
+    //     sets.push(card.match(/\((.*)\)/).pop().toLowerCase());
+    // });
+
+    console.log('\n', '\n', `cardContext = `, cardContext, '\n', '\n');
+
     return (
         <>
             {deck && (
                 <div>
                     <h4>Deck Title: {deck.title}</h4>
-                    <p>The rest</p>
+                    {deck.list.split('\n').map(card => {
+                        return <CardItem key={card.name} {...card} />;
+                    })}
                 </div>
             )}
         </>

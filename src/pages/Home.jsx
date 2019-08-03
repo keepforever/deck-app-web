@@ -6,21 +6,33 @@ import Snackbar from '@material-ui/core/Snackbar';
 // locals
 import SubNav from '../comps/SubNav';
 import { AuthContext } from '../context/auth';
+import { CardContext } from '../context/card';
 
 const Home = props => {
-    const context = useContext(AuthContext);
-    // console.log('\n', '\n', `context = `, context, '\n', '\n');
+    const authContext = useContext(AuthContext);
+    console.log('\n', '\n', `authContext = `, authContext, '\n', '\n');
     const { loading, data } = useQuery(ALL_USERS_QUERY);
+
+    const cardContext = useContext(CardContext);
+
+    let sets = [];
+    authContext.user && authContext.user.decks.forEach(deck => {
+        deck.list.split('\n').forEach(card => {
+            sets.push(card.match(/\((.*)\)/).pop().toLowerCase());
+        });
+    });
+
+    // TODO: load all sets at Provider instantiation.
 
     if (loading) return <h1>Loading...</h1>;
     return (
         <div>
             <SubNav {...props} gridDemoData={data && data.feedUsers} />
             <Snackbar
-                open={context.snackbar.isOpen}
+                open={authContext.snackbar.isOpen}
                 autoHideDuration={2000}
-                onClose={() => context.removeMessage()}
-                message={context.snackbar.message}
+                onClose={() => authContext.removeMessage()}
+                message={authContext.snackbar.message}
                 anchorOrigin={{
                     vertical: 'bottom',
                     horizontal: 'right'

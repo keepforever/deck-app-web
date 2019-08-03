@@ -1,5 +1,10 @@
 import React, { createContext, useReducer } from 'react';
 import { loadSetData } from './utils';
+import grn from '../assets/sets/grn.json';
+import m19 from '../assets/sets/m19.json';
+import dar from '../assets/sets/dar.json';
+import xln from '../assets/sets/xln.json';
+import rna from '../assets/sets/rna.json';
 
 const CardContext = createContext({
     loadSet: set => {}
@@ -9,6 +14,14 @@ const initialState = {};
 
 // reducer functions
 const loadSet = (state, action) => {
+    console.log(
+        '\n',
+        '\n',
+        `loadSet reducer Function, action = `,
+        action,
+        '\n',
+        '\n'
+    );
     return {
         ...state,
         [action.payload]: {
@@ -42,8 +55,11 @@ function cardReducer (state = initialState, action) {
 function CardProvider (props) {
     // useReducer(reducer, initialState)
     const [state, dispatch] = useReducer(cardReducer, {
-        user: null,
-        snackbar: { isOpen: false, message: 'no message' }
+        grn: { ...grn.cards },
+        m19: { ...m19.cards },
+        dar: { ...dar.cards },
+        xln: { ...xln.cards },
+        rna: { ...rna.cards }
     });
 
     function loadSet (setCode) {
