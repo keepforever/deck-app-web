@@ -4,7 +4,7 @@ import DeckView from './DeckView';
 import { AuthContext } from '../../context/auth';
 // utils
 import { buildUrlArray } from './utils';
-import { useMultipleFetch } from '../../hooks/useMultipleFetch';
+// import { useMultipleFetch } from '../../hooks/useMultipleFetch';
 
 const Deck = ({ match: { params } }) => {
     const context = useContext(AuthContext);
@@ -18,15 +18,15 @@ const Deck = ({ match: { params } }) => {
 
     // const { data } = useFetch(1);
 
-    const [data, isLoadings] = useMultipleFetch([1, 2, 3]);
-
-    useEffect(
-        () => {
-            console.log('\n', '\n', `useEffectFired = `, '\n', '\n');
-            setDeckState(data);
-        },
-        [data]
-    );
+    // USE MULTIPLE FETCH
+    // const [data, isLoadings] = useMultipleFetch([1, 2, 3]);
+    // useEffect(
+    //     () => {
+    //         console.log('\n', '\n', `useEffectFired = `, '\n', '\n');
+    //         setDeckState(data);
+    //     },
+    //     [data]
+    // );
 
     console.log(`
     #########################################################
@@ -37,27 +37,15 @@ const Deck = ({ match: { params } }) => {
     deck && buildUrlArray(deck.list);
     console.log('\n', `typeof deckState = `, typeof deckState, '\n');
 
-    console.log('\n', '\n', `data = `, data, '\n', '\n');
-    console.log('\n', '\n', ` isLoadings = `, isLoadings, '\n', '\n');
-
     console.log(`
     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
     #########################################################
     `);
 
-    console.log(
-        '\n',
-        `isLoadings.every(el => el === false) = `,
-        isLoadings.every(el => el === false),
-        '\n'
-    );
-
-    console.log('\n', '\n', `data.length = `, data.length, '\n', '\n');
-
     return (
         <div>
             <h4>Deck Title: {deck && deck.title}</h4>
-            <DeckView data={data} />
+            {/* <DeckView data={data} /> */}
         </div>
     );
 };

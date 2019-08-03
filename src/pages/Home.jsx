@@ -22,7 +22,7 @@ const Home = props => {
                 onClose={() => context.removeMessage()}
                 message={context.snackbar.message}
                 anchorOrigin={{
-                    vertical: 'top',
+                    vertical: 'bottom',
                     horizontal: 'right'
                 }}
             />
