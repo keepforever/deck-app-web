@@ -1,0 +1,64 @@
+{
+  "cards": {
+    "456516": {
+      "name": "Angelic Guardian",
+      "mana": "{4}{W}{W}",
+      "color": "W",
+      "cmc": 6,
+      "type": "Creature -- Angel",
+      "text": "Flying (This creature can't be blocked except by creatures with flying or reach.)\nWhenever one or more creatures you control attack, they gain indestructible until end of turn. (Damage and effects that say \"destroy\" don't destroy them.)",
+      "pt": "5/5",
+      "rarity": "R",
+      "nr": "GP1",
+      "grp": "68409"
+    },
+    "456517": {
+      "name": "Angler Turtle",
+      "mana": "{5}{U}{U}",
+      "color": "U",
+      "cmc": 7,
+      "type": "Creature -- Turtle",
+      "text": "Hexproof\nCreatures your opponents control attack each combat if able.",
+      "pt": "5/7",
+      "rarity": "R",
+      "nr": "GP2",
+      "grp": "68410"
+    },
+    "456518": {
+      "name": "Vengeant Vampire",
+      "mana": "{4}{B}{B}",
+      "color": "B",
+      "cmc": 6,
+      "type": "Creature -- Vampire",
+      "text": "Lifelink\nWhen Vengeant Vampire dies, destroy target creature an opponent controls and you gain 4 life.",
+      "pt": "4/4",
+      "rarity": "R",
+      "nr": "GP3",
+      "grp": "68411"
+    },
+    "456519": {
+      "name": "Immortal Phoenix",
+      "mana": "{4}{R}{R}",
+      "color": "R",
+      "cmc": 6,
+      "type": "Creature -- Phoenix",
+      "text": "Flying (This creature can't be blocked except by creatures with flying or reach.)\nWhen Immortal Phoenix dies, return it to its owner's hand.",
+      "pt": "5/3",
+      "rarity": "R",
+      "nr": "GP4",
+      "grp": "68412"
+    },
+    "456520": {
+      "name": "Rampaging Brontodon",
+      "mana": "{5}{G}{G}",
+      "color": "G",
+      "cmc": 7,
+      "type": "Creature -- Dinosaur",
+      "text": "Trample\nWhenever Rampaging Brontodon attacks, it gets +1/+1 until end of turn for each land you control.",
+      "pt": "7/7",
+      "rarity": "R",
+      "nr": "GP5",
+      "grp": "68413"
+    }
+  }
+}

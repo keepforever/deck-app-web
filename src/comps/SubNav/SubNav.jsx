@@ -40,8 +40,6 @@ function SubNav (props) {
         props.history.push('/login');
     }
 
-    console.log('\n', '\n', `Subnav, props = `, props, '\n', '\n');
-
     const { classes } = props;
     const [value, setValue] = useState(0);
     const onChange = (e, value) => {
@@ -104,14 +102,6 @@ function SubNav (props) {
                         {context.user && (
                             <div>
                                 {context.user.decks.map(d => {
-                                    console.log(
-                                        '\n',
-                                        '\n',
-                                        `d = `,
-                                        d,
-                                        '\n',
-                                        '\n'
-                                    );
                                     return <p key={d.title}>{d.title}</p>;
                                 })}
                             </div>

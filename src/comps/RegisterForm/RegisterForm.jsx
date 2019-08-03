@@ -39,7 +39,6 @@ const RegisterForm = props => {
     });
 
     const register = () => {
-        console.log('\n', '\n', `values = `, values, '\n', '\n');
         signup();
     };
 

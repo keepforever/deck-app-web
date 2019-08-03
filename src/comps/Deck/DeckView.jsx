@@ -1,8 +1,6 @@
 import React from 'react';
 
 function DeckView (props) {
-    console.log('\n', '\n', `DeckView, props = `, DeckView, props, '\n', '\n');
-
     return (
         <div>
             <h2>Hello DeckView</h2>

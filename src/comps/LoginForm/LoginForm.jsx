@@ -42,11 +42,9 @@ const LoginForm = props => {
     });
 
     const submitLogin = async () => {
-        // console.log('\n', '\n', `values = `, values, '\n', '\n');
         const {
             data: { login: loginResp }
         } = await login();
-        console.log('\n', '\n', `loginResp = `, loginResp, '\n', '\n');
     };
 
     return (
