@@ -13,24 +13,27 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 // context
 import { AuthProvider } from './context/auth';
+import { CardProvider } from './context/card';
 
 function App () {
     return (
         <AuthProvider>
-            <Router>
-                <Layout>
-                    <Switch>
-                        <Route
-                            exact
-                            path="/"
-                            render={() => <Redirect to="/home/decks" />}
-                        />
-                        <Route path="/home" component={Home} />
-                        <Route path="/login" component={Login} />
-                        <Route path="/register" component={Register} />
-                    </Switch>
-                </Layout>
-            </Router>
+            <CardProvider>
+                <Router>
+                    <Layout>
+                        <Switch>
+                            <Route
+                                exact
+                                path="/"
+                                render={() => <Redirect to="/home/decks" />}
+                            />
+                            <Route path="/home" component={Home} />
+                            <Route path="/login" component={Login} />
+                            <Route path="/register" component={Register} />
+                        </Switch>
+                    </Layout>
+                </Router>
+            </CardProvider>
         </AuthProvider>
     );
 }
