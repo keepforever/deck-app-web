@@ -1,10 +1,16 @@
 import React, { createContext, useReducer } from 'react';
 import { loadSetData } from './utils';
+
+import ana from '../assets/sets/ana.json';
+import dar from '../assets/sets/dar.json';
+import g18 from '../assets/sets/g18.json';
 import grn from '../assets/sets/grn.json';
 import m19 from '../assets/sets/m19.json';
-import dar from '../assets/sets/dar.json';
-import xln from '../assets/sets/xln.json';
+import m20 from '../assets/sets/m20.json';
+import rix from '../assets/sets/rix.json';
 import rna from '../assets/sets/rna.json';
+import war from '../assets/sets/war.json';
+import xln from '../assets/sets/xln.json';
 
 const CardContext = createContext({
     loadSet: set => {}
@@ -55,11 +61,16 @@ function cardReducer (state = initialState, action) {
 function CardProvider (props) {
     // useReducer(reducer, initialState)
     const [state, dispatch] = useReducer(cardReducer, {
+        ana: { ...ana.cards },
+        dar: { ...dar.cards },
+        g18: { ...g18.cards },
         grn: { ...grn.cards },
         m19: { ...m19.cards },
-        dar: { ...dar.cards },
-        xln: { ...xln.cards },
-        rna: { ...rna.cards }
+        m20: { ...m20.cards },
+        rix: { ...rix.cards },
+        rna: { ...rna.cards },
+        war: { ...war.cards },
+        xln: { ...xln.cards }
     });
 
     function loadSet (setCode) {

@@ -1,12 +1,12 @@
 export function rarityBorderColor (str) {
     switch (str) {
-        case 'mythic':
+        case 'M':
             return 'orange';
-        case 'rare':
+        case 'R':
             return 'yellow';
-        case 'uncommon':
+        case 'U':
             return 'blue';
-        case 'common':
+        case 'C':
             return 'white';
         default:
             return 'white';

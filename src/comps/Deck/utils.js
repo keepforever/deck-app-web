@@ -1,6 +1,19 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 // import axios from 'axios';
 import mtg from 'mtgsdk';
+// constext
+import { CardContext } from '../../context/card';
+
+export const useCard = (card) => {
+    const cardContext = useContext(CardContext);
+    const set = card.match(/\((.*)\)/).pop().toLowerCase();
+    const cardNumber = card.trim().split(' ').slice(-1).pop();
+    console.log('\n', '\n', `set, cardNumber = `, set, cardNumber, '\n', '\n');
+    const finalCardKey = Object.keys(cardContext[`${set}`])[cardNumber - 1];
+    const finalCard = cardContext[`${set}`][finalCardKey];
+    console.log('\n', '\n', `finalCard = `, finalCard, '\n', '\n');
+    return finalCard;
+};
 
 export const buildUrlArray = async (listString = '') => {
     console.log('\n', '\n', `listString = `, listString, '\n', '\n');

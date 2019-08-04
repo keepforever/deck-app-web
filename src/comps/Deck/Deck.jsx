@@ -1,10 +1,12 @@
 import React, { useContext, useState, useEffect } from 'react';
+// material-ui
+import Grid from '@material-ui/core/Grid';
 // locals
 import { AuthContext } from '../../context/auth';
 import { CardContext } from '../../context/card';
-
 import CardItem from '../CardItem';
 // utils
+import { useCard } from './utils';
 
 const Deck = props => {
     console.log(`
@@ -33,15 +35,26 @@ const Deck = props => {
 
     console.log('\n', '\n', `cardContext = `, cardContext, '\n', '\n');
 
+    // const finalCard = useCard(deck.list.split('\n')[0]);
+
     return (
         <>
+            {deck && <h2>Deck Title: {deck.title}</h2>}
             {deck && (
-                <div>
-                    <h4>Deck Title: {deck.title}</h4>
+                <Grid container spacing={4}>
                     {deck.list.split('\n').map(card => {
-                        return <CardItem key={card.name} {...card} />;
+                        const set = card.match(/\((.*)\)/).pop().toLowerCase();
+                        const cardNumber = card.trim().split(' ').slice(-1).pop();
+                        console.log('\n', '\n', `set, cardNumber = `, set, cardNumber, '\n', '\n');
+                        const finalCardKey = Object.keys(cardContext[`${set}`])[cardNumber - 1];
+                        const finalCard = cardContext[`${set}`][finalCardKey];
+                        return (
+                            <Grid item key={finalCard.name}>
+                                <CardItem {...finalCard} />
+                            </Grid>
+                        );
                     })}
-                </div>
+                </Grid>
             )}
         </>
     );
