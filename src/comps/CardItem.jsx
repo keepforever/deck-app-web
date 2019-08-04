@@ -46,9 +46,3 @@ const CardItem = props => {
 };
 
 export default CardItem;
-//
-// <CardContainer {...props}>
-//     <Name>{name}</Name>
-//     <Type>{type}</Type>
-//     <Text>{text}</Text>
-// </CardContainer>
