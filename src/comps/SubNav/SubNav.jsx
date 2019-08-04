@@ -9,6 +9,7 @@ import Typography from '@material-ui/core/Typography';
 // locals
 import Decks from '../../pages/deck/Decks';
 import Deck from '../Deck';
+import DeckTable from '../DeckTable';
 import AddDeck from './AddDeck';
 import { AuthContext } from '../../context/auth';
 // hooks
@@ -82,10 +83,17 @@ function SubNav (props) {
                     );
                 }}
             /> */}
-            <Route
+            {/* Deck with each card as a CardItem */}
+            {/* <Route
                 exact
                 path="/home/decks/:id"
                 component={Deck}
+            /> */}
+            {/* Deck table */}
+            <Route
+                exact
+                path="/home/decks/:id"
+                component={DeckTable}
             />
             <Route
                 path="/home/add-deck"

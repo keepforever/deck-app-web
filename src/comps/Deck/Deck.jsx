@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext } from 'react';
 // material-ui
 import Grid from '@material-ui/core/Grid';
 // locals
@@ -6,36 +6,17 @@ import { AuthContext } from '../../context/auth';
 import { CardContext } from '../../context/card';
 import CardItem from '../CardItem';
 // utils
-import { useCard } from './utils';
+import { getCard } from './utils';
 
 const Deck = props => {
-    console.log(`
-    #########################################################
-                    Deck
-    #########################################################
-    `);
-    console.log('\n', '\n', `props = `, props, '\n', '\n');
-    console.log(`
-    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-    #########################################################
-    `);
-
-    const context = useContext(AuthContext);
+    const authContext = useContext(AuthContext);
     const cardContext = useContext(CardContext);
 
     const deck =
-        context.user &&
-        context.user.decks.filter(d => {
+        authContext.user &&
+        authContext.user.decks.filter(d => {
             return d.id === props.match.params.id;
         })[0];
-
-    // deck.list.split('\n').forEach(card => {
-    //     sets.push(card.match(/\((.*)\)/).pop().toLowerCase());
-    // });
-
-    console.log('\n', '\n', `cardContext = `, cardContext, '\n', '\n');
-
-    // const finalCard = useCard(deck.list.split('\n')[0]);
 
     return (
         <>
@@ -43,11 +24,7 @@ const Deck = props => {
             {deck && (
                 <Grid container spacing={4}>
                     {deck.list.split('\n').map(card => {
-                        const set = card.match(/\((.*)\)/).pop().toLowerCase();
-                        const cardNumber = card.trim().split(' ').slice(-1).pop();
-                        console.log('\n', '\n', `set, cardNumber = `, set, cardNumber, '\n', '\n');
-                        const finalCardKey = Object.keys(cardContext[`${set}`])[cardNumber - 1];
-                        const finalCard = cardContext[`${set}`][finalCardKey];
+                        const finalCard = getCard(card, cardContext);
                         return (
                             <Grid item key={finalCard.name}>
                                 <CardItem {...finalCard} />
