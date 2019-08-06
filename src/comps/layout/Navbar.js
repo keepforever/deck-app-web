@@ -46,6 +46,8 @@ function Navbar (props) {
                     </Button>
                     {context.user && (
                         <Button
+                            component={Link}
+                            to="/home"
                             color="inherit"
                             onClick={() => {
                                 context.logout();

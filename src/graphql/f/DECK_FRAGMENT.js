@@ -5,5 +5,9 @@ export default gql`
     id
     title
     list
+    author {
+        id
+        arenaHandle
+    }
   }
 `;

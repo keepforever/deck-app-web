@@ -22,7 +22,7 @@ const CardDetails = props => {
         <>
             {deck && <h2>Deck Title: {deck.title}</h2>}
             {deck && (
-                <Grid container spacing={4}>
+                <Grid container style={{padding: 30}} spacing={4}>
                     {deck.list.split('\n').map(card => {
                         const finalCard = getCard(card, cardContext);
                         return (
