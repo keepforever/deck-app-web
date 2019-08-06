@@ -11,6 +11,8 @@ import Layout from './comps/layout/Layout';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import Summary from './pages/deck/Summary';
+import CardDetails from './pages/deck/CardDetails';
 // context
 import { AuthProvider } from './context/auth';
 import { CardProvider } from './context/card';
@@ -25,11 +27,13 @@ function App () {
                             <Route
                                 exact
                                 path="/"
-                                render={() => <Redirect to="/home/decks" />}
+                                render={() => <Redirect to="/home" />}
                             />
-                            <Route path="/home" component={Home} />
-                            <Route path="/login" component={Login} />
-                            <Route path="/register" component={Register} />
+                            <Route exact path="/home" component={Home} />
+                            <Route exact path="/login" component={Login} />
+                            <Route exact path="/register" component={Register} />
+                            <Route exact path="/deck/:id/summary" component={Summary} />
+                            <Route exact path="/deck/:id/card-details" component={CardDetails} />
                         </Switch>
                     </Layout>
                 </Router>

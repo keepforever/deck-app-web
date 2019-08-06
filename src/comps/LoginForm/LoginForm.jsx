@@ -30,7 +30,7 @@ const LoginForm = props => {
         update: (_, { data: { login: loginData } }) => {
             context.login(loginData);
             context.addMessage('You\'ve logged in!');
-            props.history.push('/home/decks');
+            props.history.push('/home');
         },
         // you can refetch multiple queries, along with any variables associated with them using the refetchQueries option on useMutation.
         refetchQueries: [
