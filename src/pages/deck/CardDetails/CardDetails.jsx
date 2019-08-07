@@ -5,6 +5,7 @@ import Grid from '@material-ui/core/Grid';
 import { AuthContext } from '../../../context/auth';
 import { CardContext } from '../../../context/card';
 import CardItem from '../../../comps/Deck/CardItem';
+import DeckNav from '../../../comps/Deck/DeckNav';
 // utils
 import { getCard } from './utils';
 
@@ -20,6 +21,7 @@ const CardDetails = props => {
 
     return (
         <>
+            <DeckNav {...props} />
             {deck && <h2>Deck Title: {deck.title}</h2>}
             {deck && (
                 <Grid container style={{padding: 30}} spacing={4}>

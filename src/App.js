@@ -11,8 +11,10 @@ import Layout from './comps/layout/Layout';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Register from './pages/Register';
+// Deck
 import Summary from './pages/deck/Summary';
 import CardDetails from './pages/deck/CardDetails';
+import Edit from './pages/deck/Edit';
 // context
 import { AuthProvider } from './context/auth';
 import { CardProvider } from './context/card';
@@ -34,6 +36,7 @@ function App () {
                             <Route exact path="/register" component={Register} />
                             <Route exact path="/deck/:id/summary" component={Summary} />
                             <Route exact path="/deck/:id/card-details" component={CardDetails} />
+                            <Route exact path="/deck/:id/edit" component={Edit} />
                         </Switch>
                     </Layout>
                 </Router>

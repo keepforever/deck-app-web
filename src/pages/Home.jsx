@@ -30,7 +30,15 @@ const Home = props => {
     } = authContext;
 
     return (
-        <div>
+        <div
+            style={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'stretch',
+                maxWidth: '870px',
+                margin: 'auto'
+            }}
+        >
             {/* <SubNav {...props} gridDemoData={data && data.feedUsers} /> */}
             <h1>Welcome {name}</h1>
             <h4>Handle: {arenaHandle}</h4>

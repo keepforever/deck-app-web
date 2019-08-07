@@ -1,7 +1,4 @@
 import React, { useState, useContext } from 'react';
-// locals
-import { AuthContext } from '../../../context/auth';
-import { CardContext } from '../../../context/card';
 // material-ui
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -10,6 +7,10 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
 import Paper from '@material-ui/core/Paper';
+// locals
+import { AuthContext } from '../../../context/auth';
+import { CardContext } from '../../../context/card';
+import DeckNav from '../../../comps/Deck/DeckNav';
 // utils
 import { getCard, useStyles } from './utils';
 
@@ -92,53 +93,55 @@ const DeckTable = props => {
     }
 
     return (
-        <Paper className={classes.root}>
-            <Table>
-                <TableHead>
-                    <TableRow>
-                        {cardColumns.map((column, index) => (
-                            <TableCell
-                                key={column.name}
-                                align={column.numeric ? 'center' : 'center'}
-                            >
-                                <TableSortLabel
-                                    active={column.active}
-                                    direction={column.order}
-                                    onClick={onCardSortClick(index)}
+        <>
+            <DeckNav {...props} />
+            <Paper className={classes.root}>
+                <Table>
+                    <TableHead>
+                        <TableRow>
+                            {cardColumns.map((column, index) => (
+                                <TableCell
+                                    key={column.name}
+                                    align={column.numeric ? 'center' : 'center'}
                                 >
-                                    {column.name}
-                                </TableSortLabel>
-                            </TableCell>
-                        ))}
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    {cardRows.map(row => {
-                        console.log(
-                            '\n',
-                            '\n',
-                            `row = `,
-                            row,
-                            '\n',
-                            '\n'
-                        );
-                        return (
-                            <TableRow key={row.name}>
-                                <TableCell component="th" scope="row">
-                                    {row.name}
+                                    <TableSortLabel
+                                        active={column.active}
+                                        direction={column.order}
+                                        onClick={onCardSortClick(index)}
+                                    >
+                                        {column.name}
+                                    </TableSortLabel>
                                 </TableCell>
-                                <TableCell className={classes.tableCell}>{row.cmc}</TableCell>
-                                <TableCell align="right">
-                                    {row.rarity}
-                                </TableCell>
-                                <TableCell align="right">{row.color}</TableCell>
-                                <TableCell align="right">{row.type}</TableCell>
-                            </TableRow>
-                        );
-                    })}
-                </TableBody>
-            </Table>
-        </Paper>
+                            ))}
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        {cardRows.map(row => {
+                            console.log('\n', '\n', `row = `, row, '\n', '\n');
+                            return (
+                                <TableRow key={row.name}>
+                                    <TableCell component="th" scope="row">
+                                        {row.name}
+                                    </TableCell>
+                                    <TableCell className={classes.tableCell}>
+                                        {row.cmc || 0}
+                                    </TableCell>
+                                    <TableCell align="right">
+                                        {row.rarity}
+                                    </TableCell>
+                                    <TableCell align="right">
+                                        {row.color}
+                                    </TableCell>
+                                    <TableCell align="right">
+                                        {row.type}
+                                    </TableCell>
+                                </TableRow>
+                            );
+                        })}
+                    </TableBody>
+                </Table>
+            </Paper>
+        </>
     );
 };
 
