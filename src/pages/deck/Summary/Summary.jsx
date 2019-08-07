@@ -36,20 +36,15 @@ const DeckTable = props => {
             return d.id === props.match.params.id;
         })[0];
 
-    // console.log('\n', '\n', `deck = `, deck, '\n', '\n');
-
     let cardObjArray = [];
 
     if (deck && deck.list) {
         const cards = deck.list.split('\n');
-        // console.log('\n', '\n', `cards = `, cards, '\n', '\n');
         cards.forEach(card => {
             const cardObj = getCard(card, cardContext);
             cardObjArray.push(cardObj);
         });
     }
-
-    // console.log('\n', '\n', `cardObjArray = `, cardObjArray, '\n', '\n');
 
     const classes = useStyles();
 
@@ -60,8 +55,6 @@ const DeckTable = props => {
         { name: 'color', active: false },
         { name: 'type', active: false }
     ]);
-
-    console.log('\n', '\n', `cardObjArray = `, cardObjArray, '\n', '\n');
 
     const [cardRows, setCardRows] = useState(cardObjArray);
 
@@ -117,7 +110,7 @@ const DeckTable = props => {
                     </TableHead>
                     <TableBody>
                         {cardRows.map(row => {
-                            console.log('\n', '\n', `row = `, row, '\n', '\n');
+                            // console.log('\n', '\n', `row = `, row, '\n', '\n');
                             return (
                                 <TableRow key={row.name}>
                                     <TableCell component="th" scope="row">

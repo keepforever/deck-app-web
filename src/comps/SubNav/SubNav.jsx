@@ -72,7 +72,6 @@ function SubNav (props) {
                 exact
                 path="/home/decks/:id"
                 render={() => {
-                    console.log('\n', '\n', `/home/decks/:id HAVE RENDERED `, '\n', '\n');
                     return (
                         <div className={classes.root}>
                             <h1>`/home/decks/:id`</h1>

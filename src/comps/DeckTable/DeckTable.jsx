@@ -60,8 +60,6 @@ const DeckTable = props => {
         { name: 'type', active: false }
     ]);
 
-    console.log('\n', '\n', `cardObjArray = `, cardObjArray, '\n', '\n');
-
     const [cardRows, setCardRows] = useState(cardObjArray);
 
     const onCardSortClick = index => () => {

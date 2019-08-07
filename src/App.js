@@ -26,11 +26,7 @@ function App () {
                 <Router>
                     <Layout>
                         <Switch>
-                            <Route
-                                exact
-                                path="/"
-                                render={() => <Redirect to="/home" />}
-                            />
+                            <Route exact path="/" render={() => <Redirect to="/home" />} />
                             <Route exact path="/home" component={Home} />
                             <Route exact path="/login" component={Login} />
                             <Route exact path="/register" component={Register} />

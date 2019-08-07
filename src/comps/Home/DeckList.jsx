@@ -19,6 +19,13 @@ export default function DeckList ({ decks = [] }) {
                     <Button
                         color="inherit"
                         component={Link}
+                        to={`/deck/${item.id}/edit`}
+                    >
+                        Edit
+                    </Button>
+                    <Button
+                        color="inherit"
+                        component={Link}
                         to={`/deck/${item.id}/summary`}
                     >
                         Summary

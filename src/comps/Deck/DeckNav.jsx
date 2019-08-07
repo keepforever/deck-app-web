@@ -6,9 +6,7 @@ import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
-// locals
-import { AuthContext } from '../../context/auth';
-// hooks
+// utils
 import { deckNavSwitch } from './utils';
 
 const styles = theme => ({
@@ -43,10 +41,7 @@ function DeckNav (props) {
     const { id } = props.match.params;
     const [value, setValue] = useState(deckNavSwitch(tabString));
 
-    const onChange = (e, value) => {
-        // setValue(value);
-        console.log('\n', '\n', `value = `, value, '\n', '\n');
-    };
+    const onChange = (e, value) => {};
 
     return (
         <div className={classes.mainContainer}>
