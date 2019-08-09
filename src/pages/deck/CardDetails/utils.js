@@ -19,6 +19,30 @@ export const getCard = (card, cardContext) => {
     return finalCard;
 };
 
+export const getCardNew = (card, cardContext) => {
+    const set = card
+        .match(/\((.*)\)/)
+        .pop()
+        .toLowerCase();
+    const cardNumber = card
+        .trim()
+        .split(' ')
+        .slice(-1)
+        .pop();
+
+    const newCardDict = cardContext['dict'];
+    // console.log('\n', '\n', `newCardDict = `, newCardDict, '\n', '\n');
+    let key;
+    if (card.includes('//')) {
+        key = 'xxx' + cardNumber + set;
+    } else {
+        key = cardNumber + set;
+    }
+    console.log('\n', '\n', `key = `, key, '\n', '\n');
+    const finalCard = newCardDict[`${key}`];
+    return finalCard;
+};
+
 export const useCard = card => {
     const cardContext = useContext(CardContext);
     const set = card

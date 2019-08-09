@@ -11,6 +11,8 @@ import rix from '../assets/sets/rix.json';
 import rna from '../assets/sets/rna.json';
 import war from '../assets/sets/war.json';
 import xln from '../assets/sets/xln.json';
+// new dictionary
+import dict from '../assets/cardDictionary.json';
 
 const CardContext = createContext({
     loadSet: set => {}
@@ -70,7 +72,8 @@ function CardProvider (props) {
         rix: { ...rix.cards },
         rna: { ...rna.cards },
         war: { ...war.cards },
-        xln: { ...xln.cards }
+        xln: { ...xln.cards },
+        dict: { ...dict }
     });
 
     function loadSet (setCode) {

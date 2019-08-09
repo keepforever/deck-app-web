@@ -4,10 +4,10 @@ import Grid from '@material-ui/core/Grid';
 // locals
 import { AuthContext } from '../../../context/auth';
 import { CardContext } from '../../../context/card';
-import CardItem from '../../../comps/Deck/CardItem';
+import CardItemNew from '../../../comps/Deck/CardItemNew';
 import DeckNav from '../../../comps/Deck/DeckNav';
 // utils
-import { getCard } from './utils';
+import { getCardNew } from './utils';
 
 const CardDetails = props => {
     const authContext = useContext(AuthContext);
@@ -26,10 +26,10 @@ const CardDetails = props => {
             {deck && (
                 <Grid container style={{padding: 30}} spacing={4}>
                     {deck.list.split('\n').map(card => {
-                        const finalCard = getCard(card, cardContext);
+                        const finalCard = getCardNew(card, cardContext);
                         return (
                             <Grid item key={finalCard.name}>
-                                <CardItem {...finalCard} />
+                                <CardItemNew {...finalCard} />
                             </Grid>
                         );
                     })}

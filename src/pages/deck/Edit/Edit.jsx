@@ -1,6 +1,6 @@
 import React from 'react';
-import DeckNav from '../../../comps/Deck/DeckNav';
 // locals
+import DeckNav from '../../../comps/Deck/DeckNav';
 import { useDeck } from './utils';
 
 function Edit (props) {

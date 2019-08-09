@@ -17,6 +17,30 @@ export const deckNavSwitch = str => {
     }
 };
 
+export const getCardNew = (card, cardContext) => {
+    const set = card
+        .match(/\((.*)\)/)
+        .pop()
+        .toLowerCase();
+    const cardNumber = card
+        .trim()
+        .split(' ')
+        .slice(-1)
+        .pop();
+
+    const newCardDict = cardContext['dict'];
+
+    let key;
+    if (card.includes('//')) {
+        key = 'xxx' + cardNumber + set;
+    } else {
+        key = set + cardNumber;
+    }
+
+    const finalCard = newCardDict[key];
+    return finalCard;
+};
+
 export const getCard = (card, cardContext) => {
     const set = card
         .match(/\((.*)\)/)

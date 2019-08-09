@@ -6,7 +6,7 @@ import { AuthContext } from '../../context/auth';
 import { CardContext } from '../../context/card';
 import CardItem from '../CardItem';
 // utils
-import { getCard } from './utils';
+import { getCard, getCardNew } from './utils';
 
 const Deck = props => {
     const authContext = useContext(AuthContext);
@@ -25,6 +25,8 @@ const Deck = props => {
                 <Grid container spacing={4}>
                     {deck.list.split('\n').map(card => {
                         const finalCard = getCard(card, cardContext);
+                        const finalCardNew = getCardNew(card, cardContext);
+                        console.log('\n', '\n', `finalCardNew = `, finalCardNew, '\n', '\n');
                         return (
                             <Grid item key={finalCard.name}>
                                 <CardItem {...finalCard} />
