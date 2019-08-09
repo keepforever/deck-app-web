@@ -50,7 +50,6 @@ export default CardDetails;
 // const [data, isLoadings] = useMultipleFetch([1, 2, 3]);
 // useEffect(
 //     () => {
-//         console.log('\n', '\n', `useEffectFired = `, '\n', '\n');
 //         setDeckState(data);
 //     },
 //     [data]

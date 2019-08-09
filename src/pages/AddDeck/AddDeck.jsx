@@ -30,7 +30,6 @@ const RegisterForm = props => {
             token: context.user ? context.user.token : ''
         },
         update: (_, {data: { createDeck: createDeckData }}) => {
-            console.log('\n', '\n', `ADD_DECK_MUTATION successful = `, createDeckData, '\n', '\n');
             context.updateUserDecks(createDeckData);
             context.addMessage(`Deck ${createDeckData.title} Created!`);
         },

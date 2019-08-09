@@ -13,14 +13,7 @@ const Home = props => {
 
     // const { loading, data } = useQuery(ALL_USERS_QUERY);
     // if (loading) return <h1>Loading...</h1>;
-    console.log(
-        '\n',
-        '\n',
-        `authContext.user = `,
-        authContext.user,
-        '\n',
-        '\n'
-    );
+    console.log('\n', '\n', `authContext.user = `, authContext.user, '\n', '\n');
 
     const {
         user: { name, arenaHandle }

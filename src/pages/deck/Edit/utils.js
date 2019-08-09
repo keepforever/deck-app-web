@@ -3,21 +3,16 @@ import { AuthContext } from '../../../context/auth';
 import { CardContext } from '../../../context/card';
 
 export const getCard = (card, cardContext) => {
-    console.log('\n', '\n', `card = `, card, '\n', '\n');
-
     const set = card
         .match(/\((.*)\)/)
         .pop()
         .toLowerCase();
-    console.log('\n', '\n', `set = `, set, '\n', '\n');
 
     const cardNumber = card
         .trim()
         .split(' ')
         .slice(-1)
         .pop();
-
-    console.log('\n', '\n', `cardNumber = `, cardNumber, '\n', '\n');
 
     let cardNumberOffset = 1;
 
@@ -27,12 +22,30 @@ export const getCard = (card, cardContext) => {
 
     const finalCardKey = Object.keys(cardContext[`${set}`])[cardNumber - cardNumberOffset];
 
-    console.log('\n', '\n', `finalCardKey = `, finalCardKey, '\n', '\n');
-
     const finalCard = cardContext[`${set}`][finalCardKey];
 
-    console.log('\n', '\n', `finalCard = `, finalCard, '\n', '\n');
+    return finalCard;
+};
 
+export const getCardNew = (card, cardContext) => {
+    const set = card
+        .match(/\((.*)\)/)
+        .pop()
+        .toLowerCase();
+    const cardNumber = card
+        .trim()
+        .split(' ')
+        .slice(-1)
+        .pop();
+
+    const newCardDict = cardContext['dict'];
+    let key;
+    if (card.includes('//')) {
+        key = 'xxx' + cardNumber + set;
+    } else {
+        key = cardNumber + set;
+    }
+    const finalCard = newCardDict[`${key}`];
     return finalCard;
 };
 

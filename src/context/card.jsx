@@ -12,14 +12,6 @@ const initialState = {};
 
 // reducer functions
 const loadSet = (state, action) => {
-    console.log(
-        '\n',
-        '\n',
-        `loadSet reducer Function, action = `,
-        action,
-        '\n',
-        '\n'
-    );
     return {
         ...state,
         [action.payload]: {

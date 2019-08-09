@@ -7,7 +7,6 @@ import Button from '@material-ui/core/Button';
 import ListItemText from '@material-ui/core/ListItemText';
 
 export default function DeckList ({ decks = [] }) {
-    console.log('\n', '\n', `decks = `, decks, '\n', '\n');
     return (
         <List>
             {decks.map((item, index) => (

@@ -19,3 +19,25 @@ export const getCard = (card, cardContext) => {
     const finalCard = cardContext[`${set}`][finalCardKey];
     return finalCard;
 };
+
+export const getCardNew = (card, cardContext) => {
+    const set = card
+        .match(/\((.*)\)/)
+        .pop()
+        .toLowerCase();
+    const cardNumber = card
+        .trim()
+        .split(' ')
+        .slice(-1)
+        .pop();
+
+    const newCardDict = cardContext['dict'];
+    let key;
+    if (card.includes('//')) {
+        key = 'xxx' + cardNumber + set;
+    } else {
+        key = cardNumber + set;
+    }
+    const finalCard = newCardDict[`${key}`];
+    return finalCard;
+};

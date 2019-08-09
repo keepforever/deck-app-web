@@ -12,7 +12,7 @@ import { AuthContext } from '../../../context/auth';
 import { CardContext } from '../../../context/card';
 import DeckNav from '../../../comps/Deck/DeckNav';
 // utils
-import { getCard, useStyles } from './utils';
+import { getCardNew, useStyles } from './utils';
 
 // generic function to help with sorting.
 const comparator = (prop, desc = true) => (a, b) => {
@@ -41,7 +41,7 @@ const DeckTable = props => {
     if (deck && deck.list) {
         const cards = deck.list.split('\n');
         cards.forEach(card => {
-            const cardObj = getCard(card, cardContext);
+            const cardObj = getCardNew(card, cardContext);
             cardObjArray.push(cardObj);
         });
     }
@@ -110,7 +110,6 @@ const DeckTable = props => {
                     </TableHead>
                     <TableBody>
                         {cardRows.map(row => {
-                            // console.log('\n', '\n', `row = `, row, '\n', '\n');
                             return (
                                 <TableRow key={row.name}>
                                     <TableCell component="th" scope="row">
@@ -126,7 +125,7 @@ const DeckTable = props => {
                                         {row.color}
                                     </TableCell>
                                     <TableCell align="right">
-                                        {row.type}
+                                        {row.type_line}
                                     </TableCell>
                                 </TableRow>
                             );

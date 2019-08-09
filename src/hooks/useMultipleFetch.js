@@ -22,10 +22,8 @@ export const useMultipleFetch = items => {
                     } else {
                         isLoadings[index] = false;
                     }
-                    console.log('in PromiseAll, isLoadings = ', isLoadings);
                 })
             ).then(() => {
-                console.log('in then', isLoadings);
                 setIsLoadings(isLoadings);
                 setResults(results);
             });
