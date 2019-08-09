@@ -4,7 +4,7 @@ import Grid from '@material-ui/core/Grid';
 // locals
 import { AuthContext } from '../../../context/auth';
 import { CardContext } from '../../../context/card';
-import CardItemNew from '../../../comps/Deck/CardItemNew';
+import CardItem from '../../../comps/Deck/CardItem';
 import DeckNav from '../../../comps/Deck/DeckNav';
 // utils
 import { getCardNew } from './utils';
@@ -29,7 +29,7 @@ const CardDetails = props => {
                         const finalCard = getCardNew(card, cardContext);
                         return (
                             <Grid item key={finalCard.name}>
-                                <CardItemNew {...finalCard} />
+                                <CardItem {...finalCard} />
                             </Grid>
                         );
                     })}

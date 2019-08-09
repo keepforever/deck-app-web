@@ -1,11 +1,8 @@
 import React, { useContext } from 'react';
 import { Redirect } from 'react-router-dom';
-import { useQuery } from '@apollo/react-hooks';
-import ALL_USERS_QUERY from '../graphql/q/ALL_USERS';
 // material-ui
 import Snackbar from '@material-ui/core/Snackbar';
 // locals
-import SubNav from '../comps/SubNav';
 import { AuthContext } from '../context/auth';
 import DeckList from '../comps/Home/DeckList';
 // import { CardContext } from '../context/card';
