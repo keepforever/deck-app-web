@@ -56,6 +56,15 @@ function Navbar (props) {
                             Logout
                         </Button>
                     )}
+                    {context.user && (
+                        <Button
+                            component={Link}
+                            to="/add"
+                            color="inherit"
+                        >
+                            Add Deck
+                        </Button>
+                    )}
                     {!context.user && (
                         <Button color="inherit" component={Link} to="/login">
                             Login

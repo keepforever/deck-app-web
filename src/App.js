@@ -11,6 +11,7 @@ import Layout from './comps/layout/Layout';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import AddDeck from './pages/AddDeck';
 // Deck
 import Summary from './pages/deck/Summary';
 import CardDetails from './pages/deck/CardDetails';
@@ -28,6 +29,7 @@ function App () {
                         <Switch>
                             <Route exact path="/" render={() => <Redirect to="/home" />} />
                             <Route exact path="/home" component={Home} />
+                            <Route exact path="/add" component={AddDeck} />
                             <Route exact path="/login" component={Login} />
                             <Route exact path="/register" component={Register} />
                             <Route exact path="/deck/:id/summary" component={Summary} />
