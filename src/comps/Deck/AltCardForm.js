@@ -28,17 +28,12 @@ const AltCardFormModal = props => {
     const [dialogOpen, setDialogOpen] = useState(false);
     const [snackbarOpen, setSnackbarOpen] = useState(false);
     const [snackbarMessage, setSnackbarMessage] = useState('');
-    const [first, setFirst] = useState('');
-    const [last, setLast] = useState('');
-    const [email, setEmail] = useState('');
+
     const onDialogOpen = () => {
         setDialogOpen(true);
     };
     const onDialogClose = () => {
         setDialogOpen(false);
-        setFirst('');
-        setLast('');
-        setEmail('');
     };
     const onSnackbarClose = (e, reason) => {
         if (reason === 'clickaway') {
@@ -49,7 +44,7 @@ const AltCardFormModal = props => {
     };
     const onCreate = () => {
         setSnackbarOpen(true);
-        setSnackbarMessage(`${first} ${last} created`);
+        setSnackbarMessage(`Alt created`);
         onDialogClose();
     };
 
@@ -58,7 +53,7 @@ const AltCardFormModal = props => {
     const context = useContext(AuthContext);
     const classes = useStyles();
     const [values, handleChange, clearValues] = useForm({
-        altList: ''
+        altCard: ''
     });
 
     console.log('\n', '\n', `props.id = `, props.id, '\n', '\n');
@@ -131,7 +126,7 @@ const AltCardFormModal = props => {
                                     label="Alt Card"
                                     id="altCard"
                                     name="altCard"
-                                    value={values.altList}
+                                    value={values.altCard}
                                     onChange={handleChange}
                                 />
                             </Grid>
@@ -156,7 +151,7 @@ const AltCardFormModal = props => {
                         variant="contained"
                         onClick={onCreate}
                         color="primary"
-                    ></Button>
+                    >Do it</Button>
                 </DialogActions>
             </Dialog>
             <Snackbar
