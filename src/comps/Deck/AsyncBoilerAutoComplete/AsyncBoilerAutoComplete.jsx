@@ -1,5 +1,7 @@
 import React from 'react';
-import Select, { createFilter } from 'react-select';
+// import Select, { createFilter } from 'react-select';
+import AsyncSelect from 'react-select/async';
+
 // material-ui
 import { useTheme } from '@material-ui/core/styles';
 import NoSsr from '@material-ui/core/NoSsr';
@@ -15,7 +17,18 @@ import {
     useStyles
 } from './helperComps';
 // data
-import suggestions from '../../../assets/reactSelectOptions.json';
+import cardOptions from '../../../assets/reactSelectOptions.json';
+
+const colourOptions = [
+    { label: 'Red' },
+    { label: 'Yellow' },
+    { label: 'Blue' },
+    { label: 'Green' },
+    { label: 'White' }
+].map(suggestion => ({
+    value: suggestion.label,
+    label: suggestion.label
+}));
 
 const components = {
     Control,
@@ -25,6 +38,18 @@ const components = {
     Placeholder,
     SingleValue,
     ValueContainer
+};
+
+const filterColors = (inputValue) => {
+    return cardOptions.filter(i =>
+        i.label.toLowerCase().includes(inputValue.toLowerCase())
+    );
+};
+
+const loadOptions = (inputValue, callback) => {
+    setTimeout(() => {
+        callback(filterColors(inputValue));
+    }, 1000);
 };
 
 export default function IntegrationReactSelect () {
@@ -49,8 +74,9 @@ export default function IntegrationReactSelect () {
     return (
         <div className={classes.root}>
             <NoSsr>
-                <Select
-                    filterOption={createFilter({ ignoreAccents: false })}
+                <AsyncSelect
+                    // filterOption={createFilter({ ignoreAccents: false })}
+                    loadOptions={loadOptions}
                     classes={classes}
                     styles={selectStyles}
                     inputId="react-select-single"
@@ -62,7 +88,7 @@ export default function IntegrationReactSelect () {
                         }
                     }}
                     placeholder="Search for a card..."
-                    options={suggestions}
+                    options={cardOptions}
                     components={components}
                     value={single}
                     onChange={handleChangeSingle}

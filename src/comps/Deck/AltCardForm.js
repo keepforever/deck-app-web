@@ -16,7 +16,9 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Snackbar from '@material-ui/core/Snackbar';
 // locals
-import BoilerAutoComplete from './BoilerAutoComplete';
+// import BoilerAutoComplete from './BoilerAutoComplete';
+import AsyncBoilerAutoComplete from './AsyncBoilerAutoComplete';
+
 import { AuthContext } from '../../context/auth';
 import { useForm } from '../../hooks/useForm';
 import { useStyles } from './utils';
@@ -113,8 +115,11 @@ const AltCardFormModal = props => {
                             spacing={1}
                             className={classes.container}
                         >
-                            <Grid item>
+                            {/* <Grid item>
                                 <BoilerAutoComplete />
+                            </Grid> */}
+                            <Grid item>
+                                <AsyncBoilerAutoComplete />
                             </Grid>
                             <Grid item>
                                 <TextField
