@@ -1,5 +1,5 @@
 import React from 'react';
-import Select from 'react-select';
+import Select, { createFilter} from 'react-select';
 // material-ui
 import { emphasize, makeStyles, useTheme } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
@@ -7,51 +7,13 @@ import NoSsr from '@material-ui/core/NoSsr';
 import TextField from '@material-ui/core/TextField';
 import Paper from '@material-ui/core/Paper';
 import MenuItem from '@material-ui/core/MenuItem';
-
-const suggestions = [
-    { label: 'Afghanistan' },
-    { label: 'Aland Islands' },
-    { label: 'Albania' },
-    { label: 'Algeria' },
-    { label: 'American Samoa' },
-    { label: 'Andorra' },
-    { label: 'Angola' },
-    { label: 'Anguilla' },
-    { label: 'Antarctica' },
-    { label: 'Antigua and Barbuda' },
-    { label: 'Argentina' },
-    { label: 'Armenia' },
-    { label: 'Aruba' },
-    { label: 'Australia' },
-    { label: 'Austria' },
-    { label: 'Azerbaijan' },
-    { label: 'Bahamas' },
-    { label: 'Bahrain' },
-    { label: 'Bangladesh' },
-    { label: 'Barbados' },
-    { label: 'Belarus' },
-    { label: 'Belgium' },
-    { label: 'Belize' },
-    { label: 'Benin' },
-    { label: 'Bermuda' },
-    { label: 'Bhutan' },
-    { label: 'Bolivia, Plurinational State of' },
-    { label: 'Bonaire, Sint Eustatius and Saba' },
-    { label: 'Bosnia and Herzegovina' },
-    { label: 'Botswana' },
-    { label: 'Bouvet Island' },
-    { label: 'Brazil' },
-    { label: 'British Indian Ocean Territory' },
-    { label: 'Brunei Darussalam' }
-].map(suggestion => ({
-    value: suggestion.label,
-    label: suggestion.label
-}));
+// data
+import suggestions from '../../assets/reactSelectOptions.json';
 
 const useStyles = makeStyles(theme => ({
     root: {
         flexGrow: 1,
-        height: 250,
+        height: 150,
         minWidth: 290
     },
     input: {
@@ -235,17 +197,18 @@ export default function IntegrationReactSelect () {
         <div className={classes.root}>
             <NoSsr>
                 <Select
+                    filterOption={createFilter({ ignoreAccents: false })}
                     classes={classes}
                     styles={selectStyles}
                     inputId="react-select-single"
                     TextFieldProps={{
-                        label: 'Country',
+                        label: 'Card',
                         InputLabelProps: {
                             htmlFor: 'react-select-single',
                             shrink: true
                         }
                     }}
-                    placeholder="Search a country (start with a)"
+                    placeholder="Search for a card..."
                     options={suggestions}
                     components={components}
                     value={single}

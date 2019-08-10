@@ -3,7 +3,7 @@ import React, { Fragment, useContext, useState } from 'react';
 import { useMutation } from '@apollo/react-hooks';
 // material-ui
 import TextField from '@material-ui/core/TextField';
-import Typography from '@material-ui/core/Typography';
+// import Typography from '@material-ui/core/Typography';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Grid from '@material-ui/core/Grid';
@@ -29,12 +29,20 @@ const AltCardFormModal = props => {
     const [dialogOpen, setDialogOpen] = useState(false);
     const [snackbarOpen, setSnackbarOpen] = useState(false);
     const [snackbarMessage, setSnackbarMessage] = useState('');
+    const [selectedCard, setSelectedCard] = useState('');
+    const context = useContext(AuthContext);
+    const classes = useStyles();
+    const [values, handleChange, clearValues] = useForm({
+        altCard: ''
+    });
 
-    const onDialogOpen = () => {
+    const onDialogOpen = cardName => {
+        setSelectedCard(cardName);
         setDialogOpen(true);
     };
     const onDialogClose = () => {
         setDialogOpen(false);
+        clearValues();
     };
     const onSnackbarClose = (e, reason) => {
         if (reason === 'clickaway') {
@@ -50,11 +58,6 @@ const AltCardFormModal = props => {
     };
 
     // MY STUFF
-    const context = useContext(AuthContext);
-    const classes = useStyles();
-    const [values, handleChange, clearValues] = useForm({
-        altCard: ''
-    });
 
     const [deckAltCard, { loading }] = useMutation(DECK_ALT_LIST_MUTATION, {
         variables: {
@@ -74,7 +77,7 @@ const AltCardFormModal = props => {
         // https://www.youtube.com/watch?v=lQ7t20gFR14
     });
 
-    const submitAddAltDeckList = () => {
+    const submitAddAltCard = () => {
         deckAltCard();
         clearValues();
     };
@@ -85,7 +88,12 @@ const AltCardFormModal = props => {
                 return (
                     <ListItem key={index} button dense>
                         <ListItemText primary={card} secondary="whatever" />
-                        <Button color="inherit" onClick={onDialogOpen}>
+                        <Button
+                            color="inherit"
+                            onClick={() => {
+                                onDialogOpen(card);
+                            }}
+                        >
                             Add Alt
                         </Button>
                     </ListItem>
@@ -97,7 +105,7 @@ const AltCardFormModal = props => {
                 </Grid>
             )}
             <Dialog open={dialogOpen} onClose={onDialogClose}>
-                <DialogTitle>New User</DialogTitle>
+                <DialogTitle>Alt for <strong>{selectedCard}</strong></DialogTitle>
                 <DialogContent>
                     {!loading && (
                         <Grid
@@ -105,18 +113,6 @@ const AltCardFormModal = props => {
                             spacing={1}
                             className={classes.container}
                         >
-                            <Grid item>
-                                <Grid
-                                    container
-                                    className={classes.headingContainer}
-                                >
-                                    <Grid item>
-                                        <Typography variant="h5">
-                                            Alt For SELECTED_CARD_NAME
-                                        </Typography>
-                                    </Grid>
-                                </Grid>
-                            </Grid>
                             <Grid item>
                                 <BoilerAutoComplete />
                             </Grid>
@@ -135,7 +131,7 @@ const AltCardFormModal = props => {
                                     variant="outlined"
                                     className={classes.loginButton}
                                     fullWidth
-                                    onClick={() => submitAddAltDeckList()}
+                                    onClick={() => submitAddAltCard()}
                                 >
                                     Submit Alt Card
                                 </Button>
@@ -151,7 +147,9 @@ const AltCardFormModal = props => {
                         variant="contained"
                         onClick={onCreate}
                         color="primary"
-                    >Do it</Button>
+                    >
+                        Do it
+                    </Button>
                 </DialogActions>
             </Dialog>
             <Snackbar

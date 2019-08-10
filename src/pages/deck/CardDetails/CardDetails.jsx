@@ -24,7 +24,7 @@ const CardDetails = props => {
             <DeckNav {...props} />
             {deck && <h2>Deck Title: {deck.title}</h2>}
             {deck && (
-                <Grid container style={{padding: 30}} spacing={4}>
+                <Grid container style={{padding: 0, margin: 0, maxWidth: 'calc(100vw - 32px)'}} spacing={4}>
                     {deck.list.split('\n').map(card => {
                         const finalCard = getCardNew(card, cardContext);
                         return (
