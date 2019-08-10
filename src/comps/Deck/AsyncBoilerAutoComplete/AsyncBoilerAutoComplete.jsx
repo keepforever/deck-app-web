@@ -64,7 +64,6 @@ export default function IntegrationReactSelect () {
         <div className={classes.root}>
             <NoSsr>
                 <AsyncSelect
-                    // filterOption={createFilter({ ignoreAccents: false })}
                     loadOptions={loadOptions}
                     classes={classes}
                     styles={selectStyles}
