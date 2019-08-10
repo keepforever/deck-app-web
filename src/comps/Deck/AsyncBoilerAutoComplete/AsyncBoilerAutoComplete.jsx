@@ -19,17 +19,6 @@ import {
 // data
 import cardOptions from '../../../assets/reactSelectOptions.json';
 
-const colourOptions = [
-    { label: 'Red' },
-    { label: 'Yellow' },
-    { label: 'Blue' },
-    { label: 'Green' },
-    { label: 'White' }
-].map(suggestion => ({
-    value: suggestion.label,
-    label: suggestion.label
-}));
-
 const components = {
     Control,
     Menu,
