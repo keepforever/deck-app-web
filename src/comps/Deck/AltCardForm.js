@@ -16,6 +16,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Snackbar from '@material-ui/core/Snackbar';
 // locals
+import BoilerAutoComplete from './BoilerAutoComplete';
 import { AuthContext } from '../../context/auth';
 import { useForm } from '../../hooks/useForm';
 import { useStyles } from './utils';
@@ -49,15 +50,11 @@ const AltCardFormModal = props => {
     };
 
     // MY STUFF
-
     const context = useContext(AuthContext);
     const classes = useStyles();
     const [values, handleChange, clearValues] = useForm({
         altCard: ''
     });
-
-    console.log('\n', '\n', `props.id = `, props.id, '\n', '\n');
-    console.log('\n', '\n', `values = `, values, '\n', '\n');
 
     const [deckAltCard, { loading }] = useMutation(DECK_ALT_LIST_MUTATION, {
         variables: {
@@ -119,6 +116,9 @@ const AltCardFormModal = props => {
                                         </Typography>
                                     </Grid>
                                 </Grid>
+                            </Grid>
+                            <Grid item>
+                                <BoilerAutoComplete />
                             </Grid>
                             <Grid item>
                                 <TextField

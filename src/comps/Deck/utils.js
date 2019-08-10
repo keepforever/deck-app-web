@@ -21,6 +21,7 @@ export const deckNavSwitch = str => {
 
 export const getCardNew = (card, cardContext) => {
     const set = card
+        .trim()
         .match(/\((.*)\)/)
         .pop()
         .toLowerCase();
