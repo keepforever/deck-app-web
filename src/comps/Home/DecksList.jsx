@@ -6,7 +6,7 @@ import ListItem from '@material-ui/core/ListItem';
 import Button from '@material-ui/core/Button';
 import ListItemText from '@material-ui/core/ListItemText';
 
-export default function DeckList ({ decks = [] }) {
+export default function DecksList ({ decks = [] }) {
     return (
         <List>
             {decks.map((item, index) => (

@@ -4,7 +4,7 @@ import { Redirect } from 'react-router-dom';
 import Snackbar from '@material-ui/core/Snackbar';
 // locals
 import { AuthContext } from '../context/auth';
-import DeckList from '../comps/Home/DeckList';
+import DecksList from '../comps/Home/DecksList';
 // import { CardContext } from '../context/card';
 
 const Home = props => {
@@ -33,7 +33,7 @@ const Home = props => {
             <h1>Welcome {name}</h1>
             <h4>Handle: {arenaHandle}</h4>
 
-            <DeckList decks={authContext.user.decks} />
+            <DecksList decks={authContext.user.decks} />
 
             <Snackbar
                 open={authContext.snackbar.isOpen}

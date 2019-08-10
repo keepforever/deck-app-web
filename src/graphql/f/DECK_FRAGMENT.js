@@ -5,6 +5,8 @@ export default gql`
     id
     title
     list
+    altList
+    altCard
     author {
         id
         arenaHandle
