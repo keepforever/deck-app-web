@@ -7,6 +7,7 @@ import { AuthContext } from '../../../context/auth';
 import { CardContext } from '../../../context/card';
 import DeckCard from '../../../comps/Deck/DeckCard';
 import AltListForm from '../../../comps/Deck/AltListForm';
+import AltCardForm from '../../../comps/Deck/AltCardForm';
 
 // import { getCardNew } from './utils';
 
@@ -26,6 +27,7 @@ function Edit (props) {
             <Grid container justify="center" spacing={1}>
                 <DeckCard {...deck} />
                 {deck && <AltListForm id={deck.id} />}
+                <div style={{maxWidth: 400}}>{deck && <AltCardForm id={deck.id} deck={deck} />}</div>
             </Grid>
 
             <h2>Hello Edit</h2>

@@ -25,14 +25,14 @@ const AltListForm = props => {
 
     console.log('\n', '\n', `props.id = `, props.id, '\n', '\n');
     console.log('\n', '\n', `values = `, values, '\n', '\n');
-    const [addAltDeckList, { loading, error }] = useMutation(DECK_ALT_LIST_MUTATION, {
+    const [deckAltList, { loading, error }] = useMutation(DECK_ALT_LIST_MUTATION, {
         variables: {
             ...values,
             id: props.id
         },
-        update: (_, {data: { addAltDeckList: addAltDeckListData }}) => {
-            context.updateUserDecks(addAltDeckListData);
-            context.addMessage(`Deck ${addAltDeckListData.title} Alt List Added`);
+        update: (_, {data: { deckAltList: deckAltListData }}) => {
+            context.updateUserDecks(deckAltListData);
+            context.addMessage(`Deck ${deckAltListData.title} Alt List Added`);
         },
         /* eslint-disable-next-line */
         refetchQueries: [{query: ALL_USERS_QUERY /* variables: {...} */}, {query: ALL_DECKS_QUERY}]
@@ -43,7 +43,7 @@ const AltListForm = props => {
     console.log('\n', '\n', `error = `, error, '\n', '\n');
 
     const submitAddAltDeckList = () => {
-        addAltDeckList();
+        deckAltList();
         clearValues();
     };
 
