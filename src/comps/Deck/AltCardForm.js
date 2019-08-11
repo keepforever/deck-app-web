@@ -18,10 +18,10 @@ import Snackbar from '@material-ui/core/Snackbar';
 // locals
 // import BoilerAutoComplete from './BoilerAutoComplete';
 import AsyncBoilerAutoComplete from './AsyncBoilerAutoComplete';
-
+import { CardContext } from '../../context/card';
 import { AuthContext } from '../../context/auth';
 import { useForm } from '../../hooks/useForm';
-import { useStyles } from './utils';
+import { useStyles, getCardNew } from './utils';
 // graphql
 import DECK_ALT_LIST_MUTATION from '../../graphql/m/DECK_ALT_LIST_MUTATION';
 import ALL_USERS_QUERY from '../../graphql/q/ALL_USERS';
@@ -31,15 +31,19 @@ const AltCardFormModal = props => {
     const [dialogOpen, setDialogOpen] = useState(false);
     const [snackbarOpen, setSnackbarOpen] = useState(false);
     const [snackbarMessage, setSnackbarMessage] = useState('');
-    const [selectedCard, setSelectedCard] = useState('');
+    const [selectedCard, setSelectedCard] = useState(null);
     const context = useContext(AuthContext);
+    const cardContext = useContext(CardContext)
     const classes = useStyles();
     const [values, handleChange, clearValues] = useForm({
         altCard: ''
     });
 
-    const onDialogOpen = cardName => {
-        setSelectedCard(cardName);
+    const onDialogOpen = card => {
+        console.log('\n', '\n', `card = `, card, '\n', '\n');
+        console.log('\n', '\n', `getCardNew(card, cardContext) = `, getCardNew(card, cardContext), '\n', '\n');
+        setSelectedCard(getCardNew(card, cardContext));
+        console.log('\n', '\n', `selectedCard = `, selectedCard, '\n', '\n');
         setDialogOpen(true);
     };
     const onDialogClose = () => {
@@ -107,7 +111,7 @@ const AltCardFormModal = props => {
                 </Grid>
             )}
             <Dialog open={dialogOpen} onClose={onDialogClose}>
-                <DialogTitle>Alt for <strong>{selectedCard}</strong></DialogTitle>
+                {selectedCard && <DialogTitle>Alt for <strong>{selectedCard.name}</strong></DialogTitle>}
                 <DialogContent>
                     {!loading && (
                         <Grid

@@ -46,6 +46,8 @@ export default function IntegrationReactSelect () {
     const theme = useTheme();
     const [single, setSingle] = React.useState(null);
 
+    console.log('\n', '\n', `single = `, single, '\n', '\n');
+
     function handleChangeSingle (value) {
         setSingle(value);
     }

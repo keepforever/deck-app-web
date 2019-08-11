@@ -37,8 +37,10 @@ export const getCardNew = (card, cardContext) => {
     if (card.includes('//')) {
         key = 'xxx' + cardNumber + set;
     } else {
-        key = set + cardNumber;
+        key = cardNumber + set;
     }
+
+    console.log('\n', '\n', `key = `, key, '\n', '\n');
 
     const finalCard = newCardDict[key];
     return finalCard;
