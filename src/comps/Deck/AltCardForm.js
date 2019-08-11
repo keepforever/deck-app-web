@@ -21,19 +21,21 @@ import AsyncBoilerAutoComplete from './AsyncBoilerAutoComplete';
 import { CardContext } from '../../context/card';
 import { AuthContext } from '../../context/auth';
 import { useForm } from '../../hooks/useForm';
-import { useStyles, getCardNew } from './utils';
+import { useStyles } from './styles';
+import utils from '../../utils';
 // graphql
 import DECK_ALT_LIST_MUTATION from '../../graphql/m/DECK_ALT_LIST_MUTATION';
 import ALL_USERS_QUERY from '../../graphql/q/ALL_USERS';
 import ALL_DECKS_QUERY from '../../graphql/q/ALL_DECKS_QUERY';
 
 const AltCardFormModal = props => {
+    const { getCardNew } = utils;
     const [dialogOpen, setDialogOpen] = useState(false);
     const [snackbarOpen, setSnackbarOpen] = useState(false);
     const [snackbarMessage, setSnackbarMessage] = useState('');
     const [selectedCard, setSelectedCard] = useState(null);
     const context = useContext(AuthContext);
-    const cardContext = useContext(CardContext)
+    const cardContext = useContext(CardContext);
     const classes = useStyles();
     const [values, handleChange, clearValues] = useForm({
         altCard: ''

@@ -5,31 +5,15 @@ import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-import Typography from '@material-ui/core/Typography';
 // utils
-import { deckNavSwitch } from './utils';
-
-const styles = theme => ({
-    mainContainer: {
-        backgroundColor: 'grey'
-    },
-    root: {
-        flexGrow: 1,
-        backgroundColor: 'grey',
-        padding: '30px'
-    },
-    addDeckTab: {
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center'
-    },
-    tabContent: {
-        padding: theme.spacing(2)
-    }
-});
+import utils from '../../utils';
+// styles
+import { deckNavStyles } from './styles';
 
 function DeckNav (props) {
+    const { deckNavSwitch } = utils;
     const { classes } = props;
+
     let tabString;
 
     useEffect(() => {
@@ -59,4 +43,4 @@ function DeckNav (props) {
         </div>
     );
 }
-export default withStyles(styles)(DeckNav);
+export default withStyles(deckNavStyles)(DeckNav);

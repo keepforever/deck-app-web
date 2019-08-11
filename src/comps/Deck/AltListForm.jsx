@@ -10,7 +10,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 // locals
 import { AuthContext } from '../../context/auth';
 import { useForm } from '../../hooks/useForm';
-import { useStyles } from './utils';
+import { useStyles } from './styles';
 // graphql
 import DECK_ALT_LIST_MUTATION from '../../graphql/m/DECK_ALT_LIST_MUTATION';
 import ALL_USERS_QUERY from '../../graphql/q/ALL_USERS';
