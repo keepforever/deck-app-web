@@ -9,7 +9,7 @@ import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 // locals
 import { useForm } from '../../hooks/useForm';
-import { useStyles } from './utils';
+import { useLoginFormStyles } from './styled';
 // graphql
 import LOGIN_MUTATION from '../../graphql/m/LOGIN_MUTATION';
 import ALL_USERS_QUERY from '../../graphql/q/ALL_USERS';
@@ -19,7 +19,7 @@ import { AuthContext } from '../../context/auth';
 
 const LoginForm = props => {
     const context = useContext(AuthContext);
-    const classes = useStyles();
+    const classes = useLoginFormStyles();
     const [values, handleChange] = useForm({
         email: 'b',
         password: 'a'

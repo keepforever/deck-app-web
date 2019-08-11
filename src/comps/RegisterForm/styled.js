@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/styles';
 
-export const useStyles = makeStyles(theme => ({
+export const useRegisterFormStyles = makeStyles(theme => ({
     container: {
         maxWidth: '600px',
         padding: '40px',

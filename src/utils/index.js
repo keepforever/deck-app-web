@@ -53,8 +53,30 @@ function getCardNew (card, cardContext) {
     return finalCard;
 };
 
+function makeLauremString (length) {
+    var result = '';
+    var characters =
+        'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+    var charactersLength = characters.length;
+    for (var i = 0; i < length; i++) {
+        result += characters.charAt(
+            Math.floor(Math.random() * charactersLength)
+        );
+    }
+    return result;
+};
+
+function getCardQuantity (card) {
+    return card
+        .trim()
+        .split(' ')
+        .shift();
+}
+
 export default {
     rarityBorderColor,
     deckNavSwitch,
-    getCardNew
+    getCardNew,
+    makeLauremString,
+    getCardQuantity
 };

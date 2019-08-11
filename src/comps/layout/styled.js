@@ -10,3 +10,32 @@ export const Container = styled.div`
   align-items: center;
   justify-content: center;
 `;
+
+export const layoutStyles = theme => ({
+    root: {
+        marginTop: 20,
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        minWidth: '85vw',
+        maxWidth: '86vw',
+        minHeight: '75vh',
+        padding: '40px'
+    }
+});
+
+export const navbarStyles = {
+    root: {
+        flexGrow: 1
+    },
+    myAppBar: {
+        background: '#282828'
+    },
+    grow: {
+        flexGrow: 1
+    },
+    menuButton: {
+        marginLeft: -12,
+        marginRight: 20
+    }
+};

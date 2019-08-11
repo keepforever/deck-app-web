@@ -9,22 +9,7 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 // locals
 import { AuthContext } from '../../context/auth';
-
-const styles = {
-    root: {
-        flexGrow: 1
-    },
-    myAppBar: {
-        background: '#282828'
-    },
-    grow: {
-        flexGrow: 1
-    },
-    menuButton: {
-        marginLeft: -12,
-        marginRight: 20
-    }
-};
+import { navbarStyles } from './styled';
 
 function Navbar (props) {
     const { classes } = props;
@@ -85,4 +70,4 @@ Navbar.propTypes = {
     classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(Navbar);
+export default withStyles(navbarStyles)(Navbar);

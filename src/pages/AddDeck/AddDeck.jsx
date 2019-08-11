@@ -10,17 +10,19 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 // locals
 import { AuthContext } from '../../context/auth';
 import { useForm } from '../../hooks/useForm';
-import { useStyles, makeString } from './utils';
+import { useAddDeckStyles } from './styled';
+import utils from '../../utils';
 // graphql
 import ADD_DECK_MUTATION from '../../graphql/m/ADD_DECK_MUTATION';
 import ALL_USERS_QUERY from '../../graphql/q/ALL_USERS';
 import ALL_DECKS_QUERY from '../../graphql/q/ALL_DECKS_QUERY';
 
 const RegisterForm = props => {
+    const { makeLauremString } = utils;
     const context = useContext(AuthContext);
-    const classes = useStyles();
+    const classes = useAddDeckStyles();
     const [values, handleChange, clearValues] = useForm({
-        title: 'From Client ' + makeString(5),
+        title: 'From Client ' + makeLauremString(5),
         list: ''
     });
 

@@ -4,7 +4,7 @@ import Grid from '@material-ui/core/Grid';
 // locals
 import DeckNav from '../../../comps/Deck/DeckNav';
 import { AuthContext } from '../../../context/auth';
-import { CardContext } from '../../../context/card';
+// import { CardContext } from '../../../context/card';
 import DeckCard from '../../../comps/Deck/DeckCard';
 import AltListForm from '../../../comps/Deck/AltListForm';
 import AltCardForm from '../../../comps/Deck/AltCardForm';
@@ -13,7 +13,7 @@ import AltCardForm from '../../../comps/Deck/AltCardForm';
 
 function Edit (props) {
     const authContext = useContext(AuthContext);
-    const cardContext = useContext(CardContext);
+    // const cardContext = useContext(CardContext);
 
     const deck =
         authContext.user &&

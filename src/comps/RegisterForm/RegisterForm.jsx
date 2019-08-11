@@ -9,19 +9,21 @@ import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 // locals
 import { useForm } from '../../hooks/useForm';
-import { useStyles, makeString } from './utils';
+import { useRegisterFormStyles } from './styled';
+import utils from '../../utils';
 // graphql
 import REGISTER_MUTATION from '../../graphql/m/REGISTER_MUTATION';
 import ALL_USERS_QUERY from '../../graphql/q/ALL_USERS';
 import ALL_DECKS_QUERY from '../../graphql/q/ALL_DECKS_QUERY';
 
 const RegisterForm = props => {
-    const classes = useStyles();
+    const { makeLauremString } = utils;
+    const classes = useRegisterFormStyles();
     const [values, handleChange] = useForm({
-        name: makeString(5),
-        email: makeString(5) + '@' + 'gmail.com',
+        name: makeLauremString(5),
+        email: makeLauremString(5) + '@' + 'gmail.com',
         password: 'a',
-        arenaHandle: makeString(6),
+        arenaHandle: makeLauremString(6),
         isAdmin: false
     });
 

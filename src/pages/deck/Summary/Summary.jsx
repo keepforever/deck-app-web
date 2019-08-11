@@ -12,7 +12,8 @@ import { AuthContext } from '../../../context/auth';
 import { CardContext } from '../../../context/card';
 import DeckNav from '../../../comps/Deck/DeckNav';
 // utils
-import { getCardNew, useStyles } from './utils';
+import { useSummaryStyles } from './styled';
+import utils from '../../../utils';
 
 // generic function to help with sorting.
 const comparator = (prop, desc = true) => (a, b) => {
@@ -27,6 +28,7 @@ const comparator = (prop, desc = true) => (a, b) => {
 };
 
 const DeckTable = props => {
+    const { getCardNew } = utils;
     const authContext = useContext(AuthContext);
     const cardContext = useContext(CardContext);
 
@@ -46,7 +48,7 @@ const DeckTable = props => {
         });
     }
 
-    const classes = useStyles();
+    const classes = useSummaryStyles();
 
     const [cardColumns, setCardColumns] = useState([
         { name: 'name', active: false },
