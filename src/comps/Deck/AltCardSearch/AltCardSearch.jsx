@@ -41,7 +41,7 @@ const loadOptions = (inputValue, callback) => {
     }, 1000);
 };
 
-export default function IntegrationReactSelect () {
+export default function AltCardSearch (props) {
     const classes = useStyles();
     const theme = useTheme();
     const [single, setSingle] = React.useState(null);
@@ -49,7 +49,9 @@ export default function IntegrationReactSelect () {
     console.log('\n', '\n', `single = `, single, '\n', '\n');
 
     function handleChangeSingle (value) {
+        console.log('\n', '\n', `value = `, value, '\n', '\n');
         setSingle(value);
+        props.onSetAltCard(value.value);
     }
 
     const selectStyles = {

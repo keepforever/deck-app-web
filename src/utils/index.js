@@ -1,3 +1,5 @@
+import uuid from 'uuid';
+
 function rarityBorderColor (str) {
     switch (str) {
         case 'M':
@@ -24,7 +26,7 @@ function deckNavSwitch (str) {
         default:
             return 0;
     }
-};
+}
 
 function getCardNew (card, cardContext) {
     const set = card
@@ -51,12 +53,32 @@ function getCardNew (card, cardContext) {
 
     const finalCard = newCardDict[key];
     return finalCard;
-};
+}
+
+function getCardLookup (card) {
+    const set = card
+        .trim()
+        .match(/\((.*)\)/)
+        .pop()
+        .toLowerCase();
+    const cardNumber = card
+        .trim()
+        .split(' ')
+        .slice(-1)
+        .pop();
+
+    let key;
+    if (card.includes('//')) {
+        key = 'xxx' + cardNumber + set;
+    } else {
+        key = cardNumber + set;
+    }
+    return key;
+}
 
 function makeLauremString (length) {
     var result = '';
-    var characters =
-        'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+    var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
     var charactersLength = characters.length;
     for (var i = 0; i < length; i++) {
         result += characters.charAt(
@@ -64,7 +86,7 @@ function makeLauremString (length) {
         );
     }
     return result;
-};
+}
 
 function getCardQuantity (card) {
     return card
@@ -73,10 +95,51 @@ function getCardQuantity (card) {
         .shift();
 }
 
+function buildAltCardObject (
+    originalCardLookup,
+    replacementCardLookup,
+    author,
+    altCard
+) {
+    console.log(`
+    #########################################################
+                    buildAltCardObject Function
+    #########################################################
+    `);
+
+    let altCardArray;
+    if (altCard) {
+        altCardArray = JSON.parse(altCard);
+    } else {
+        altCardArray = [];
+    }
+
+    const altCardObj = {
+        id: uuid.v4(),
+        authorId: author.id,
+        authorArenaHandle: author.arenaHandle,
+        originalCardLookup,
+        replacementCardLookup
+    };
+
+    console.log('\n', '\n', `altCardArray before = `, altCardArray, '\n', '\n');
+
+    altCardArray.push(altCardObj);
+
+    console.log('\n', '\n', `altCardArray, after = `, altCardArray, '\n', '\n');
+    console.log(`
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        #########################################################
+        `);
+    return [...altCardArray];
+}
+
 export default {
     rarityBorderColor,
     deckNavSwitch,
     getCardNew,
+    getCardLookup,
     makeLauremString,
-    getCardQuantity
+    getCardQuantity,
+    buildAltCardObject
 };

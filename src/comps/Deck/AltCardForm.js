@@ -2,7 +2,6 @@ import React, { Fragment, useContext, useState } from 'react';
 // apollo
 import { useMutation } from '@apollo/react-hooks';
 // material-ui
-import TextField from '@material-ui/core/TextField';
 // import Typography from '@material-ui/core/Typography';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -14,67 +13,76 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 // import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import Snackbar from '@material-ui/core/Snackbar';
 // locals
-// import BoilerAutoComplete from './BoilerAutoComplete';
-import AsyncBoilerAutoComplete from './AsyncBoilerAutoComplete';
+import AltCardSearch from './AltCardSearch';
 import { CardContext } from '../../context/card';
 import { AuthContext } from '../../context/auth';
-import { useForm } from '../../hooks/useForm';
 import { useStyles } from './styles';
 import utils from '../../utils';
 // graphql
-import DECK_ALT_LIST_MUTATION from '../../graphql/m/DECK_ALT_LIST_MUTATION';
+import DECK_ALT_CARD_MUTATION from '../../graphql/m/DECK_ALT_CARD_MUTATION';
 import ALL_USERS_QUERY from '../../graphql/q/ALL_USERS';
 import ALL_DECKS_QUERY from '../../graphql/q/ALL_DECKS_QUERY';
 
 const AltCardFormModal = props => {
-    const { getCardNew } = utils;
+    const { getCardNew, getCardLookup, buildAltCardObject } = utils;
     const [dialogOpen, setDialogOpen] = useState(false);
-    const [snackbarOpen, setSnackbarOpen] = useState(false);
-    const [snackbarMessage, setSnackbarMessage] = useState('');
-    const [selectedCard, setSelectedCard] = useState(null);
-    const context = useContext(AuthContext);
+    const [originalCard, setOriginalCard] = useState(null);
+    const [originalCardLookup, setOriginalCardLookup] = useState('');
+    const authContext = useContext(AuthContext);
     const cardContext = useContext(CardContext);
     const classes = useStyles();
-    const [values, handleChange, clearValues] = useForm({
-        altCard: ''
-    });
+    const [ altCard, setAltCard ] = useState(null);
 
     const onDialogOpen = card => {
-        console.log('\n', '\n', `card = `, card, '\n', '\n');
-        console.log('\n', '\n', `getCardNew(card, cardContext) = `, getCardNew(card, cardContext), '\n', '\n');
-        setSelectedCard(getCardNew(card, cardContext));
-        console.log('\n', '\n', `selectedCard = `, selectedCard, '\n', '\n');
+        setOriginalCardLookup(getCardLookup(card));
+        setOriginalCard(getCardNew(card, cardContext));
         setDialogOpen(true);
     };
     const onDialogClose = () => {
         setDialogOpen(false);
-        clearValues();
-    };
-    const onSnackbarClose = (e, reason) => {
-        if (reason === 'clickaway') {
-            return;
-        }
-        setSnackbarOpen(false);
-        setSnackbarMessage('');
     };
     const onCreate = () => {
-        setSnackbarOpen(true);
-        setSnackbarMessage(`Alt created`);
         onDialogClose();
     };
 
-    // MY STUFF
+    const handleSetAltCard = (cardKey) => {
+        const altCard = buildAltCardObject(
+            originalCardLookup,
+            cardKey,
+            authContext.user,
+            props.deck.altCard
+        );
 
-    const [deckAltCard, { loading }] = useMutation(DECK_ALT_LIST_MUTATION, {
+        console.log(`
+        #########################################################
+                        handleSetAltCard
+        #########################################################
+        `);
+
+        console.log('\n', '\n', `handleSetAltCard, cardKey = `, cardKey, '\n', '\n');
+        console.log('\n', '\n', `altCard = `, altCard, '\n', '\n');
+
+        console.log(`
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        #########################################################
+        `);
+        setAltCard(
+            altCard
+        );
+    };
+
+    // MY STUFF
+    const [deckAltCard, { loading }] = useMutation(DECK_ALT_CARD_MUTATION, {
         variables: {
-            ...values,
+            altCard: JSON.stringify(altCard),
             id: props.id
         },
         update: (_, { data: { deckAltCard: deckAltCardData } }) => {
-            context.updateUserDecks(deckAltCardData);
-            context.addMessage(`Deck ${deckAltCardData.title} Alt List Added`);
+            // authContext.updateUserDecks(deckAltCardData);
+            // authContext.addMessage(`Deck ${deckAltCardData.title} Alt List Added`);
+            console.log('\n', `UPDATE `, '\n');
+            setAltCard(null);
         },
         refetchQueries: [
             /* eslint-disable-next-line */
@@ -87,8 +95,21 @@ const AltCardFormModal = props => {
 
     const submitAddAltCard = () => {
         deckAltCard();
-        clearValues();
     };
+
+    console.log(`
+    #########################################################
+                    AltCardForm
+    #########################################################
+    `);
+
+    console.log('\n', '\n', `AltCardForm, props = `, props, '\n', '\n');
+    console.log('\n', '\n', `altCard = `, altCard, '\n', '\n');
+
+    console.log(`
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    #########################################################
+    `);
 
     return (
         <Fragment>
@@ -113,7 +134,7 @@ const AltCardFormModal = props => {
                 </Grid>
             )}
             <Dialog open={dialogOpen} onClose={onDialogClose}>
-                {selectedCard && <DialogTitle>Alt for <strong>{selectedCard.name}</strong></DialogTitle>}
+                {originalCard && <DialogTitle>Alt for <strong>{originalCard.name}</strong></DialogTitle>}
                 <DialogContent>
                     {!loading && (
                         <Grid
@@ -121,21 +142,8 @@ const AltCardFormModal = props => {
                             spacing={1}
                             className={classes.container}
                         >
-                            {/* <Grid item>
-                                <BoilerAutoComplete />
-                            </Grid> */}
                             <Grid item>
-                                <AsyncBoilerAutoComplete />
-                            </Grid>
-                            <Grid item>
-                                <TextField
-                                    fullWidth
-                                    label="Alt Card"
-                                    id="altCard"
-                                    name="altCard"
-                                    value={values.altCard}
-                                    onChange={handleChange}
-                                />
+                                <AltCardSearch onSetAltCard={handleSetAltCard}/>
                             </Grid>
                             <Grid item>
                                 <Button
@@ -163,12 +171,6 @@ const AltCardFormModal = props => {
                     </Button>
                 </DialogActions>
             </Dialog>
-            <Snackbar
-                open={snackbarOpen}
-                message={snackbarMessage}
-                onClose={onSnackbarClose}
-                autoHideDuration={4000}
-            />
         </Fragment>
     );
 };
