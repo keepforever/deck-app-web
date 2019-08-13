@@ -1,4 +1,4 @@
-import React, { Fragment, useContext } from 'react';
+import React, { useContext } from 'react';
 // apollo
 import { useMutation } from '@apollo/react-hooks';
 // material-ui
@@ -31,12 +31,15 @@ const RegisterForm = props => {
             ...values,
             token: context.user ? context.user.token : ''
         },
-        update: (_, {data: { createDeck: createDeckData }}) => {
+        update: (_, { data: { createDeck: createDeckData } }) => {
             context.updateUserDecks(createDeckData);
             context.addMessage(`Deck ${createDeckData.title} Created!`);
         },
-        /* eslint-disable-next-line */
-        refetchQueries: [{query: ALL_USERS_QUERY /* variables: {...} */}, {query: ALL_DECKS_QUERY}]
+        refetchQueries: [
+            /* eslint-disable-next-line */
+            { query: ALL_USERS_QUERY /* variables: {...} */ },
+            { query: ALL_DECKS_QUERY }
+        ]
         // Video on updating the cache manually with update
         // https://www.youtube.com/watch?v=lQ7t20gFR14
     });
@@ -47,7 +50,13 @@ const RegisterForm = props => {
     };
 
     return (
-        <Fragment>
+        <div
+            style={{
+                display: 'flex',
+                flexDirection: 'row',
+                justifyContent: 'center'
+            }}
+        >
             {loading && (
                 <Grid container spacing={1} className={classes.container}>
                     <CircularProgress />
@@ -55,24 +64,19 @@ const RegisterForm = props => {
             )}
 
             {!loading && (
-                <Grid container spacing={1} className={classes.container}>
-                    <Grid item>
-                        <Grid container className={classes.headingContainer}>
-                            <Grid item>
-                                <Typography variant="h5">
-                                    {loading ? 'Loading...' : '☮️'}
-                                </Typography>
-                            </Grid>
-                        </Grid>
+                <Grid
+                    container
+                    justify="center"
+                    spacing={2}
+                    className={classes.container}
+                >
+                    <Grid container justify="center" item>
+                        <Typography variant="h5">
+                            {loading ? 'Loading...' : '☮️'}
+                        </Typography>
                     </Grid>
-                    <Grid item>
-                        <Grid container className={classes.headingContainer}>
-                            <Grid item>
-                                <Typography variant="h5">
-                                    Add Deck Form
-                                </Typography>
-                            </Grid>
-                        </Grid>
+                    <Grid container justify="center">
+                        <Typography variant="h5">Add Deck Form</Typography>
                     </Grid>
                     <Grid item>
                         <TextField
@@ -107,7 +111,7 @@ const RegisterForm = props => {
                     </Grid>
                 </Grid>
             )}
-        </Fragment>
+        </div>
     );
 };
 

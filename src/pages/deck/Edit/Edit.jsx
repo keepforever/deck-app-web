@@ -24,10 +24,14 @@ function Edit (props) {
     return (
         <div>
             <DeckNav {...props} />
+            <DeckCard {...deck} />
             <Grid container justify="center" spacing={1}>
-                <DeckCard {...deck} />
-                {deck && <AltListForm id={deck.id} />}
-                <div style={{maxWidth: 400}}>{deck && <AltCardForm id={deck.id} deck={deck} />}</div>
+                <Grid item>{deck && <AltListForm id={deck.id} />}</Grid>
+                <Grid item>
+                    <div style={{ maxWidth: 400 }}>
+                        {deck && <AltCardForm id={deck.id} deck={deck} />}
+                    </div>
+                </Grid>
             </Grid>
 
             <h2>Hello Edit</h2>

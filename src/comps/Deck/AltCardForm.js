@@ -25,15 +25,22 @@ import ALL_USERS_QUERY from '../../graphql/q/ALL_USERS';
 import ALL_DECKS_QUERY from '../../graphql/q/ALL_DECKS_QUERY';
 
 const AltCardFormModal = props => {
-    const { getCard, getCardLookup, buildAltCardObject } = utils;
-    const [dialogOpen, setDialogOpen] = useState(false);
-    const [originalCard, setOriginalCard] = useState(null);
-    const [originalCardLookup, setOriginalCardLookup] = useState('');
+    const classes = useAltCardFormStyles();
+
+    // useContext
     const authContext = useContext(AuthContext);
     const cardContext = useContext(CardContext);
-    const classes = useAltCardFormStyles();
+    const { getCard, getCardLookup, buildAltCardObject } = utils;
+
+    // Dialog Box
+    const [dialogOpen, setDialogOpen] = useState(false);
+
+    // Card State
+    const [originalCard, setOriginalCard] = useState(null);
+    const [originalCardLookup, setOriginalCardLookup] = useState('');
     const [ altCard, setAltCard ] = useState(null);
 
+    // Helper Functions
     const onDialogOpen = card => {
         setOriginalCardLookup(getCardLookup(card));
         setOriginalCard(getCard(card, cardContext));
@@ -45,7 +52,6 @@ const AltCardFormModal = props => {
     const onCreate = () => {
         onDialogClose();
     };
-
     const handleSetAltCard = (cardKey) => {
         const altCard = buildAltCardObject(
             originalCardLookup,
@@ -53,26 +59,12 @@ const AltCardFormModal = props => {
             authContext.user,
             props.deck.altCard
         );
-
-        console.log(`
-        #########################################################
-                        handleSetAltCard
-        #########################################################
-        `);
-
-        console.log('\n', '\n', `handleSetAltCard, cardKey = `, cardKey, '\n', '\n');
-        console.log('\n', '\n', `altCard = `, altCard, '\n', '\n');
-
-        console.log(`
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-        #########################################################
-        `);
         setAltCard(
             altCard
         );
     };
 
-    // MY STUFF
+    // Apollo
     const [deckAltCard, { loading }] = useMutation(DECK_ALT_CARD_MUTATION, {
         variables: {
             altCard: JSON.stringify(altCard),
@@ -96,20 +88,6 @@ const AltCardFormModal = props => {
     const submitAddAltCard = () => {
         deckAltCard();
     };
-
-    console.log(`
-    #########################################################
-                    AltCardForm
-    #########################################################
-    `);
-
-    console.log('\n', '\n', `AltCardForm, props = `, props, '\n', '\n');
-    console.log('\n', '\n', `altCard = `, altCard, '\n', '\n');
-
-    console.log(`
-    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-    #########################################################
-    `);
 
     return (
         <Fragment>
