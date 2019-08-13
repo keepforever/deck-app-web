@@ -21,7 +21,7 @@ const LoginForm = props => {
     const context = useContext(AuthContext);
     const classes = useLoginFormStyles();
     const [values, handleChange] = useForm({
-        email: 'b',
+        email: 'a',
         password: 'a'
     });
 

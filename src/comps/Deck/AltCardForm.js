@@ -12,12 +12,12 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 // import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
+// import DialogTitle from '@material-ui/core/DialogTitle';
 // locals
 import AltCardSearch from './AltCardSearch';
 import { CardContext } from '../../context/card';
 import { AuthContext } from '../../context/auth';
-import { useStyles } from './styles';
+import { useAltCardFormStyles } from './styles';
 import utils from '../../utils';
 // graphql
 import DECK_ALT_CARD_MUTATION from '../../graphql/m/DECK_ALT_CARD_MUTATION';
@@ -25,18 +25,18 @@ import ALL_USERS_QUERY from '../../graphql/q/ALL_USERS';
 import ALL_DECKS_QUERY from '../../graphql/q/ALL_DECKS_QUERY';
 
 const AltCardFormModal = props => {
-    const { getCardNew, getCardLookup, buildAltCardObject } = utils;
+    const { getCard, getCardLookup, buildAltCardObject } = utils;
     const [dialogOpen, setDialogOpen] = useState(false);
     const [originalCard, setOriginalCard] = useState(null);
     const [originalCardLookup, setOriginalCardLookup] = useState('');
     const authContext = useContext(AuthContext);
     const cardContext = useContext(CardContext);
-    const classes = useStyles();
+    const classes = useAltCardFormStyles();
     const [ altCard, setAltCard ] = useState(null);
 
     const onDialogOpen = card => {
         setOriginalCardLookup(getCardLookup(card));
-        setOriginalCard(getCardNew(card, cardContext));
+        setOriginalCard(getCard(card, cardContext));
         setDialogOpen(true);
     };
     const onDialogClose = () => {
@@ -114,9 +114,10 @@ const AltCardFormModal = props => {
     return (
         <Fragment>
             {props.deck.list.split('\n').map((card, index) => {
+                const {name, type_line} = getCard(card, cardContext);
                 return (
                     <ListItem key={index} button dense>
-                        <ListItemText primary={card} secondary="whatever" />
+                        <ListItemText primary={name} secondary={type_line} />
                         <Button
                             color="inherit"
                             onClick={() => {
@@ -133,8 +134,8 @@ const AltCardFormModal = props => {
                     <CircularProgress />
                 </Grid>
             )}
-            <Dialog open={dialogOpen} onClose={onDialogClose}>
-                {originalCard && <DialogTitle>Alt for <strong>{originalCard.name}</strong></DialogTitle>}
+            {originalCard && <Dialog open={dialogOpen} onClose={onDialogClose}>
+                {/* <DialogTitle>Alt for <strong>{originalCard.name}</strong></DialogTitle> */}
                 <DialogContent>
                     {!loading && (
                         <Grid
@@ -142,7 +143,16 @@ const AltCardFormModal = props => {
                             spacing={1}
                             className={classes.container}
                         >
+                            <Grid style={{fontWeight: 'bold'}} item>
+                                {originalCard.name}
+                            </Grid>
                             <Grid item>
+                                {originalCard.type_line}
+                            </Grid>
+                            <Grid item>
+                                {originalCard.rarity}
+                            </Grid>
+                            <Grid style={{marginTop: '15px'}} item>
                                 <AltCardSearch onSetAltCard={handleSetAltCard}/>
                             </Grid>
                             <Grid item>
@@ -170,7 +180,7 @@ const AltCardFormModal = props => {
                         Do it
                     </Button>
                 </DialogActions>
-            </Dialog>
+            </Dialog>}
         </Fragment>
     );
 };

@@ -15,7 +15,7 @@ import {
     useStyles
 } from './helperComps';
 // data
-import suggestions from '../../../assets/reactSelectOptions.json';
+import suggestions from '../../assets/reactSelectOptions.json';
 
 const components = {
     Control,

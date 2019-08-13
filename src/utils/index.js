@@ -28,7 +28,7 @@ function deckNavSwitch (str) {
     }
 }
 
-function getCardNew (card, cardContext) {
+function getCard (card, cardContext) {
     const set = card
         .trim()
         .match(/\((.*)\)/)
@@ -137,7 +137,7 @@ function buildAltCardObject (
 export default {
     rarityBorderColor,
     deckNavSwitch,
-    getCardNew,
+    getCard,
     getCardLookup,
     makeLauremString,
     getCardQuantity,

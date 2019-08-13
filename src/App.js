@@ -7,7 +7,7 @@ import {
     Switch
 } from 'react-router-dom';
 // locals
-import Layout from './comps/Layout';
+import Layout from './comps/layout';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Register from './pages/Register';

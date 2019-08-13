@@ -28,7 +28,7 @@ const comparator = (prop, desc = true) => (a, b) => {
 };
 
 const DeckTable = props => {
-    const { getCardNew } = utils;
+    const { getCard } = utils;
     const authContext = useContext(AuthContext);
     const cardContext = useContext(CardContext);
 
@@ -43,7 +43,7 @@ const DeckTable = props => {
     if (deck && deck.list) {
         const cards = deck.list.split('\n');
         cards.forEach(card => {
-            const cardObj = getCardNew(card, cardContext);
+            const cardObj = getCard(card, cardContext);
             cardObjArray.push(cardObj);
         });
     }

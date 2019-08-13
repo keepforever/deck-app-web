@@ -10,7 +10,7 @@ import DeckNav from '../../../comps/Deck/DeckNav';
 import utils from '../../../utils';
 
 const CardDetails = props => {
-    const { getCardNew } = utils;
+    const { getCard } = utils;
     const authContext = useContext(AuthContext);
     const cardContext = useContext(CardContext);
 
@@ -35,7 +35,7 @@ const CardDetails = props => {
                     spacing={4}
                 >
                     {deck.list.split('\n').map(card => {
-                        const finalCard = getCardNew(card, cardContext);
+                        const finalCard = getCard(card, cardContext);
                         return (
                             <Grid item key={finalCard.name}>
                                 <CardItem {...finalCard} />

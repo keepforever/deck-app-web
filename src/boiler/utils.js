@@ -34,7 +34,7 @@ export const deckNavSwitch = str => {
     }
 };
 
-export const getCardNew = (card, cardContext) => {
+export const getCard = (card, cardContext) => {
     const set = card
         .trim()
         .match(/\((.*)\)/)

@@ -9,7 +9,7 @@ import DeckCard from '../../../comps/Deck/DeckCard';
 import AltListForm from '../../../comps/Deck/AltListForm';
 import AltCardForm from '../../../comps/Deck/AltCardForm';
 
-// import { getCardNew } from './utils';
+// import { getCard } from './utils';
 
 function Edit (props) {
     const authContext = useContext(AuthContext);

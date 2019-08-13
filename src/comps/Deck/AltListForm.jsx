@@ -10,7 +10,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 // locals
 import { AuthContext } from '../../context/auth';
 import { useForm } from '../../hooks/useForm';
-import { useStyles } from './styles';
+import { useAltListFormStyles } from './styles';
 // graphql
 import DECK_ALT_LIST_MUTATION from '../../graphql/m/DECK_ALT_LIST_MUTATION';
 import ALL_USERS_QUERY from '../../graphql/q/ALL_USERS';
@@ -18,7 +18,7 @@ import ALL_DECKS_QUERY from '../../graphql/q/ALL_DECKS_QUERY';
 
 const AltListForm = props => {
     const context = useContext(AuthContext);
-    const classes = useStyles();
+    const classes = useAltListFormStyles();
     const [values, handleChange, clearValues] = useForm({
         altList: ''
     });
