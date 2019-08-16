@@ -18,6 +18,7 @@ import ALL_DECKS_QUERY from '../../graphql/q/ALL_DECKS_QUERY';
 import { AuthContext } from '../../context/auth';
 
 const LoginForm = props => {
+    console.log('\n', '\n', `LoginForm, props = `, props, '\n', '\n');
     const context = useContext(AuthContext);
     const classes = useLoginFormStyles();
     const [values, handleChange] = useForm({

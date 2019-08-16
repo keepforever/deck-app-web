@@ -5,6 +5,7 @@ import Snackbar from '@material-ui/core/Snackbar';
 // locals
 import { AuthContext } from '../context/auth';
 import DecksList from '../comps/Home/DecksList';
+import CommunityDeckList from '../comps/Home/CommunityDeckList';
 // import { CardContext } from '../context/card';
 
 const Home = props => {
@@ -16,7 +17,7 @@ const Home = props => {
     console.log('\n', '\n', `authContext.user = `, authContext.user, '\n', '\n');
 
     const {
-        user: { name, arenaHandle }
+        user: { name, arenaHandle, decks = [] }
     } = authContext;
 
     return (
@@ -33,7 +34,14 @@ const Home = props => {
             <h1>Welcome {name}</h1>
             <h4>Handle: {arenaHandle}</h4>
 
-            <DecksList decks={authContext.user.decks} />
+            {!!decks.length && <div>
+                <h4>You're Decks</h4>
+                <DecksList decks={authContext.user.decks} />
+            </div>}
+            
+            <h4>Community Decks</h4>
+            <CommunityDeckList history={props.history} />
+        
 
             <Snackbar
                 open={authContext.snackbar.isOpen}

@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useContext } from 'react';
 // apollo
 import { useMutation } from '@apollo/react-hooks';
 // material-ui
@@ -15,8 +15,10 @@ import utils from '../../utils';
 import REGISTER_MUTATION from '../../graphql/m/REGISTER_MUTATION';
 import ALL_USERS_QUERY from '../../graphql/q/ALL_USERS';
 import ALL_DECKS_QUERY from '../../graphql/q/ALL_DECKS_QUERY';
+import { AuthContext } from '../../context/auth';
 
 const RegisterForm = props => {
+    const authContext = useContext(AuthContext);
     const { makeLauremString } = utils;
     const classes = useRegisterFormStyles();
     const [values, handleChange] = useForm({
@@ -35,7 +37,12 @@ const RegisterForm = props => {
             /* eslint-disable-next-line */
             { query: ALL_USERS_QUERY /* variables: {...} */ },
             { query: ALL_DECKS_QUERY }
-        ]
+        ],
+        update: (_, { data: { signup: signupData } }) => {
+            authContext.login(signupData);
+            authContext.addMessage('You\'ve registered! Welcome!');
+            props.history.push('/home');
+        },
         // Video on updating the cache manually with update
         // https://www.youtube.com/watch?v=lQ7t20gFR14
     });

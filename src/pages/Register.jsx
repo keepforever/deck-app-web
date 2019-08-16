@@ -12,7 +12,7 @@ const Register = props => {
                 alignItems: 'center'
             }}
         >
-            <RegisterForm />
+            <RegisterForm {...props} />
         </div>
     );
 };
