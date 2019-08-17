@@ -14,6 +14,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 // locals
+import AltCardListItemExpansion from '../AltCardListItemExpansion';
 import CardItem from './CardItem';
 import AltCardSearch from './AltCardSearch';
 import { CardContext } from '../../context/card';
@@ -93,7 +94,6 @@ const AltCardFormModal = props => {
         // Video on updating the cache manually with update
         // https://www.youtube.com/watch?v=lQ7t20gFR14
     });
-
     const submitAddAltCard = () => {
         deckAltCard();
     };
@@ -101,10 +101,16 @@ const AltCardFormModal = props => {
     return (
         <Fragment>
             {props.deck.list.split('\n').map((card, index) => {
-                const { name, type_line } = getCard(card, cardContext);
+                // const { name, type_line } = getCard(card, cardContext);
                 return (
                     <ListItem key={index} button dense>
-                        <ListItemText primary={name} secondary={type_line} />
+                        <AltCardListItemExpansion
+                            {...getCard(card, cardContext)}
+                            onDialogOpen={() => {
+                                onDialogOpen(card);
+                            }}
+                        />
+                        {/* <ListItemText primary={name} secondary={type_line} />
                         <Button
                             color="inherit"
                             onClick={() => {
@@ -112,7 +118,7 @@ const AltCardFormModal = props => {
                             }}
                         >
                             Add Alt
-                        </Button>
+                        </Button> */}
                     </ListItem>
                 );
             })}

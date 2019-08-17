@@ -54,13 +54,19 @@ const CardItem = props => {
         return (
             <CardContainer {...props}>
                 <Name>
-                    <span>❓</span>
+                    <span role="img" aria-label="question_mark">
+                        ❓
+                    </span>
                 </Name>
                 <Type>
-                    <span>❓</span>
+                    <span role="img" aria-label="question_mark">
+                        ❓
+                    </span>
                 </Type>
                 <Text>
-                    <span>❓</span>
+                    <span role="img" aria-label="question_mark">
+                        ❓
+                    </span>
                 </Text>
             </CardContainer>
         );
