@@ -11,9 +11,10 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
-// import DialogContentText from '@material-ui/core/DialogContentText';
-// import DialogTitle from '@material-ui/core/DialogTitle';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
 // locals
+import CardItem from './CardItem';
 import AltCardSearch from './AltCardSearch';
 import { CardContext } from '../../context/card';
 import { AuthContext } from '../../context/auth';
@@ -26,11 +27,16 @@ import ALL_DECKS_QUERY from '../../graphql/q/ALL_DECKS_QUERY';
 
 const AltCardFormModal = props => {
     const classes = useAltCardFormStyles();
+    const {
+        getCard,
+        getCardLookup,
+        buildAltCardObject,
+        getCardByDirectLookup
+    } = utils;
 
     // useContext
     const authContext = useContext(AuthContext);
     const cardContext = useContext(CardContext);
-    const { getCard, getCardLookup, buildAltCardObject } = utils;
 
     // Dialog Box
     const [dialogOpen, setDialogOpen] = useState(false);
@@ -38,7 +44,8 @@ const AltCardFormModal = props => {
     // Card State
     const [originalCard, setOriginalCard] = useState(null);
     const [originalCardLookup, setOriginalCardLookup] = useState('');
-    const [ altCard, setAltCard ] = useState(null);
+    const [altCard, setAltCard] = useState(null);
+    const [altCardKey, setAltCardKey] = useState(null);
 
     // Helper Functions
     const onDialogOpen = card => {
@@ -48,20 +55,18 @@ const AltCardFormModal = props => {
     };
     const onDialogClose = () => {
         setDialogOpen(false);
+        setAltCardKey(null);
+        setAltCard(null);
     };
-    const onCreate = () => {
-        onDialogClose();
-    };
-    const handleSetAltCard = (cardKey) => {
+    const handleSetAltCard = cardKey => {
+        setAltCardKey(cardKey);
         const altCard = buildAltCardObject(
             originalCardLookup,
             cardKey,
             authContext.user,
             props.deck.altCard
         );
-        setAltCard(
-            altCard
-        );
+        setAltCard(altCard);
     };
 
     // Apollo
@@ -80,7 +85,11 @@ const AltCardFormModal = props => {
             /* eslint-disable-next-line */
             { query: ALL_USERS_QUERY /* variables: {...} */ },
             { query: ALL_DECKS_QUERY }
-        ]
+        ],
+        onCompleted: data => {
+            console.log('\n', '\n', `onCompleted, data = `, data, '\n', '\n');
+            onDialogClose();
+        }
         // Video on updating the cache manually with update
         // https://www.youtube.com/watch?v=lQ7t20gFR14
     });
@@ -92,7 +101,7 @@ const AltCardFormModal = props => {
     return (
         <Fragment>
             {props.deck.list.split('\n').map((card, index) => {
-                const {name, type_line} = getCard(card, cardContext);
+                const { name, type_line } = getCard(card, cardContext);
                 return (
                     <ListItem key={index} button dense>
                         <ListItemText primary={name} secondary={type_line} />
@@ -112,53 +121,99 @@ const AltCardFormModal = props => {
                     <CircularProgress />
                 </Grid>
             )}
-            {originalCard && <Dialog open={dialogOpen} onClose={onDialogClose}>
-                {/* <DialogTitle>Alt for <strong>{originalCard.name}</strong></DialogTitle> */}
-                <DialogContent>
-                    {!loading && (
-                        <Grid
-                            container
-                            spacing={1}
-                            className={classes.container}
+            {originalCard && (
+                <Dialog maxWidth="xl" open={dialogOpen} onClose={onDialogClose}>
+                    <DialogTitle style={{ marginBottom: '20px' }}>
+                        Dialog Title
+                    </DialogTitle>
+                    <DialogContent>
+                        {!loading && (
+                            <Grid
+                                container
+                                spacing={1}
+                                className={classes.container}
+                            >
+                                <Grid item style={{ fontWeight: 'bold' }}>
+                                    <Grid
+                                        container
+                                        spacing={1}
+                                        className={classes.before}
+                                    >
+                                        <Grid item>
+                                            <DialogContentText>
+                                                Original
+                                            </DialogContentText>
+                                        </Grid>
+                                        <Grid item>
+                                            <CardItem {...originalCard} />
+                                        </Grid>
+                                    </Grid>
+                                </Grid>
+                                <Grid style={{ marginTop: '15px' }} item>
+                                    <AltCardSearch
+                                        onSetAltCard={handleSetAltCard}
+                                    />
+                                </Grid>
+                                {altCard && (
+                                    <Grid item style={{ fontWeight: 'bold' }}>
+                                        <Grid
+                                            container
+                                            spacing={1}
+                                            className={classes.before}
+                                        >
+                                            <Grid item>
+                                                <DialogContentText>
+                                                    Alternate
+                                                </DialogContentText>
+                                            </Grid>
+                                            <Grid item>
+                                                <CardItem
+                                                    {...getCardByDirectLookup(
+                                                        altCardKey,
+                                                        cardContext
+                                                    )}
+                                                />
+                                            </Grid>
+                                        </Grid>
+                                    </Grid>
+                                )}
+                                {!altCard && (
+                                    <Grid item style={{ fontWeight: 'bold' }}>
+                                        <Grid
+                                            container
+                                            spacing={1}
+                                            className={classes.before}
+                                        >
+                                            <Grid item>
+                                                <DialogContentText>
+                                                    Alternate
+                                                </DialogContentText>
+                                            </Grid>
+                                            <Grid item>
+                                                <CardItem isUnknown />
+                                            </Grid>
+                                        </Grid>
+                                    </Grid>
+                                )}
+                            </Grid>
+                        )}
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={onDialogClose} color="primary">
+                            Cancel
+                        </Button>
+                        <Button
+                            variant="contained"
+                            onClick={() => {
+                                submitAddAltCard();
+                            }}
+                            color="primary"
                         >
-                            <Grid style={{fontWeight: 'bold'}} item>
-                                {originalCard.name}
-                            </Grid>
-                            <Grid item>
-                                {originalCard.type_line}
-                            </Grid>
-                            <Grid item>
-                                {originalCard.rarity}
-                            </Grid>
-                            <Grid style={{marginTop: '15px'}} item>
-                                <AltCardSearch onSetAltCard={handleSetAltCard}/>
-                            </Grid>
-                            <Grid item>
-                                <Button
-                                    variant="outlined"
-                                    className={classes.loginButton}
-                                    fullWidth
-                                    onClick={() => submitAddAltCard()}
-                                >
-                                    Submit Alt Card
-                                </Button>
-                            </Grid>
-                        </Grid>
-                    )}
-                </DialogContent>
-                <DialogActions>
-                    <Button onClick={onDialogClose} color="primary">
-                        Cancel
-                    </Button>
-                    <Button
-                        variant="contained"
-                        onClick={onCreate}
-                        color="primary"
-                    >
-                        Do it
-                    </Button>
-                </DialogActions>
-            </Dialog>}
+                            Do it
+                        </Button>
+                    </DialogActions>
+                </Dialog>
+            )}
         </Fragment>
     );
 };

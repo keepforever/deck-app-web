@@ -29,7 +29,7 @@ const components = {
     ValueContainer
 };
 
-const filterColors = (inputValue) => {
+const filterColors = inputValue => {
     return cardOptions.filter(i =>
         i.label.toLowerCase().includes(inputValue.toLowerCase())
     );
@@ -45,8 +45,6 @@ export default function AltCardSearch (props) {
     const classes = useStyles();
     const theme = useTheme();
     const [single, setSingle] = React.useState(null);
-
-    console.log('\n', '\n', `single = `, single, '\n', '\n');
 
     function handleChangeSingle (value) {
         console.log('\n', '\n', `value = `, value, '\n', '\n');

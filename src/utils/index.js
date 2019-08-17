@@ -132,6 +132,11 @@ function buildAltCardObject (
     return [...altCardArray];
 }
 
+function getCardByDirectLookup (key, cardContext) {
+    const newCardDict = cardContext['dict'];
+    return newCardDict[key];
+}
+
 /* Summary Page utility */
 const comparator = (prop, desc = true) => (a, b) => {
     const order = desc ? -1 : 1;
@@ -152,5 +157,6 @@ export default {
     makeLauremString,
     getCardQuantity,
     buildAltCardObject,
-    comparator
+    comparator,
+    getCardByDirectLookup
 };

@@ -50,6 +50,22 @@ const Text = styled.div`
 const CardItem = props => {
     const { name, text, type_line, layout } = props;
 
+    if (props.isUnknown) {
+        return (
+            <CardContainer {...props}>
+                <Name>
+                    <span>❓</span>
+                </Name>
+                <Type>
+                    <span>❓</span>
+                </Type>
+                <Text>
+                    <span>❓</span>
+                </Text>
+            </CardContainer>
+        );
+    }
+
     if (layout === 'transform') {
         return (
             <>

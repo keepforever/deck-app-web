@@ -35,8 +35,14 @@ export const useAltCardFormStyles = makeStyles(theme => ({
         maxWidth: '90vw',
         padding: '5px',
         display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    before: {
+        display: 'flex',
         flexDirection: 'column',
-        alignItems: 'stretch',
+        alignItems: 'center',
         justifyContent: 'center'
     },
     headingContainer: {
