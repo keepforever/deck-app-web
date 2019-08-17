@@ -1,5 +1,7 @@
 import React, { useState, useContext } from 'react';
+import { useQuery } from '@apollo/react-hooks';
 // material-ui
+import CircularProgress from '@material-ui/core/CircularProgress';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -8,58 +10,14 @@ import TableRow from '@material-ui/core/TableRow';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
 import Paper from '@material-ui/core/Paper';
 // locals
-import { AuthContext } from '../../../context/auth';
+import DECK_SINGLE_QUERY from '../../../graphql/q/DECK_SINGLE_QUERY';
 import { CardContext } from '../../../context/card';
 import DeckNav from '../../../comps/Deck/DeckNav';
 // utils
 import { useSummaryStyles } from './styled';
 import utils from '../../../utils';
 
-// generic function to help with sorting.
-const comparator = (prop, desc = true) => (a, b) => {
-    const order = desc ? -1 : 1;
-    if (a[prop] < b[prop]) {
-        return -1 * order;
-    }
-    if (a[prop] > b[prop]) {
-        return 1 * order;
-    }
-    return 0 * order;
-};
-
 const DeckTable = props => {
-    const { getCard } = utils;
-    const authContext = useContext(AuthContext);
-    const cardContext = useContext(CardContext);
-
-    const deck =
-        authContext.user &&
-        authContext.user.decks.filter(d => {
-            return d.id === props.match.params.id;
-        })[0];
-
-    let cardObjArray = [];
-
-    if (deck && deck.list) {
-        const cards = deck.list.split('\n');
-        cards.forEach(card => {
-            const cardObj = getCard(card, cardContext);
-            cardObjArray.push(cardObj);
-        });
-    }
-
-    const classes = useSummaryStyles();
-
-    const [cardColumns, setCardColumns] = useState([
-        { name: 'name', active: false },
-        { name: 'cmc', active: false, numeric: true },
-        { name: 'rarity', active: false },
-        { name: 'color', active: false },
-        { name: 'type', active: false }
-    ]);
-
-    const [cardRows, setCardRows] = useState(cardObjArray);
-
     const onCardSortClick = index => () => {
         setCardColumns(
             cardColumns.map((column, i) => ({
@@ -82,10 +40,37 @@ const DeckTable = props => {
                 )
         );
     };
+    const classes = useSummaryStyles();
+    const { getCard, comparator } = utils;
 
-    if (!deck) {
-        return <h1>Loading...</h1>;
-    }
+    const cardContext = useContext(CardContext);
+    const [cardRows, setCardRows] = useState([]);
+
+    const {
+        loading,
+        data: { singleDeck: deck }
+    } = useQuery(DECK_SINGLE_QUERY, {
+        variables: { id: props.match.params.id },
+        onCompleted: () => {
+            let cardObjArray = [];
+            const cards = deck.list.split('\n');
+            cards.forEach(card => {
+                const cardObj = getCard(card, cardContext);
+                cardObjArray.push(cardObj);
+            });
+            setCardRows(cardObjArray);
+        }
+    });
+
+    const [cardColumns, setCardColumns] = useState([
+        { name: 'name', active: false },
+        { name: 'cmc', active: false, numeric: true },
+        { name: 'rarity', active: false },
+        { name: 'color', active: false },
+        { name: 'type', active: false }
+    ]);
+
+    if (loading || !cardRows.length) return <CircularProgress />;
 
     return (
         <>

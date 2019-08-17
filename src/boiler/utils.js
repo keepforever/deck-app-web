@@ -8,6 +8,13 @@ import dar from '../assets/sets/dar.json';
 import xln from '../assets/sets/xln.json';
 import rna from '../assets/sets/rna.json';
 
+function getCardQuantity (card) {
+    return card
+        .trim()
+        .split(' ')
+        .shift();
+}
+
 export const useFetch = arg => {
     const [data, setData] = useState({});
     const [loading, setLoading] = useState(true);
@@ -34,7 +41,7 @@ export const deckNavSwitch = str => {
     }
 };
 
-export const getCard = (card, cardContext) => {
+export const getCardNew = (card, cardContext) => {
     const set = card
         .trim()
         .match(/\((.*)\)/)
@@ -54,8 +61,6 @@ export const getCard = (card, cardContext) => {
     } else {
         key = cardNumber + set;
     }
-
-    console.log('\n', '\n', `key = `, key, '\n', '\n');
 
     const finalCard = newCardDict[key];
     return finalCard;
@@ -160,7 +165,6 @@ export const useMultipleFetch = items => {
 // );
 
 // deck && buildUrlArray(deck.list);
-
 
 export function useDeck (deckId = '') {
     const authContext = useContext(AuthContext);

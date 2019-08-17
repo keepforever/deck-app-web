@@ -49,8 +49,6 @@ function getCard (card, cardContext) {
         key = cardNumber + set;
     }
 
-    console.log('\n', '\n', `key = `, key, '\n', '\n');
-
     const finalCard = newCardDict[key];
     return finalCard;
 }
@@ -134,6 +132,18 @@ function buildAltCardObject (
     return [...altCardArray];
 }
 
+/* Summary Page utility */
+const comparator = (prop, desc = true) => (a, b) => {
+    const order = desc ? -1 : 1;
+    if (a[prop] < b[prop]) {
+        return -1 * order;
+    }
+    if (a[prop] > b[prop]) {
+        return 1 * order;
+    }
+    return 0 * order;
+};
+
 export default {
     rarityBorderColor,
     deckNavSwitch,
@@ -141,5 +151,6 @@ export default {
     getCardLookup,
     makeLauremString,
     getCardQuantity,
-    buildAltCardObject
+    buildAltCardObject,
+    comparator
 };
