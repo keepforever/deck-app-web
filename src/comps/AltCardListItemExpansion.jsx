@@ -12,8 +12,8 @@ import { useAltCardListItemExpansionStyles } from './styles';
 import CardItem from '../comps/Deck/CardItem';
 
 export default function AltCardListItemExpansion (props) {
-    const { name, onDialogOpen } = props;
-    const classes = useAltCardListItemExpansionStyles();
+    const { name, onDialogOpen, altCards = [] } = props;
+    const classes = useAltCardListItemExpansionStyles(altCards.length);
     return (
         <ExpansionPanel
             color="inherit"
@@ -48,9 +48,15 @@ export default function AltCardListItemExpansion (props) {
                 </Grid>
             </ExpansionPanelSummary>
             <ExpansionPanelDetails className={classes.panelDetails}>
-                {props.altCards.map(c => {
-                    return <CardItem key={c.lookup} {...c} />;
-                })}
+                {!!altCards.length &&
+                    altCards.map(c => {
+                        return <CardItem key={c.lookup} {...c} />;
+                    })}
+                {!altCards.length && (
+                    <Typography variant="h5">
+                        No Alternative Cards Have Been Submitted
+                    </Typography>
+                )}
             </ExpansionPanelDetails>
         </ExpansionPanel>
     );
