@@ -1,24 +1,28 @@
 import React, { useContext } from 'react';
+import { useQuery } from '@apollo/react-hooks';
 // material-ui
 import Grid from '@material-ui/core/Grid';
+import CircularProgress from '@material-ui/core/CircularProgress';
 // locals
-import { AuthContext } from '../../../context/auth';
 import { CardContext } from '../../../context/card';
 import CardItem from '../../../comps/Deck/CardItem';
 import DeckNav from '../../../comps/Deck/DeckNav';
+import DECK_SINGLE_QUERY from '../../../graphql/q/DECK_SINGLE_QUERY';
 // utils
 import utils from '../../../utils';
 
 const CardDetails = props => {
     const { getCard } = utils;
-    const authContext = useContext(AuthContext);
     const cardContext = useContext(CardContext);
 
-    const deck =
-        authContext.user &&
-        authContext.user.decks.filter(d => {
-            return d.id === props.match.params.id;
-        })[0];
+    const {
+        loading,
+        data: { singleDeck: deck }
+    } = useQuery(DECK_SINGLE_QUERY, {
+        variables: { id: props.match.params.id }
+    });
+
+    if (loading) return <CircularProgress />;
 
     return (
         <>
