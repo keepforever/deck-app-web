@@ -3,8 +3,6 @@ import React, { Fragment, useContext, useState } from 'react';
 import { useMutation } from '@apollo/react-hooks';
 // material-ui
 // import Typography from '@material-ui/core/Typography';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -32,7 +30,8 @@ const AltCardFormModal = props => {
         getCard,
         getCardLookup,
         buildAltCardObject,
-        getCardByDirectLookup
+        getCardByDirectLookup,
+        buildAltCardItemsArray
     } = utils;
 
     // useContext
@@ -101,25 +100,21 @@ const AltCardFormModal = props => {
     return (
         <Fragment>
             {props.deck.list.split('\n').map((card, index) => {
-                // const { name, type_line } = getCard(card, cardContext);
+                const originalCard = getCard(card, cardContext);
+                const altCardsArray = buildAltCardItemsArray(
+                    originalCard.lookup,
+                    props.cardAlternateMap,
+                    cardContext
+                );
                 return (
-                    <ListItem key={index} button dense>
-                        <AltCardListItemExpansion
-                            {...getCard(card, cardContext)}
-                            onDialogOpen={() => {
-                                onDialogOpen(card);
-                            }}
-                        />
-                        {/* <ListItemText primary={name} secondary={type_line} />
-                        <Button
-                            color="inherit"
-                            onClick={() => {
-                                onDialogOpen(card);
-                            }}
-                        >
-                            Add Alt
-                        </Button> */}
-                    </ListItem>
+                    <AltCardListItemExpansion
+                        key={originalCard.lookup}
+                        {...originalCard}
+                        onDialogOpen={() => {
+                            onDialogOpen(card);
+                        }}
+                        altCards={altCardsArray}
+                    />
                 );
             })}
             {loading && (
@@ -127,6 +122,9 @@ const AltCardFormModal = props => {
                     <CircularProgress />
                 </Grid>
             )}
+
+            {/* DIALOG JSX */}
+
             {originalCard && (
                 <Dialog maxWidth="xl" open={dialogOpen} onClose={onDialogClose}>
                     <DialogTitle style={{ marginBottom: '20px' }}>

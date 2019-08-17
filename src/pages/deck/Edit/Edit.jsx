@@ -12,10 +12,11 @@ import AltListForm from '../../../comps/Deck/AltListForm';
 import AltCardForm from '../../../comps/Deck/AltCardForm';
 // graphql
 import DECK_SINGLE_QUERY from '../../../graphql/q/DECK_SINGLE_QUERY';
-
+import utils from '../../../utils';
 // import { getCard } from './utils';
 
 function Edit (props) {
+    const { buildCardAlternateMap } = utils;
     // const authContext = useContext(AuthContext);
     // const cardContext = useContext(CardContext);
 
@@ -34,22 +35,42 @@ function Edit (props) {
 
     !loading && console.log('\n', '\n', `singleDeck = `, deck, '\n', '\n');
 
+    let parsedAltCard;
+    let cardAlternateMap;
+
+    if (!loading) {
+        parsedAltCard = JSON.parse(deck.altCard);
+        cardAlternateMap = buildCardAlternateMap(parsedAltCard);
+        console.log(
+            '\n',
+            '\n',
+            `cardAlternateMap = `,
+            cardAlternateMap,
+            '\n',
+            '\n'
+        );
+    }
+
     if (loading) return <CircularProgress />;
 
     return (
-        <div>
+        <div id="fartinmymouth">
             <DeckNav {...props} />
             <DeckCard {...deck} />
             <Grid container justify="center" spacing={1}>
                 <Grid item>{deck && <AltListForm id={deck.id} />}</Grid>
                 <Grid item>
                     <div style={{ maxWidth: 400 }}>
-                        {deck && <AltCardForm id={deck.id} deck={deck} />}
+                        {deck && (
+                            <AltCardForm
+                                cardAlternateMap={cardAlternateMap}
+                                id={deck.id}
+                                deck={deck}
+                            />
+                        )}
                     </div>
                 </Grid>
             </Grid>
-
-            <h2>Hello Edit</h2>
         </div>
     );
 }

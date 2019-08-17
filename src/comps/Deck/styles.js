@@ -31,6 +31,11 @@ export const useAltListFormStyles = makeStyles(theme => ({
 }));
 
 export const useAltCardFormStyles = makeStyles(theme => ({
+    panelDetails: {
+        flexDirection: 'column',
+        height: 150,
+        overflow: 'auto'
+    },
     container: {
         maxWidth: '90vw',
         padding: '5px',

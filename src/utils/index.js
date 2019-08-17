@@ -149,7 +149,53 @@ const comparator = (prop, desc = true) => (a, b) => {
     return 0 * order;
 };
 
+function buildCardAlternateMap (parsedCardAlt = []) {
+    let cardAltMap = {};
+
+    parsedCardAlt.forEach(c => {
+        let temp = [];
+        if (!cardAltMap[c.originalCardLookup]) {
+            temp.push(c.replacementCardLookup);
+            cardAltMap[c.originalCardLookup] = temp;
+        } else {
+            temp = [
+                ...cardAltMap[c.originalCardLookup],
+                c.replacementCardLookup
+            ];
+            cardAltMap[c.originalCardLookup] = temp;
+        }
+    });
+
+    console.log('\n', '\n', `cardAltMap = `, cardAltMap, '\n', '\n');
+    return cardAltMap;
+}
+
+function buildAltCardItemsArray (
+    originalCardLookup = '',
+    cardAlternateMap = {},
+    cardContext
+) {
+    const newCardDict = cardContext['dict'];
+    let altCardKeys = Object.keys(cardAlternateMap);
+    let altCardArray = [];
+
+    if (!altCardKeys.length) return altCardArray;
+
+    altCardKeys.forEach(key => {
+        if (key === originalCardLookup) {
+            console.log('\n', '\n', `YATZEE!`, '\n', '\n');
+            const tempArray = cardAlternateMap[key];
+            tempArray.forEach(a => {
+                altCardArray.push(newCardDict[a]);
+            });
+        }
+    });
+
+    return altCardArray;
+}
+
 export default {
+    buildCardAlternateMap,
     rarityBorderColor,
     deckNavSwitch,
     getCard,
@@ -158,5 +204,6 @@ export default {
     getCardQuantity,
     buildAltCardObject,
     comparator,
-    getCardByDirectLookup
+    getCardByDirectLookup,
+    buildAltCardItemsArray
 };
