@@ -14,7 +14,14 @@ const Home = props => {
 
     // const { loading, data } = useQuery(ALL_USERS_QUERY);
     // if (loading) return <h1>Loading...</h1>;
-    console.log('\n', '\n', `authContext.user = `, authContext.user, '\n', '\n');
+    console.log(
+        '\n',
+        '\n',
+        `authContext.user = `,
+        authContext.user,
+        '\n',
+        '\n'
+    );
 
     const {
         user: { name, arenaHandle, decks = [] }
@@ -34,14 +41,15 @@ const Home = props => {
             <h1>Welcome {name}</h1>
             <h4>Handle: {arenaHandle}</h4>
 
-            {!!decks.length && <div>
-                <h4>You're Decks</h4>
-                <DecksList decks={authContext.user.decks} />
-            </div>}
-            
+            {!!decks.length && (
+                <div>
+                    <h4>You're Decks</h4>
+                    <DecksList decks={authContext.user.decks} />
+                </div>
+            )}
+
             <h4>Community Decks</h4>
             <CommunityDeckList history={props.history} />
-        
 
             <Snackbar
                 open={authContext.snackbar.isOpen}
