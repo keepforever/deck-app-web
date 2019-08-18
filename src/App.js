@@ -1,10 +1,10 @@
 import React from 'react';
 import './App.css';
 import {
-    BrowserRouter as Router,
     Route,
     Redirect,
-    Switch
+    Switch,
+    withRouter
 } from 'react-router-dom';
 // locals
 import Layout from './comps/Layout';
@@ -20,27 +20,25 @@ import Edit from './pages/deck/Edit';
 import { AuthProvider } from './context/auth';
 import { CardProvider } from './context/card';
 
-function App () {
+function App (props) {
     return (
         <AuthProvider>
             <CardProvider>
-                <Router>
-                    <Layout>
-                        <Switch>
-                            <Route exact path="/" render={() => <Redirect to="/home" />} />
-                            <Route exact path="/home" component={Home} />
-                            <Route exact path="/add" component={AddDeck} />
-                            <Route exact path="/login" component={Login} />
-                            <Route exact path="/register" component={Register} />
-                            <Route exact path="/deck/:id/summary" component={Summary} />
-                            <Route exact path="/deck/:id/card-details" component={CardDetails} />
-                            <Route exact path="/deck/:id/edit" component={Edit} />
-                        </Switch>
-                    </Layout>
-                </Router>
+                <Layout>
+                    <Switch>
+                        <Route exact path="/" render={() => <Redirect to="/home" />} />
+                        <Route exact path="/home" component={Home} />
+                        <Route exact path="/add" component={AddDeck} />
+                        <Route exact path="/login" component={Login} />
+                        <Route exact path="/register" component={Register} />
+                        <Route exact path="/deck/:id/summary" component={Summary} />
+                        <Route exact path="/deck/:id/card-details" component={CardDetails} />
+                        <Route exact path="/deck/:id/edit" component={Edit} />
+                    </Switch>
+                </Layout>
             </CardProvider>
         </AuthProvider>
     );
 }
 
-export default App;
+export default withRouter(App);

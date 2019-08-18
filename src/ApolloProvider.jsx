@@ -1,4 +1,5 @@
 import React from 'react';
+import { BrowserRouter as Router } from 'react-router-dom';
 import App from './App';
 import ApolloClient from 'apollo-client';
 import { InMemoryCache } from 'apollo-cache-inmemory';
@@ -16,6 +17,8 @@ const client = new ApolloClient({
 
 export default (
     <ApolloProvider client={client}>
-        <App />
+        <Router>
+            <App />
+        </Router>
     </ApolloProvider>
 );
