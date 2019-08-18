@@ -38,7 +38,25 @@ const LoginForm = props => {
             // eslint-disable-next-line
             { query: ALL_USERS_QUERY /* variables: {...} */ },
             { query: ALL_DECKS_QUERY }
-        ]
+        ],
+        // TODO: May need to remove destructuring of token and check for existance before setting localStorage.
+        onCompleted: ({ login: { token } }) => {
+            // data.login.token
+            console.log(`
+            #########################################################
+                            onCompleted
+            #########################################################
+            `);
+            console.log('\n', '\n', `token = `, token, '\n', '\n');
+            window.localStorage.setItem(
+                process.env.REACT_APP_AUTH_TOKEN_KEY,
+                token
+            );
+            console.log(`
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+            #########################################################
+            `);
+        }
         // Video on updating the cache manually with update https://www.youtube.com/watch?v=lQ7t20gFR14
     });
 
