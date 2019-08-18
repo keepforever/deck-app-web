@@ -1,14 +1,10 @@
 import React from 'react';
 import './App.css';
-import {
-    Route,
-    Redirect,
-    Switch,
-    withRouter
-} from 'react-router-dom';
+import { Route, Redirect, Switch, withRouter } from 'react-router-dom';
 // locals
 import Layout from './comps/Layout';
 import Home from './pages/Home';
+import PersistLogin from './pages/PersistLogin';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import AddDeck from './pages/AddDeck';
@@ -26,13 +22,27 @@ function App (props) {
             <CardProvider>
                 <Layout>
                     <Switch>
-                        <Route exact path="/" render={() => <Redirect to="/home" />} />
+                        {/* <Route exact path="/" render={() => <Redirect to="/home" />} /> */}
+                        <Route
+                            exact
+                            path="/"
+                            render={() => <Redirect to="/persist" />}
+                        />
+                        <Route exact path="/persist" component={PersistLogin} />
                         <Route exact path="/home" component={Home} />
                         <Route exact path="/add" component={AddDeck} />
                         <Route exact path="/login" component={Login} />
                         <Route exact path="/register" component={Register} />
-                        <Route exact path="/deck/:id/summary" component={Summary} />
-                        <Route exact path="/deck/:id/card-details" component={CardDetails} />
+                        <Route
+                            exact
+                            path="/deck/:id/summary"
+                            component={Summary}
+                        />
+                        <Route
+                            exact
+                            path="/deck/:id/card-details"
+                            component={CardDetails}
+                        />
                         <Route exact path="/deck/:id/edit" component={Edit} />
                     </Switch>
                 </Layout>
