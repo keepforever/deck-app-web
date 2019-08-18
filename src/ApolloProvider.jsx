@@ -1,6 +1,7 @@
 import React from 'react';
 import App from './App';
 import ApolloClient from 'apollo-client';
+import { BrowserRouter as Router } from 'react-router-dom';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { createHttpLink } from 'apollo-link-http';
 import { ApolloProvider } from '@apollo/react-hooks';
@@ -16,6 +17,8 @@ const client = new ApolloClient({
 
 export default (
     <ApolloProvider client={client}>
-        <App />
+        <Router>
+            <App />
+        </Router>
     </ApolloProvider>
 );
