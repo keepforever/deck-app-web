@@ -1,27 +1,57 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
+import { useMutation } from '@apollo/react-hooks';
 // material-ui
 import Snackbar from '@material-ui/core/Snackbar';
 // locals
 import { AuthContext } from '../context/auth';
+import REFRESH_TOKEN_MUTATION from '../graphql/m/REFRESH_TOKEN_MUTATION';
 import DecksList from '../comps/Home/DecksList';
 import CommunityDeckList from '../comps/Home/CommunityDeckList';
-// import { CardContext } from '../context/card';
+// import { CardContext } from '../authContext/card';
 
 const Home = props => {
     const authContext = useContext(AuthContext);
-    if (!authContext.user) return <Redirect to="/login" />;
+    const [refreshTokenMutation, { loading }] = useMutation(
+        REFRESH_TOKEN_MUTATION,
+        {
+            update: (_, { data: { login: loginData } }) => {
+                // authContext.login(loginData);
+                authContext.addMessage('Refresh Success!');
+                // props.history.push('/home');
+            },
+            onCompleted: data => {
+                // data.login.token
+                console.log(`
+            #########################################################
+                            Refresh_Token_Mutation, onCompleted
+            #########################################################
+            `);
+                console.log('\n', '\n', `data = `, data, '\n', '\n');
 
-    // const { loading, data } = useQuery(ALL_USERS_QUERY);
-    // if (loading) return <h1>Loading...</h1>;
+                console.log(`
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+            #########################################################
+            `);
+            }
+        }
+    );
     console.log(
         '\n',
         '\n',
-        `authContext.user = `,
-        authContext.user,
+        `Home, RefreshMutation, loading = `,
+        loading,
         '\n',
         '\n'
     );
+    useEffect(() => {
+        const token = window.localStorage.getItem(
+            process.env.REACT_APP_AUTH_TOKEN_KEY
+        );
+        console.log('\n', '\n', `useEffect, token = `, token, '\n', '\n');
+        refreshTokenMutation();
+    }, []);
+    if (!authContext.user) return <Redirect to="/login" />;
 
     const {
         user: { name, arenaHandle, decks = [] }
@@ -37,7 +67,6 @@ const Home = props => {
                 margin: 'auto'
             }}
         >
-            {/* <SubNav {...props} gridDemoData={data && data.feedUsers} /> */}
             <h1>Welcome {name}</h1>
             <h4>Handle: {arenaHandle}</h4>
 
