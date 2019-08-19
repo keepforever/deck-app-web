@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useMutation, useQuery } from '@apollo/react-hooks';
 // material-ui
 import Snackbar from '@material-ui/core/Snackbar';
@@ -9,7 +9,6 @@ import REFRESH_TOKEN_MUTATION from '../graphql/m/REFRESH_TOKEN_MUTATION';
 import ME_QUERY from '../graphql/q/ME_QUERY';
 
 const PersistLogin = props => {
-    let persistDispatchCount = useRef(0);
     const authContext = useContext(AuthContext);
     const [refreshTokenMutation, { loading: refreshLoading }] = useMutation(
         REFRESH_TOKEN_MUTATION,
@@ -31,6 +30,13 @@ const PersistLogin = props => {
 
     const { loading: meLoading, data: meData } = useQuery(ME_QUERY, {
         onCompleted: data => {
+            authContext.persistLogin({
+                user: { ...meData.me },
+                token: window.localStorage.getItem(
+                    process.env.REACT_APP_AUTH_TOKEN_KEY
+                )
+            });
+            props.history.push('/home');
             console.log(
                 '\n',
                 '\n',
@@ -53,41 +59,7 @@ const PersistLogin = props => {
         fetchPolicy: 'cache-and-network'
     });
 
-    useEffect(() => {
-        if (!meLoading && !refreshLoading) {
-            console.log(`
-            #########################################################
-                            last useEffect
-            #########################################################
-            `);
-
-            console.log('\n', '\n', `meData = `, meData, '\n', '\n');
-            console.log(`
-            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-            #########################################################
-            `);
-            console.log(
-                '\n',
-                '\n',
-                `persistDispatchCount = `,
-                persistDispatchCount.current,
-                '\n',
-                '\n'
-            );
-
-            if (persistDispatchCount.current < 1) {
-                console.log('\n', `XX persistLogin XX `, '\n');
-                ++persistDispatchCount.current;
-                authContext.persistLogin({
-                    user: { ...meData.me },
-                    token: window.localStorage.getItem(
-                        process.env.REACT_APP_AUTH_TOKEN_KEY
-                    )
-                });
-                props.history.push('/home');
-            }
-        }
-    }, [meData]);
+    if (meLoading || refreshLoading) return <CircularProgress size={80} />;
 
     return (
         <div
@@ -118,3 +90,39 @@ const PersistLogin = props => {
 };
 
 export default PersistLogin;
+
+// useEffect(() => {
+//     if (!meLoading && !refreshLoading) {
+//         console.log(`
+//         #########################################################
+//                         last useEffect
+//         #########################################################
+//         `);
+
+//         console.log('\n', '\n', `meData = `, meData, '\n', '\n');
+//         console.log(`
+//         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+//         #########################################################
+//         `);
+//         console.log(
+//             '\n',
+//             '\n',
+//             `persistDispatchCount = `,
+//             persistDispatchCount.current,
+//             '\n',
+//             '\n'
+//         );
+
+//         if (persistDispatchCount.current < 1) {
+//             console.log('\n', `XX persistLogin XX `, '\n');
+//             ++persistDispatchCount.current;
+//             authContext.persistLogin({
+//                 user: { ...meData.me },
+//                 token: window.localStorage.getItem(
+//                     process.env.REACT_APP_AUTH_TOKEN_KEY
+//                 )
+//             });
+//             props.history.push('/home');
+//         }
+//     }
+// }, [meData]);
