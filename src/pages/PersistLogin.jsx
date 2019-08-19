@@ -1,16 +1,19 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState, useRef } from 'react';
 import { Redirect } from 'react-router-dom';
-import { useMutation } from '@apollo/react-hooks';
+import { useMutation, useQuery } from '@apollo/react-hooks';
 // material-ui
 import Snackbar from '@material-ui/core/Snackbar';
 import CircularProgress from '@material-ui/core/CircularProgress';
 // locals
 import { AuthContext } from '../context/auth';
 import REFRESH_TOKEN_MUTATION from '../graphql/m/REFRESH_TOKEN_MUTATION';
+import ME_QUERY from '../graphql/q/ME_QUERY';
 
 const PersistLogin = props => {
+    let persistDispatchCount = useRef(0);
     const authContext = useContext(AuthContext);
-    const [refreshTokenMutation, { loading }] = useMutation(
+    const [newRefreshToken, setNewRefreshToken] = useState('');
+    const [refreshTokenMutation, { loading: refreshLoading }] = useMutation(
         REFRESH_TOKEN_MUTATION,
         {
             update: (_, { data: { login: loginData } }) => {
@@ -26,15 +29,29 @@ const PersistLogin = props => {
             #########################################################
             `);
                 console.log('\n', '\n', `data = `, data, '\n', '\n');
+                setNewRefreshToken(data.refreshToken.token);
 
                 console.log(`
             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
             #########################################################
             `);
+            },
+            onError: error => {
+                console.log(`
+                #########################################################
+                                PersistLogin.jsx, RefreshFailed
+                #########################################################
+                `);
+                console.log(`RefreshFailed, error= `, error);
+                console.log(`
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                #########################################################
+                `);
             }
         }
     );
 
+    // REFRESH TOKEN USE EFFECT
     useEffect(() => {
         const token = window.localStorage.getItem(
             process.env.REACT_APP_AUTH_TOKEN_KEY
@@ -43,7 +60,89 @@ const PersistLogin = props => {
         refreshTokenMutation();
     }, []);
 
-    // if (!loading) return <Redirect to="/home" />;
+    const { loading: meLoading, data: meData } = useQuery(ME_QUERY, {
+        variables: { id: props.match.params.id },
+        onCompleted: data => {
+            console.log(
+                '\n',
+                '\n',
+                `onCompleted ME_QUERY = `,
+                data,
+                '\n',
+                '\n'
+            );
+        },
+        onError: error => {
+            console.log(
+                '\n',
+                '\n',
+                `PersistLogin.jsx, ME_QUERY error = `,
+                error,
+                '\n',
+                '\n'
+            );
+        },
+        fetchPolicy: 'cache-and-network'
+    });
+
+    console.log(
+        '\n',
+        '\n',
+        `meLoading, meData = `,
+        meLoading,
+        meData,
+        '\n',
+        '\n'
+    );
+
+    if (!meLoading && !refreshLoading) {
+        console.log(`
+        #########################################################
+                        done
+        #########################################################
+        `);
+
+        console.log(`
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        #########################################################
+        `);
+    }
+
+    useEffect(() => {
+        if (!meLoading && !refreshLoading) {
+            console.log(`
+            #########################################################
+                            last useEffect
+            #########################################################
+            `);
+
+            console.log('\n', '\n', `meData = `, meData, '\n', '\n');
+            console.log(`
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+            #########################################################
+            `);
+            console.log(
+                '\n',
+                '\n',
+                `persistDispatchCount = `,
+                persistDispatchCount.current,
+                '\n',
+                '\n'
+            );
+
+            if (persistDispatchCount.current < 1) {
+                console.log('\n', `XX persistLogin XX `, '\n');
+                ++persistDispatchCount.current;
+                authContext.persistLogin({
+                    user: { ...meData.me },
+                    token: window.localStorage.getItem(
+                        process.env.REACT_APP_AUTH_TOKEN_KEY
+                    )
+                });
+                props.history.push('/home');
+            }
+        }
+    }, [meData]);
 
     return (
         <div

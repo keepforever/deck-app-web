@@ -5,10 +5,6 @@ const AuthContext = createContext({
     login: userData => {},
     logout: () => {},
     snackbar: {}
-    // snackbar: {
-    //     isOpen: false,
-    //     message: 'empty message'
-    // }
 });
 
 const initialState = {};
@@ -49,6 +45,29 @@ const hideSnack = (state, action) => {
     };
 };
 
+const persistLogin = (state, action) => {
+    console.log(`
+    #########################################################
+                    auth.jsx, persisLogin fired
+    #########################################################
+    `);
+
+    console.log('\n', '\n', `action = `, action, '\n', '\n');
+
+    console.log(`
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    #########################################################
+    `);
+
+    return {
+        ...state,
+        user: {
+            ...action.payload.user,
+            token: action.payload.token
+        }
+    };
+};
+
 function authReducer (state = initialState, action) {
     switch (action.type) {
         case 'LOGIN':
@@ -59,6 +78,8 @@ function authReducer (state = initialState, action) {
                     ...action.payload.user
                 }
             };
+        case 'PERSIST_LOGIN':
+            return persistLogin(state, action);
         case 'LOGOUT':
             return {
                 ...state,
@@ -85,6 +106,13 @@ function AuthProvider (props) {
     function login (userData) {
         dispatch({
             type: 'LOGIN',
+            payload: userData
+        });
+    }
+
+    function persistLogin (userData) {
+        dispatch({
+            type: 'PERSIST_LOGIN',
             payload: userData
         });
     }
@@ -125,6 +153,7 @@ function AuthProvider (props) {
                     ...state.snackbar
                 },
                 login,
+                persistLogin,
                 logout,
                 updateUserDecks,
                 addMessage,
