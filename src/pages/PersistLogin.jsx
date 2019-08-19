@@ -1,5 +1,4 @@
-import React, { useContext, useEffect, useState, useRef } from 'react';
-import { Redirect } from 'react-router-dom';
+import React, { useContext, useEffect, useRef } from 'react';
 import { useMutation, useQuery } from '@apollo/react-hooks';
 // material-ui
 import Snackbar from '@material-ui/core/Snackbar';
@@ -12,41 +11,11 @@ import ME_QUERY from '../graphql/q/ME_QUERY';
 const PersistLogin = props => {
     let persistDispatchCount = useRef(0);
     const authContext = useContext(AuthContext);
-    const [newRefreshToken, setNewRefreshToken] = useState('');
     const [refreshTokenMutation, { loading: refreshLoading }] = useMutation(
         REFRESH_TOKEN_MUTATION,
         {
             update: (_, { data: { login: loginData } }) => {
-                // authContext.login(loginData);
                 authContext.addMessage('Refresh Success!');
-                // props.history.push('/home');
-            },
-            onCompleted: data => {
-                // data.login.token
-                console.log(`
-            #########################################################
-                            PersistLogin.jsx, Refresh onCompleted
-            #########################################################
-            `);
-                console.log('\n', '\n', `data = `, data, '\n', '\n');
-                setNewRefreshToken(data.refreshToken.token);
-
-                console.log(`
-            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-            #########################################################
-            `);
-            },
-            onError: error => {
-                console.log(`
-                #########################################################
-                                PersistLogin.jsx, RefreshFailed
-                #########################################################
-                `);
-                console.log(`RefreshFailed, error= `, error);
-                console.log(`
-                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-                #########################################################
-                `);
             }
         }
     );
@@ -61,7 +30,6 @@ const PersistLogin = props => {
     }, []);
 
     const { loading: meLoading, data: meData } = useQuery(ME_QUERY, {
-        variables: { id: props.match.params.id },
         onCompleted: data => {
             console.log(
                 '\n',
@@ -84,29 +52,6 @@ const PersistLogin = props => {
         },
         fetchPolicy: 'cache-and-network'
     });
-
-    console.log(
-        '\n',
-        '\n',
-        `meLoading, meData = `,
-        meLoading,
-        meData,
-        '\n',
-        '\n'
-    );
-
-    if (!meLoading && !refreshLoading) {
-        console.log(`
-        #########################################################
-                        done
-        #########################################################
-        `);
-
-        console.log(`
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-        #########################################################
-        `);
-    }
 
     useEffect(() => {
         if (!meLoading && !refreshLoading) {

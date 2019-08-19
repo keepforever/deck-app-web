@@ -46,19 +46,6 @@ const hideSnack = (state, action) => {
 };
 
 const persistLogin = (state, action) => {
-    console.log(`
-    #########################################################
-                    auth.jsx, persisLogin fired
-    #########################################################
-    `);
-
-    console.log('\n', '\n', `action = `, action, '\n', '\n');
-
-    console.log(`
-    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-    #########################################################
-    `);
-
     return {
         ...state,
         user: {
