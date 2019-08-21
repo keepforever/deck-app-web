@@ -55,9 +55,9 @@ const DeckTable = props => {
             let cardObjArray = [];
             const cards = deck.list.split('\n');
             cards.forEach(card => {
-                // console.log('\n', '\n', `card = `, card, '\n', '\n');
+                console.log('\n', '\n', `card = `, card, '\n', '\n');
                 const cardObj = getCard(card, cardContext);
-                // console.log('\n', '\n', `cardObj = `, cardObj, '\n', '\n');
+                console.log('\n', '\n', `cardObj = `, cardObj, '\n', '\n');
                 cardObjArray.push(cardObj);
             });
             setCardRows(cardObjArray);

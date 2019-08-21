@@ -49,7 +49,7 @@ const AltCardFormModal = props => {
 
     // Helper Functions
     const onDialogOpen = card => {
-        setOriginalCardLookup(getCardLookup(card));
+        setOriginalCardLookup(getCardLookup(card, cardContext));
         setOriginalCard(getCard(card, cardContext));
         setDialogOpen(true);
     };
@@ -97,15 +97,39 @@ const AltCardFormModal = props => {
         deckAltCard();
     };
 
+    console.log('\n', '\n', `props.deck = `, props.deck, '\n', '\n');
+    console.log(
+        '\n',
+        '\n',
+        `JSON.parse(props.deck.altCard) = `,
+        JSON.parse(props.deck.altCard),
+        '\n',
+        '\n'
+    );
+
     return (
         <Fragment>
             {props.deck.list.split('\n').map((card, index) => {
                 const originalCard = getCard(card, cardContext);
                 const altCardsArray = buildAltCardItemsArray(
-                    originalCard.lookup,
+                    originalCard.lookup === 'missing'
+                        ? card
+                        : originalCard.lookup,
                     props.cardAlternateMap,
                     cardContext
                 );
+
+                if (altCardsArray.length) {
+                    console.log(
+                        '\n',
+                        '\n',
+                        `altCardsArray = `,
+                        altCardsArray,
+                        '\n',
+                        '\n'
+                    );
+                }
+
                 return (
                     <AltCardListItemExpansion
                         key={originalCard.lookup}

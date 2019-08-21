@@ -34475,5 +34475,20 @@
         "color": "W",
         "text": "As long as Adanto Vanguard is attacking, it gets +2/+0.\nPay 4 life: Adanto Vanguard gains indestructible until end of turn. (Damage and effects that say \"destroy\" don't destroy it.)",
         "layout": "normal"
+    },
+    "missing": {
+        "name": "missing",
+        "lookup": "missing",
+        "cmc": 0,
+        "type_line": "missing",
+        "arena_id": 65961,
+        "collector_number": "9999",
+        "set": "missing",
+        "mana_cost": "missing",
+        "rarity": "missing",
+        "pt": "missing",
+        "color": "missing",
+        "text": "Sorry, this card was missing from the data that I sourced my card list from. It's probably a Saga.",
+        "layout": "normal"
     }
 }

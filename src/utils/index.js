@@ -49,11 +49,18 @@ function getCard (card, cardContext) {
         key = cardNumber + set;
     }
 
-    const finalCard = newCardDict[key];
-    return finalCard;
+    let finalCard;
+    if (newCardDict[key]) {
+        finalCard = newCardDict[key];
+        return finalCard;
+    } else {
+        finalCard = newCardDict['missing'];
+        finalCard.name = card;
+        return finalCard;
+    }
 }
 
-function getCardLookup (card) {
+function getCardLookup (card, cardContext) {
     const set = card
         .trim()
         .match(/\((.*)\)/)
@@ -71,7 +78,9 @@ function getCardLookup (card) {
     } else {
         key = cardNumber + set;
     }
-    return key;
+    const newCardDict = cardContext['dict'];
+
+    return newCardDict[key] ? key : card;
 }
 
 function makeLauremString (length) {
@@ -152,21 +161,23 @@ const comparator = (prop, desc = true) => (a, b) => {
 function buildCardAlternateMap (parsedCardAlt = []) {
     let cardAltMap = {};
 
-    parsedCardAlt.forEach(c => {
-        let temp = [];
-        if (!cardAltMap[c.originalCardLookup]) {
-            temp.push(c.replacementCardLookup);
-            cardAltMap[c.originalCardLookup] = temp;
-        } else {
-            temp = [
-                ...cardAltMap[c.originalCardLookup],
-                c.replacementCardLookup
-            ];
-            cardAltMap[c.originalCardLookup] = temp;
-        }
-    });
+    !!parsedCardAlt &&
+        parsedCardAlt.length &&
+        parsedCardAlt.forEach(c => {
+            let temp = [];
+            if (!cardAltMap[c.originalCardLookup]) {
+                temp.push(c.replacementCardLookup);
+                cardAltMap[c.originalCardLookup] = temp;
+            } else {
+                temp = [
+                    ...cardAltMap[c.originalCardLookup],
+                    c.replacementCardLookup
+                ];
+                cardAltMap[c.originalCardLookup] = temp;
+            }
+        });
 
-    // console.log('\n', '\n', `cardAltMap = `, cardAltMap, '\n', '\n');
+    console.log('\n', '\n', `cardAltMap = `, cardAltMap, '\n', '\n');
     return cardAltMap;
 }
 
@@ -182,6 +193,15 @@ function buildAltCardItemsArray (
     if (!altCardKeys.length) return altCardArray;
 
     altCardKeys.forEach(key => {
+        console.log('\n', '\n', `key = `, key, '\n', '\n');
+        console.log(
+            '\n',
+            '\n',
+            `originalCardLookup = `,
+            originalCardLookup,
+            '\n',
+            '\n'
+        );
         if (key === originalCardLookup) {
             console.log('\n', '\n', `YATZEE!`, '\n', '\n');
             const tempArray = cardAlternateMap[key];
