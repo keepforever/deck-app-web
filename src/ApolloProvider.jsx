@@ -12,7 +12,7 @@ const httpLink = createHttpLink({
 });
 
 const authLink = setContext((_, { headers }) => {
-    console.log('\n', `setContext has run `, '\n');
+    // console.log('\n', `setContext has run `, '\n');
     // get the authentication token from local storage if it exists
     const token =
         localStorage.getItem(process.env.REACT_APP_AUTH_TOKEN_KEY) || '';

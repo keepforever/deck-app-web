@@ -47,7 +47,7 @@ export default function AltCardSearch (props) {
     const [single, setSingle] = React.useState(null);
 
     function handleChangeSingle (value) {
-        console.log('\n', '\n', `value = `, value, '\n', '\n');
+        // console.log('\n', '\n', `value = `, value, '\n', '\n');
         setSingle(value);
         props.onSetAltCard(value.value);
     }

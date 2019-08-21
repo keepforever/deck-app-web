@@ -11,6 +11,8 @@ import CommunityDeckList from '../comps/Home/CommunityDeckList';
 const Home = props => {
     const authContext = useContext(AuthContext);
 
+    // console.log('\n', '\n', `authContext = `, authContext, '\n', '\n');
+
     if (!authContext.user) return <Redirect to="/login" />;
 
     const {

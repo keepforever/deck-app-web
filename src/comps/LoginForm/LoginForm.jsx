@@ -18,7 +18,7 @@ import ALL_DECKS_QUERY from '../../graphql/q/ALL_DECKS_QUERY';
 import { AuthContext } from '../../context/auth';
 
 const LoginForm = props => {
-    console.log('\n', '\n', `LoginForm, props = `, props, '\n', '\n');
+    // console.log('\n', '\n', `LoginForm, props = `, props, '\n', '\n');
     const context = useContext(AuthContext);
     const classes = useLoginFormStyles();
     const [values, handleChange] = useForm({
@@ -42,20 +42,20 @@ const LoginForm = props => {
         // TODO: May need to remove destructuring of token and check for existance before setting localStorage.
         onCompleted: ({ login: { token } }) => {
             // data.login.token
-            console.log(`
-            #########################################################
-                            onCompleted
-            #########################################################
-            `);
-            console.log('\n', '\n', `token = `, token, '\n', '\n');
+            // console.log(`
+            // #########################################################
+            //                 onCompleted
+            // #########################################################
+            // `);
+            // console.log('\n', '\n', `token = `, token, '\n', '\n');
             window.localStorage.setItem(
                 process.env.REACT_APP_AUTH_TOKEN_KEY,
                 token
             );
-            console.log(`
-            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-            #########################################################
-            `);
+            // console.log(`
+            // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+            // #########################################################
+            // `);
         }
         // Video on updating the cache manually with update https://www.youtube.com/watch?v=lQ7t20gFR14
     });

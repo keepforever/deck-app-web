@@ -26,7 +26,17 @@ function App (props) {
                         <Route
                             exact
                             path="/"
-                            render={() => <Redirect to="/persist" />}
+                            render={() => {
+                                if (
+                                    window.localStorage.getItem(
+                                        process.env.REACT_APP_AUTH_TOKEN_KEY
+                                    )
+                                ) {
+                                    return <Redirect to="/persist" />;
+                                } else {
+                                    return <Redirect to="/login" />;
+                                }
+                            }}
                         />
                         <Route exact path="/persist" component={PersistLogin} />
                         <Route exact path="/home" component={Home} />

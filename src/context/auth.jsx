@@ -55,6 +55,14 @@ const persistLogin = (state, action) => {
     };
 };
 
+const logout = (state, action) => {
+    window.localStorage.removeItem(process.env.REACT_APP_AUTH_TOKEN_KEY);
+    return {
+        ...state,
+        user: null
+    };
+};
+
 function authReducer (state = initialState, action) {
     switch (action.type) {
         case 'LOGIN':
@@ -68,10 +76,7 @@ function authReducer (state = initialState, action) {
         case 'PERSIST_LOGIN':
             return persistLogin(state, action);
         case 'LOGOUT':
-            return {
-                ...state,
-                user: null
-            };
+            return logout(state, action);
         case 'ADDED_DECK':
             return addedDeck(state, action);
         case 'SHOW_SNACK':

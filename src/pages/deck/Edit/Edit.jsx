@@ -33,22 +33,12 @@ function Edit (props) {
         variables: { id: props.match.params.id }
     });
 
-    !loading && console.log('\n', '\n', `singleDeck = `, deck, '\n', '\n');
-
     let parsedAltCard;
     let cardAlternateMap;
 
     if (!loading) {
         parsedAltCard = JSON.parse(deck.altCard);
         cardAlternateMap = buildCardAlternateMap(parsedAltCard);
-        console.log(
-            '\n',
-            '\n',
-            `cardAlternateMap = `,
-            cardAlternateMap,
-            '\n',
-            '\n'
-        );
     }
 
     if (loading) return <CircularProgress />;

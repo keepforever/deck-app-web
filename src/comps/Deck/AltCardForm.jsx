@@ -78,7 +78,7 @@ const AltCardFormModal = props => {
         update: (_, { data: { deckAltCard: deckAltCardData } }) => {
             // authContext.updateUserDecks(deckAltCardData);
             // authContext.addMessage(`Deck ${deckAltCardData.title} Alt List Added`);
-            console.log('\n', `UPDATE `, '\n');
+            // console.log('\n', `UPDATE `, '\n');
             setAltCard(null);
         },
         refetchQueries: [
@@ -87,7 +87,7 @@ const AltCardFormModal = props => {
             { query: ALL_DECKS_QUERY }
         ],
         onCompleted: data => {
-            console.log('\n', '\n', `onCompleted, data = `, data, '\n', '\n');
+            // console.log('\n', '\n', `onCompleted, data = `, data, '\n', '\n');
             onDialogClose();
         }
         // Video on updating the cache manually with update

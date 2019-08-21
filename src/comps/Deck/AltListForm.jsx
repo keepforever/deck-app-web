@@ -23,8 +23,8 @@ const AltListForm = props => {
         altList: ''
     });
 
-    console.log('\n', '\n', `props.id = `, props.id, '\n', '\n');
-    console.log('\n', '\n', `values = `, values, '\n', '\n');
+    // console.log('\n', '\n', `props.id = `, props.id, '\n', '\n');
+    // console.log('\n', '\n', `values = `, values, '\n', '\n');
     const [deckAltList, { loading, error }] = useMutation(DECK_ALT_LIST_MUTATION, {
         variables: {
             ...values,
@@ -40,7 +40,7 @@ const AltListForm = props => {
         // https://www.youtube.com/watch?v=lQ7t20gFR14
     });
 
-    console.log('\n', '\n', `error = `, error, '\n', '\n');
+    // console.log('\n', '\n', `error = `, error, '\n', '\n');
 
     const submitAddAltDeckList = () => {
         deckAltList();

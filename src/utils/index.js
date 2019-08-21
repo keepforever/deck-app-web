@@ -99,11 +99,11 @@ function buildAltCardObject (
     author,
     altCard
 ) {
-    console.log(`
-    #########################################################
-                    buildAltCardObject Function
-    #########################################################
-    `);
+    // console.log(`
+    // #########################################################
+    //                 buildAltCardObject Function
+    // #########################################################
+    // `);
 
     let altCardArray;
     if (altCard) {
@@ -120,15 +120,15 @@ function buildAltCardObject (
         replacementCardLookup
     };
 
-    console.log('\n', '\n', `altCardArray before = `, altCardArray, '\n', '\n');
+    // console.log('\n', '\n', `altCardArray before = `, altCardArray, '\n', '\n');
 
     altCardArray.push(altCardObj);
 
-    console.log('\n', '\n', `altCardArray, after = `, altCardArray, '\n', '\n');
-    console.log(`
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-        #########################################################
-        `);
+    // console.log('\n', '\n', `altCardArray, after = `, altCardArray, '\n', '\n');
+    // console.log(`
+    //     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    //     #########################################################
+    //     `);
     return [...altCardArray];
 }
 
@@ -166,7 +166,7 @@ function buildCardAlternateMap (parsedCardAlt = []) {
         }
     });
 
-    console.log('\n', '\n', `cardAltMap = `, cardAltMap, '\n', '\n');
+    // console.log('\n', '\n', `cardAltMap = `, cardAltMap, '\n', '\n');
     return cardAltMap;
 }
 

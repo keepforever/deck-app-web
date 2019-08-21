@@ -27,32 +27,21 @@ const PersistLogin = props => {
         console.log('\n', '\n', `useEffect, token = `, token, '\n', '\n');
         refreshTokenMutation();
     }, []);
-
-    const { loading: meLoading, data: meData } = useQuery(ME_QUERY, {
+    /* eslint-disable-next-line */
+    const { loading: meLoading /*, data */ } = useQuery(ME_QUERY, {
         onCompleted: data => {
             authContext.persistLogin({
-                user: { ...meData.me },
+                user: { ...data.me },
                 token: window.localStorage.getItem(
                     process.env.REACT_APP_AUTH_TOKEN_KEY
                 )
             });
             props.history.push('/home');
-            console.log(
-                '\n',
-                '\n',
-                `onCompleted ME_QUERY = `,
-                data,
-                '\n',
-                '\n'
-            );
         },
         onError: error => {
             console.log(
-                '\n',
-                '\n',
                 `PersistLogin.jsx, ME_QUERY error = `,
                 error,
-                '\n',
                 '\n'
             );
         },
