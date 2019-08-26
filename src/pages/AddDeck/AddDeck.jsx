@@ -58,12 +58,6 @@ const RegisterForm = props => {
     }, [values.list]);
 
     const [createDeck, { loading }] = useMutation(ADD_DECK_MUTATION, {
-        // variables: {
-        //     title: values.title.length ? values.title : 'you forgot a title',
-        //     list: isSideBoard ? mainBoardList : values.list,
-        //     sideBoardList: values.isSideBoard ? sideBoardList : null,
-        //     token: context.user ? context.user.token : ''
-        // },
         variables: {
             title: values.title,
             list: isSideBoard ? mainBoardList : values.list,
