@@ -228,7 +228,11 @@ function validateAddDeckList (list) {
     }
 
     let sideboardStartIndex = -1;
-    if (firstEmptyIndex > 0 && cards[firstEmptyIndex + 1].length) {
+    if (
+        firstEmptyIndex > 0 &&
+        cards[firstEmptyIndex + 1] &&
+        cards[firstEmptyIndex + 1].length
+    ) {
         console.log(
             '\n',
             `there is a sideboard starting at index ${firstEmptyIndex + 1}`,

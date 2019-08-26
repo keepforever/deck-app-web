@@ -61,7 +61,7 @@ const RegisterForm = props => {
         variables: {
             title: values.title,
             list: isSideBoard ? mainBoardList : values.list,
-            sideBoardList: isSideBoard ? 'true' : 'false'
+            sideBoardList: isSideBoard ? sideBoardList : ''
         },
         update: (_, { data: { createDeck: createDeckData } }) => {
             context.updateUserDecks(createDeckData);
