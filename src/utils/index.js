@@ -214,6 +214,43 @@ function buildAltCardItemsArray (
     return altCardArray;
 }
 
+function validateAddDeckList (list) {
+    let isSideBoard = false;
+
+    const cards = list.split('\n');
+
+    const firstEmptyIndex = cards.indexOf('');
+    console.log('\n', '\n', `firstEmptyIndex = `, firstEmptyIndex, '\n', '\n');
+
+    if (firstEmptyIndex === -1) {
+        console.log('\n', `true `, '\n');
+        return true;
+    }
+
+    let sideboardStartIndex = -1;
+    if (firstEmptyIndex > 0 && cards[firstEmptyIndex + 1].length) {
+        console.log(
+            '\n',
+            `there is a sideboard starting at index ${firstEmptyIndex + 1}`,
+            '\n'
+        );
+
+        sideboardStartIndex = firstEmptyIndex + 1;
+
+        const sideBoardArray = cards.splice(sideboardStartIndex, Infinity);
+
+        const mainBoardArray = cards.splice(0, sideboardStartIndex - 1);
+
+        return [
+            true,
+            JSON.stringify(sideBoardArray),
+            JSON.stringify(mainBoardArray)
+        ];
+    }
+
+    return [false, []];
+}
+
 export default {
     buildCardAlternateMap,
     rarityBorderColor,
@@ -225,5 +262,6 @@ export default {
     buildAltCardObject,
     comparator,
     getCardByDirectLookup,
-    buildAltCardItemsArray
+    buildAltCardItemsArray,
+    validateAddDeckList
 };

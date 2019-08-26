@@ -53,6 +53,7 @@ const DeckTable = props => {
         variables: { id: props.match.params.id },
         onCompleted: () => {
             let cardObjArray = [];
+            console.log('\n', '\n', `deck = `, deck, '\n', '\n');
             const cards = deck.list.split('\n');
             cards.forEach(card => {
                 console.log('\n', '\n', `card = `, card, '\n', '\n');

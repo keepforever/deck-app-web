@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 // apollo
 import { useMutation } from '@apollo/react-hooks';
 // material-ui
@@ -17,19 +17,57 @@ import ADD_DECK_MUTATION from '../../graphql/m/ADD_DECK_MUTATION';
 import ALL_USERS_QUERY from '../../graphql/q/ALL_USERS';
 import ALL_DECKS_QUERY from '../../graphql/q/ALL_DECKS_QUERY';
 
+const testingDeckList =
+    "3 Fblthp, the Lost (WAR) 50\n2 Manifold Key (M20) 230\n\n1 Manifold Key (M20) 230\n1 Grafdigger's Cage (M20) 227";
+
 const RegisterForm = props => {
     const { makeLauremString } = utils;
     const context = useContext(AuthContext);
     const classes = useAddDeckStyles();
+    const [mainBoardList, setMainBoardList] = useState('');
+    const [sideBoardList, setSideBoardList] = useState('');
+    const [isSideBoard, setIsSideBoard] = useState(false);
+
     const [values, handleChange, clearValues] = useForm({
-        title: 'From Client ' + makeLauremString(5),
-        list: ''
+        title: 'Title: ' + makeLauremString(5),
+        list: window.location.host.includes('localhost') ? testingDeckList : ''
     });
 
+    function submitCreateDeck () {
+        createDeck();
+        clearValues();
+    }
+
+    function preprocessSubmission () {
+        const validateReturnArray = utils.validateAddDeckList(values.list);
+        if (validateReturnArray[0]) {
+            console.log('\n', `there is a sideboard! `, '\n');
+            setIsSideBoard(validateReturnArray[0]);
+            setSideBoardList(validateReturnArray[1]);
+            setMainBoardList(validateReturnArray[2]);
+        } else {
+            console.log('\n', `there is no sideboard `, '\n');
+            setIsSideBoard(false);
+            setSideBoardList('');
+            setMainBoardList('');
+        }
+    }
+
+    useEffect(() => {
+        preprocessSubmission();
+    }, [values.list]);
+
     const [createDeck, { loading }] = useMutation(ADD_DECK_MUTATION, {
+        // variables: {
+        //     title: values.title.length ? values.title : 'you forgot a title',
+        //     list: isSideBoard ? mainBoardList : values.list,
+        //     sideBoardList: values.isSideBoard ? sideBoardList : null,
+        //     token: context.user ? context.user.token : ''
+        // },
         variables: {
-            ...values,
-            token: context.user ? context.user.token : ''
+            title: values.title,
+            list: isSideBoard ? mainBoardList : values.list,
+            sideBoardList: isSideBoard ? 'true' : 'false'
         },
         update: (_, { data: { createDeck: createDeckData } }) => {
             context.updateUserDecks(createDeckData);
@@ -44,10 +82,10 @@ const RegisterForm = props => {
         // https://www.youtube.com/watch?v=lQ7t20gFR14
     });
 
-    const submitCreateDeck = () => {
-        createDeck();
-        clearValues();
-    };
+    console.log('\n', '\n', `values = `, values.list, '\n', '\n');
+    console.log('\n', '\n', `mainBoardList = `, mainBoardList, '\n', '\n');
+    console.log('\n', '\n', ` sideBoardList= `, sideBoardList, '\n', '\n');
+    console.log('\n', '\n', ` isSideBoard= `, isSideBoard, '\n', '\n');
 
     return (
         <div
@@ -96,7 +134,9 @@ const RegisterForm = props => {
                             id="list"
                             name="list"
                             value={values.list}
-                            onChange={handleChange}
+                            onChange={e => {
+                                handleChange(e);
+                            }}
                         />
                     </Grid>
                     <Grid item>
@@ -104,7 +144,9 @@ const RegisterForm = props => {
                             variant="outlined"
                             className={classes.loginButton}
                             fullWidth
-                            onClick={() => submitCreateDeck()}
+                            onClick={() => {
+                                submitCreateDeck();
+                            }}
                         >
                             Submit New Deck
                         </Button>

@@ -18,6 +18,7 @@ const authLink = setContext((_, { headers }) => {
     // get the authentication token from local storage if it exists
     const token =
         localStorage.getItem(process.env.REACT_APP_AUTH_TOKEN_KEY) || '';
+    console.log('\n', '\n', `token = `, token, '\n', '\n');
     // return the headers to the context so httpLink can read them
     return {
         headers: {
@@ -36,9 +37,7 @@ const errorLink = onError(({ graphQLErrors, networkError, operation }) => {
 
     if (networkError) {
         console.log(
-            `[Network error ${operation.operationName}]: ${
-                networkError.message
-            }`
+            `[Network error ${operation.operationName}]: ${networkError.message}`
         );
     }
 });

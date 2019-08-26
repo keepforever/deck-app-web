@@ -18,7 +18,6 @@ const CommunityDeckList = props => {
     // console.log('\n', '\n', `ComunityDeckList, props = `, props, '\n', '\n');
     return (
         <div>
-            <h3>Hello CommunityDeckList</h3>
             <DeckList decks={decks} />
         </div>
     );
