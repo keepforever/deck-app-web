@@ -48,6 +48,29 @@ const CardDetails = props => {
                     })}
                 </Grid>
             )}
+            {deck && deck.sideBoardList && deck.sideBoardList.length && (
+                <h2>Side Board</h2>
+            )}
+            {deck && deck.sideBoardList && deck.sideBoardList.length && (
+                <Grid
+                    container
+                    style={{
+                        padding: 0,
+                        margin: 0,
+                        maxWidth: 'calc(100vw - 32px)'
+                    }}
+                    spacing={4}
+                >
+                    {deck.sideBoardList.split('\n').map(card => {
+                        const finalCard = getCard(card, cardContext);
+                        return (
+                            <Grid item key={finalCard.name}>
+                                <CardItem {...finalCard} />
+                            </Grid>
+                        );
+                    })}
+                </Grid>
+            )}
         </>
     );
 };

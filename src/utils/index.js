@@ -220,10 +220,8 @@ function validateAddDeckList (list) {
     const cards = list.split('\n');
 
     const firstEmptyIndex = cards.indexOf('');
-    console.log('\n', '\n', `firstEmptyIndex = `, firstEmptyIndex, '\n', '\n');
 
     if (firstEmptyIndex === -1) {
-        console.log('\n', `true `, '\n');
         return true;
     }
 
@@ -233,11 +231,7 @@ function validateAddDeckList (list) {
         cards[firstEmptyIndex + 1] &&
         cards[firstEmptyIndex + 1].length
     ) {
-        console.log(
-            '\n',
-            `there is a sideboard starting at index ${firstEmptyIndex + 1}`,
-            '\n'
-        );
+        isSideBoard = true;
 
         sideboardStartIndex = firstEmptyIndex + 1;
 
@@ -246,9 +240,11 @@ function validateAddDeckList (list) {
         const mainBoardArray = cards.splice(0, sideboardStartIndex - 1);
 
         return [
-            true,
-            JSON.stringify(sideBoardArray),
-            JSON.stringify(mainBoardArray)
+            isSideBoard,
+            // JSON.stringify(sideBoardArray),
+            // JSON.stringify(mainBoardArray)
+            sideBoardArray.join('\n'),
+            mainBoardArray.join('\n')
         ];
     }
 
