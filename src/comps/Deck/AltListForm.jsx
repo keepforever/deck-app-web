@@ -23,24 +23,21 @@ const AltListForm = props => {
         altList: ''
     });
 
-    // console.log('\n', '\n', `props.id = `, props.id, '\n', '\n');
-    // console.log('\n', '\n', `values = `, values, '\n', '\n');
-    const [deckAltList, { loading, error }] = useMutation(DECK_ALT_LIST_MUTATION, {
+    const [deckAltList, { loading }] = useMutation(DECK_ALT_LIST_MUTATION, {
         variables: {
             ...values,
             id: props.id
         },
-        update: (_, {data: { deckAltList: deckAltListData }}) => {
+        update: (_, { data: { deckAltList: deckAltListData } }) => {
             context.updateUserDecks(deckAltListData);
             context.addMessage(`Deck ${deckAltListData.title} Alt List Added`);
         },
-        /* eslint-disable-next-line */
-        refetchQueries: [{query: ALL_USERS_QUERY /* variables: {...} */}, {query: ALL_DECKS_QUERY}]
-        // Video on updating the cache manually with update
-        // https://www.youtube.com/watch?v=lQ7t20gFR14
+        refetchQueries: [
+            /* eslint-disable-next-line */
+            { query: ALL_USERS_QUERY /* variables: {...} */ },
+            { query: ALL_DECKS_QUERY }
+        ]
     });
-
-    // console.log('\n', '\n', `error = `, error, '\n', '\n');
 
     const submitAddAltDeckList = () => {
         deckAltList();
