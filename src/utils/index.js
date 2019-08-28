@@ -193,17 +193,7 @@ function buildAltCardItemsArray (
     if (!altCardKeys.length) return altCardArray;
 
     altCardKeys.forEach(key => {
-        console.log('\n', '\n', `key = `, key, '\n', '\n');
-        console.log(
-            '\n',
-            '\n',
-            `originalCardLookup = `,
-            originalCardLookup,
-            '\n',
-            '\n'
-        );
         if (key === originalCardLookup) {
-            console.log('\n', '\n', `YATZEE!`, '\n', '\n');
             const tempArray = cardAlternateMap[key];
             tempArray.forEach(a => {
                 altCardArray.push(newCardDict[a]);
@@ -251,6 +241,16 @@ function validateAddDeckList (list) {
     return [false, []];
 }
 
+function combineMainAndSideboard (deck) {
+    let side = [];
+    const main = deck.list.split('\n');
+    if (deck.sideBoardList) {
+        side = deck.sideBoardList.split('\n');
+    }
+
+    return [...main, ...side];
+}
+
 export default {
     buildCardAlternateMap,
     rarityBorderColor,
@@ -263,5 +263,6 @@ export default {
     comparator,
     getCardByDirectLookup,
     buildAltCardItemsArray,
-    validateAddDeckList
+    validateAddDeckList,
+    combineMainAndSideboard
 };

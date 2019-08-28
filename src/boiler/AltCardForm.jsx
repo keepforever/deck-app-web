@@ -31,8 +31,7 @@ const AltCardFormModal = props => {
         getCardLookup,
         buildAltCardObject,
         getCardByDirectLookup,
-        buildAltCardItemsArray,
-        combineMainAndSideboard
+        buildAltCardItemsArray
     } = utils;
 
     // useContext
@@ -83,6 +82,9 @@ const AltCardFormModal = props => {
             id: props.id
         },
         update: (_, { data: { deckAltCard: deckAltCardData } }) => {
+            // authContext.updateUserDecks(deckAltCardData);
+            // authContext.addMessage(`Deck ${deckAltCardData.title} Alt List Added`);
+            // console.log('\n', `UPDATE `, '\n');
             setAltCard(null);
         },
         refetchQueries: [
@@ -91,18 +93,16 @@ const AltCardFormModal = props => {
             { query: ALL_DECKS_QUERY }
         ],
         onCompleted: data => {
+            // console.log('\n', '\n', `onCompleted, data = `, data, '\n', '\n');
             onDialogClose();
         }
+        // Video on updating the cache manually with update
+        // https://www.youtube.com/watch?v=lQ7t20gFR14
     });
-
-    const mainAndSide = combineMainAndSideboard(props.deck);
-
-    console.log('\n', '\n', `mainAndSide = `, mainAndSide, '\n', '\n');
-    console.log('\n', '\n', `props.deck = `, props.deck, '\n', '\n');
 
     return (
         <Fragment>
-            {mainAndSide.map((card, index) => {
+            {props.deck.list.split('\n').map((card, index) => {
                 const originalCard = getCard(card, cardContext);
                 const altCardsArray = buildAltCardItemsArray(
                     originalCard.lookup === 'missing'
