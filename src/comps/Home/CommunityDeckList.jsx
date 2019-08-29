@@ -10,6 +10,7 @@ const CommunityDeckList = props => {
     const {
         loading,
         data: { feedDecks: decks }
+        // fetchMore
     } = useQuery(ALL_DECKS_QUERY);
     // console.log('\n', '\n', `CommunityDecksList, decks = `, decks, '\n', '\n');
 
