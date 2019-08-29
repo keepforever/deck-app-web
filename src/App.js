@@ -2,6 +2,8 @@ import React from 'react';
 import './App.css';
 import { Route, Redirect, Switch, withRouter } from 'react-router-dom';
 // locals
+import { AuthRoute } from './comps/AuthRoute';
+
 import Layout from './comps/Layout';
 import Home from './pages/Home';
 import PersistLogin from './pages/PersistLogin';
@@ -39,21 +41,27 @@ function App (props) {
                             }}
                         />
                         <Route exact path="/persist" component={PersistLogin} />
-                        <Route exact path="/home" component={Home} />
-                        <Route exact path="/add" component={AddDeck} />
+                        <AuthRoute exact path="/home" component={Home} />
+                        {/* <Route exact path="/add" component={AddDeck} /> */}
+                        <AuthRoute exact path="/add" component={AddDeck} />
+
                         <Route exact path="/login" component={Login} />
                         <Route exact path="/register" component={Register} />
-                        <Route
+                        <AuthRoute
                             exact
                             path="/deck/:id/summary"
                             component={Summary}
                         />
-                        <Route
+                        <AuthRoute
                             exact
                             path="/deck/:id/card-details"
                             component={CardDetails}
                         />
-                        <Route exact path="/deck/:id/edit" component={Edit} />
+                        <AuthRoute
+                            exact
+                            path="/deck/:id/edit"
+                            component={Edit}
+                        />
                     </Switch>
                 </Layout>
             </CardProvider>
