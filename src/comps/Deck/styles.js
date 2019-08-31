@@ -1,4 +1,13 @@
 import { makeStyles } from '@material-ui/styles';
+import styled from 'styled-components';
+
+export const Container = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    max-width: 870px;
+    margin: auto;
+`;
 
 export const useAltListFormStyles = makeStyles(theme => ({
     container: {
@@ -92,11 +101,15 @@ export const deckNavStyles = theme => ({
 
 export const deckCardStyles = theme => ({
     card: {
-        marginTop: '30px',
-        maxWidth: 400,
-        background: 'grey'
+        marginTop: '30px'
     },
     content: {
         marginTop: theme.spacing(1)
+    },
+    centerItemContent: {
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center'
     }
 });

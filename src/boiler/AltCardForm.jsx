@@ -93,15 +93,18 @@ const AltCardFormModal = props => {
             { query: ALL_DECKS_QUERY }
         ],
         onCompleted: data => {
-            // console.log('\n', '\n', `onCompleted, data = `, data, '\n', '\n');
             onDialogClose();
         }
-        // Video on updating the cache manually with update
-        // https://www.youtube.com/watch?v=lQ7t20gFR14
     });
 
     return (
         <Fragment>
+            {loading && (
+                <Grid container spacing={1} className={classes.container}>
+                    <CircularProgress />
+                </Grid>
+            )}
+
             {props.deck.list.split('\n').map((card, index) => {
                 const originalCard = getCard(card, cardContext);
                 const altCardsArray = buildAltCardItemsArray(
@@ -123,11 +126,6 @@ const AltCardFormModal = props => {
                     />
                 );
             })}
-            {loading && (
-                <Grid container spacing={1} className={classes.container}>
-                    <CircularProgress />
-                </Grid>
-            )}
 
             {/* DIALOG JSX */}
 

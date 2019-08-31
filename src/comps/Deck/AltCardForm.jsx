@@ -17,7 +17,7 @@ import CardItem from './CardItem';
 import AltCardSearch from './AltCardSearch';
 import { CardContext } from '../../context/card';
 import { AuthContext } from '../../context/auth';
-import { useAltCardFormStyles } from './styles';
+import { useAltCardFormStyles, Container } from './styles';
 import utils from '../../utils';
 // graphql
 import DECK_ALT_CARD_MUTATION from '../../graphql/m/DECK_ALT_CARD_MUTATION';
@@ -101,7 +101,12 @@ const AltCardFormModal = props => {
     console.log('\n', '\n', `props.deck = `, props.deck, '\n', '\n');
 
     return (
-        <Fragment>
+        <Container>
+            {loading && (
+                <Grid container spacing={1} className={classes.container}>
+                    <CircularProgress />
+                </Grid>
+            )}
             {mainAndSide.map((card, index) => {
                 const originalCard = getCard(card, cardContext);
                 const altCardsArray = buildAltCardItemsArray(
@@ -123,11 +128,6 @@ const AltCardFormModal = props => {
                     />
                 );
             })}
-            {loading && (
-                <Grid container spacing={1} className={classes.container}>
-                    <CircularProgress />
-                </Grid>
-            )}
 
             {/* DIALOG JSX */}
 
@@ -224,7 +224,7 @@ const AltCardFormModal = props => {
                     </DialogActions>
                 </Dialog>
             )}
-        </Fragment>
+        </Container>
     );
 };
 

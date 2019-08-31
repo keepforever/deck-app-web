@@ -3,7 +3,8 @@ import React, { useContext, useState, useEffect } from 'react';
 import { useMutation } from '@apollo/react-hooks';
 // material-ui
 import TextField from '@material-ui/core/TextField';
-import Typography from '@material-ui/core/Typography';
+import Paper from '@material-ui/core/Paper';
+// import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -75,59 +76,64 @@ const RegisterForm = props => {
 
     return (
         <Container>
-            {loading && (
-                <Grid container spacing={1} className={classes.container}>
-                    <CircularProgress />
-                </Grid>
-            )}
+            <Paper className={classes.paper}>
+                {loading && (
+                    <Grid container spacing={1} className={classes.container}>
+                        <CircularProgress />
+                    </Grid>
+                )}
 
-            {!loading && (
-                <Grid
-                    container
-                    justify="center"
-                    spacing={2}
-                    className={classes.container}
-                >
-                    <Grid item justify="center">
-                        <GenericPlacard title="Add Deck List" varient="h4" />
+                {!loading && (
+                    <Grid
+                        container
+                        justify="center"
+                        spacing={2}
+                        className={classes.container}
+                    >
+                        <Grid item>
+                            <GenericPlacard
+                                title="Add Deck List"
+                                varient="h5"
+                            />
+                        </Grid>
+                        <Grid item>
+                            <TextField
+                                name="title"
+                                id="title"
+                                label="Title"
+                                value={values.title}
+                                fullWidth
+                                onChange={handleChange}
+                            />
+                        </Grid>
+                        <Grid item>
+                            <TextField
+                                multiline
+                                fullWidth
+                                label="Deck List"
+                                id="list"
+                                name="list"
+                                value={values.list}
+                                onChange={e => {
+                                    handleChange(e);
+                                }}
+                            />
+                        </Grid>
+                        <Grid item>
+                            <Button
+                                variant="outlined"
+                                className={classes.loginButton}
+                                fullWidth
+                                onClick={() => {
+                                    submitCreateDeck();
+                                }}
+                            >
+                                Submit New Deck
+                            </Button>
+                        </Grid>
                     </Grid>
-                    <Grid item>
-                        <TextField
-                            name="title"
-                            id="title"
-                            label="Title"
-                            value={values.title}
-                            fullWidth
-                            onChange={handleChange}
-                        />
-                    </Grid>
-                    <Grid item>
-                        <TextField
-                            multiline
-                            fullWidth
-                            label="Deck List"
-                            id="list"
-                            name="list"
-                            value={values.list}
-                            onChange={e => {
-                                handleChange(e);
-                            }}
-                        />
-                    </Grid>
-                    <Grid item>
-                        <Button
-                            variant="outlined"
-                            className={classes.loginButton}
-                            fullWidth
-                            onClick={() => {
-                                submitCreateDeck();
-                            }}
-                        >
-                            Submit New Deck
-                        </Button>
-                    </Grid>
-                </Grid>
-            )}
+                )}
+            </Paper>
         </Container>
     );
 };

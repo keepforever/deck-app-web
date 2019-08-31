@@ -5,10 +5,10 @@ import Grid from '@material-ui/core/Grid';
 import CircularProgress from '@material-ui/core/CircularProgress';
 // locals
 import DeckNav from '../../../comps/Deck/DeckNav';
+import { Container } from './styled';
 // import { AuthContext } from '../../../context/auth';
 // import { CardContext } from '../../../context/card';
 import DeckCard from '../../../comps/Deck/DeckCard';
-import AltListForm from '../../../comps/Deck/AltListForm';
 import AltCardForm from '../../../comps/Deck/AltCardForm';
 // graphql
 import DECK_SINGLE_QUERY from '../../../graphql/q/DECK_SINGLE_QUERY';
@@ -17,15 +17,6 @@ import utils from '../../../utils';
 
 function Edit (props) {
     const { buildCardAlternateMap } = utils;
-    // const authContext = useContext(AuthContext);
-    // const cardContext = useContext(CardContext);
-
-    // const deck =
-    //     authContext.user &&
-    //     authContext.user.decks.filter(d => {
-    //         return d.id === props.match.params.id;
-    //     })[0];
-
     const {
         loading,
         data: { singleDeck: deck }
@@ -44,13 +35,14 @@ function Edit (props) {
     if (loading) return <CircularProgress />;
 
     return (
-        <div id="fartinmymouth">
+        <>
             <DeckNav {...props} />
-            <DeckCard {...deck} />
-            <Grid container justify="center" spacing={1}>
-                <Grid item>{deck && <AltListForm id={deck.id} />}</Grid>
-                <Grid item>
-                    <div style={{ maxWidth: 400 }}>
+            <Container>
+                <Grid container justify="center" spacing={1}>
+                    <Grid item xs={12} sm={12} md={12}>
+                        <DeckCard {...deck} />
+                    </Grid>
+                    <Grid item xs={12} sm={12} md={12}>
                         {deck && (
                             <AltCardForm
                                 cardAlternateMap={cardAlternateMap}
@@ -58,10 +50,10 @@ function Edit (props) {
                                 deck={deck}
                             />
                         )}
-                    </div>
+                    </Grid>
                 </Grid>
-            </Grid>
-        </div>
+            </Container>
+        </>
     );
 }
 

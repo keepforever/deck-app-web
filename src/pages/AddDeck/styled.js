@@ -9,12 +9,16 @@ export const Container = styled.div`
 
 export const useAddDeckStyles = makeStyles(theme => ({
     container: {
+        minWidth: '360px',
         maxWidth: '600px',
-        padding: '40px',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'stretch',
         justifyContent: 'center'
+    },
+    paper: {
+        padding: 30,
+        marginTop: 30
     },
     headingContainer: {
         display: 'flex',
