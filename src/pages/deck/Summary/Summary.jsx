@@ -53,7 +53,7 @@ const DeckTable = props => {
     } = useQuery(DECK_SINGLE_QUERY, {
         variables: { id: props.match.params.id },
         onCompleted: () => {
-            console.log('\n', '\n', `deck = `, deck, '\n', '\n');
+            // console.log('\n', '\n', `deck = `, deck, '\n', '\n');
             let cardObjArray = [];
             let sideCardObjArray = [];
             const cards = deck.list.split('\n');
@@ -84,9 +84,9 @@ const DeckTable = props => {
 
     if (loading || !cardRows.length) return <CircularProgress />;
 
-    console.log('\n', '\n', `cardRows = `, cardRows, '\n', '\n');
+    // console.log('\n', '\n', `cardRows = `, cardRows, '\n', '\n');
 
-    console.log('\n', '\n', `sideCardRows = `, sideCardRows, '\n', '\n');
+    // console.log('\n', '\n', `sideCardRows = `, sideCardRows, '\n', '\n');
 
     return (
         <>

@@ -177,7 +177,7 @@ function buildCardAlternateMap (parsedCardAlt = []) {
             }
         });
 
-    console.log('\n', '\n', `cardAltMap = `, cardAltMap, '\n', '\n');
+    // console.log('\n', '\n', `cardAltMap = `, cardAltMap, '\n', '\n');
     return cardAltMap;
 }
 
