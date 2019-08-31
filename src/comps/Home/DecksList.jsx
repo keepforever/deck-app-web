@@ -12,21 +12,19 @@ import Paper from '@material-ui/core/Paper';
 
 const useStyles = makeStyles(theme => ({
     list: {
-        height: 300
+        height: null
     },
     paper: {
-        margin: 15
+        margin: 0
     }
 }));
 
-export default function ScrollingLists ({ decks }) {
+export default function DecksList ({ decks }) {
     const classes = useStyles();
     const [items] = useState([...decks]);
 
     const rowRenderer = ({ index, isScrolling, key, style }) => {
-        console.log('\n', '\n', `isScrolling = `, isScrolling, '\n', '\n');
         const item = items[index];
-        console.log('\n', '\n', `item = `, item, '\n', '\n');
         return (
             <ListItem button key={key} style={style}>
                 <ListItemText

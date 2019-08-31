@@ -1,12 +1,13 @@
 import React, { useContext } from 'react';
 import { Redirect } from 'react-router-dom';
-// locals
-import UserPlacard from '../../comps/Home/UserPlacard';
-import { Container } from './styled';
+// context
 import { AuthContext } from '../../context/auth';
+// locals
+import { Container } from './styled';
+import UserPlacard from '../../comps/Home/UserPlacard';
 import DecksList from '../../comps/Home/DecksList';
-import Typography from '@material-ui/core/Typography';
 import CommunityDeckList from '../../comps/Home/CommunityDeckList';
+import GenericPlacard from '../../comps/GenericPlacard';
 
 const Home = props => {
     const authContext = useContext(AuthContext);
@@ -22,13 +23,14 @@ const Home = props => {
             <UserPlacard name={name} handle={arenaHandle} />
             {!!decks.length && (
                 <div>
-                    <Typography variant="h3">You're Decks</Typography>
+                    <GenericPlacard title="Your Decks" />
                     <DecksList decks={authContext.user.decks} />
                 </div>
             )}
 
-            <h4>Community Decks</h4>
+            <GenericPlacard title="Community Decks" />
             <CommunityDeckList history={props.history} />
+            <br />
         </Container>
     );
 };

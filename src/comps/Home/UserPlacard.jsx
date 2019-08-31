@@ -5,14 +5,13 @@ import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 const styles = theme => ({
     card: {
-        maxWidth: 750,
-        margin: '30px 0px'
+        margin: '15px 0px'
     },
     content: {
         marginTop: theme.spacing(1)
     }
 });
-const MainContent = withStyles(styles)(({ classes, name, handle }) => (
+const UserPlacard = withStyles(styles)(({ classes, name, handle }) => (
     <Card className={classes.card}>
         <CardContent>
             <Typography variant="h3">Welcome, {name}</Typography>
@@ -23,4 +22,4 @@ const MainContent = withStyles(styles)(({ classes, name, handle }) => (
         </CardContent>
     </Card>
 ));
-export default MainContent;
+export default UserPlacard;
