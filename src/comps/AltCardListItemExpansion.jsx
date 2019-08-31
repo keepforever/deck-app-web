@@ -48,15 +48,23 @@ export default function AltCardListItemExpansion (props) {
                 </Grid>
             </ExpansionPanelSummary>
             <ExpansionPanelDetails className={classes.panelDetails}>
-                {!!altCards.length &&
-                    altCards.map(c => {
-                        return <CardItem key={c.lookup} {...c} />;
-                    })}
-                {!altCards.length && (
-                    <Typography variant="h5">
-                        No Alternative Cards Have Been Submitted
-                    </Typography>
-                )}
+                <Grid container spacing={4}>
+                    {!!altCards.length &&
+                        altCards.map(c => {
+                            return (
+                                <Grid item key={c.lookup}>
+                                    <CardItem {...c} />
+                                </Grid>
+                            );
+                        })}
+                    {!altCards.length && (
+                        <Grid item>
+                            <Typography variant="h5">
+                                No Alternative Cards Have Been Submitted
+                            </Typography>
+                        </Grid>
+                    )}
+                </Grid>
             </ExpansionPanelDetails>
         </ExpansionPanel>
     );
