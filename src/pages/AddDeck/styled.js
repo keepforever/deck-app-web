@@ -1,4 +1,11 @@
+import styled from 'styled-components';
 import { makeStyles } from '@material-ui/styles';
+
+export const Container = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+`;
 
 export const useAddDeckStyles = makeStyles(theme => ({
     container: {

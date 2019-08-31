@@ -13,11 +13,13 @@ const styles = theme => ({
         margin: '15px 0px'
     }
 });
-const GenericPlacard = withStyles(styles)(({ classes, title }) => (
-    <Card className={classes.card}>
-        <CardContent>
-            <Typography variant="h3">{title}</Typography>
-        </CardContent>
-    </Card>
-));
+const GenericPlacard = withStyles(styles)(
+    ({ classes, title, varient = 'h3' }) => (
+        <Card className={classes.card}>
+            <CardContent>
+                <Typography variant={varient}>{title}</Typography>
+            </CardContent>
+        </Card>
+    )
+);
 export default GenericPlacard;

@@ -8,9 +8,10 @@ import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 // locals
+import GenericPlacard from '../../comps/GenericPlacard';
 import { AuthContext } from '../../context/auth';
 import { useForm } from '../../hooks/useForm';
-import { useAddDeckStyles } from './styled';
+import { useAddDeckStyles, Container } from './styled';
 import utils from '../../utils';
 // graphql
 import ADD_DECK_MUTATION from '../../graphql/m/ADD_DECK_MUTATION';
@@ -38,15 +39,13 @@ const RegisterForm = props => {
         clearValues();
     }
 
-    function preprocessSubmission () {
+    function preProcessSubmission () {
         const validateReturnArray = utils.validateAddDeckList(values.list);
         if (validateReturnArray[0]) {
-            console.log('\n', `there is a sideboard! `, '\n');
             setIsSideBoard(validateReturnArray[0]);
             setSideBoardList(validateReturnArray[1]);
             setMainBoardList(validateReturnArray[2]);
         } else {
-            console.log('\n', `there is no sideboard `, '\n');
             setIsSideBoard(false);
             setSideBoardList('');
             setMainBoardList('');
@@ -54,7 +53,7 @@ const RegisterForm = props => {
     }
 
     useEffect(() => {
-        preprocessSubmission();
+        preProcessSubmission();
     }, [values.list]);
 
     const [createDeck, { loading }] = useMutation(ADD_DECK_MUTATION, {
@@ -72,23 +71,10 @@ const RegisterForm = props => {
             { query: ALL_USERS_QUERY /* variables: {...} */ },
             { query: ALL_DECKS_QUERY }
         ]
-        // Video on updating the cache manually with update
-        // https://www.youtube.com/watch?v=lQ7t20gFR14
     });
 
-    console.log('\n', '\n', `values = `, values.list, '\n', '\n');
-    console.log('\n', '\n', `mainBoardList = `, mainBoardList, '\n', '\n');
-    console.log('\n', '\n', ` sideBoardList= `, sideBoardList, '\n', '\n');
-    console.log('\n', '\n', ` isSideBoard= `, isSideBoard, '\n', '\n');
-
     return (
-        <div
-            style={{
-                display: 'flex',
-                flexDirection: 'row',
-                justifyContent: 'center'
-            }}
-        >
+        <Container>
             {loading && (
                 <Grid container spacing={1} className={classes.container}>
                     <CircularProgress />
@@ -102,13 +88,8 @@ const RegisterForm = props => {
                     spacing={2}
                     className={classes.container}
                 >
-                    <Grid container justify="center" item>
-                        <Typography variant="h5">
-                            {loading ? 'Loading...' : '☮️'}
-                        </Typography>
-                    </Grid>
-                    <Grid container justify="center">
-                        <Typography variant="h5">Add Deck Form</Typography>
+                    <Grid item justify="center">
+                        <GenericPlacard title="Add Deck List" varient="h4" />
                     </Grid>
                     <Grid item>
                         <TextField
@@ -147,7 +128,7 @@ const RegisterForm = props => {
                     </Grid>
                 </Grid>
             )}
-        </div>
+        </Container>
     );
 };
 
