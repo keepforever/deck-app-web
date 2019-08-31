@@ -6,7 +6,8 @@ const { rarityBorderColor } = utils;
 
 const CardContainer = styled.div`
     box-sizing: border-box;
-    border: ${({ rarity }) => `2px solid ${rarityBorderColor(rarity)}`};
+    border: ${({ rarity }) => `3px solid ${rarityBorderColor(rarity)}`};
+    border-radius: 10px;
     padding: 5px;
     background: black;
     min-height: 352px;
@@ -49,6 +50,8 @@ const Text = styled.div`
 
 const CardItem = props => {
     const { name, text, type_line, layout } = props;
+
+    console.log('\n', '\n', `layout = `, layout, '\n', '\n');
 
     if (props.isUnknown) {
         return (

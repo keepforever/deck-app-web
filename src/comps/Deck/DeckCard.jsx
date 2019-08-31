@@ -11,12 +11,17 @@ import PersonIcon from '@material-ui/icons/Person';
 import { deckCardStyles } from './styles';
 
 const DeckCard = ({
+    maxWidth = null,
     classes,
     title = '',
     author: { arenaHandle = '' } = ''
 }) => {
     return (
-        <>
+        <div
+            style={{
+                maxWidth: `${maxWidth ? `${maxWidth}px` : null}`
+            }}
+        >
             {title && (
                 <Card className={classes.card}>
                     <CardContent>
@@ -48,7 +53,7 @@ const DeckCard = ({
                     </CardContent>
                 </Card>
             )}
-        </>
+        </div>
     );
 };
 

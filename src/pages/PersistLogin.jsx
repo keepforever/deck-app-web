@@ -21,10 +21,10 @@ const PersistLogin = props => {
 
     // REFRESH TOKEN USE EFFECT
     useEffect(() => {
-        const token = window.localStorage.getItem(
-            process.env.REACT_APP_AUTH_TOKEN_KEY
-        );
-        console.log('\n', '\n', `useEffect, token = `, token, '\n', '\n');
+        // const token = window.localStorage.getItem(
+        //     process.env.REACT_APP_AUTH_TOKEN_KEY
+        // );
+        // console.log('\n', '\n', `useEffect, token = `, token, '\n', '\n');
         refreshTokenMutation();
     }, []);
     /* eslint-disable-next-line */
@@ -40,11 +40,7 @@ const PersistLogin = props => {
             props.history.push('/home');
         },
         onError: error => {
-            console.log(
-                `PersistLogin.jsx, ME_QUERY error = `,
-                error,
-                '\n'
-            );
+            console.log(`PersistLogin.jsx, ME_QUERY error = `, error, '\n');
         },
         fetchPolicy: 'cache-and-network'
     });

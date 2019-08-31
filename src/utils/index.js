@@ -2,14 +2,14 @@ import uuid from 'uuid';
 
 function rarityBorderColor (str) {
     switch (str) {
-        case 'M':
+        case 'mythic':
+            return 'red';
+        case 'rare':
             return 'orange';
-        case 'R':
+        case 'uncommon':
             return 'yellow';
-        case 'U':
-            return 'blue';
-        case 'C':
-            return 'white';
+        case 'common':
+            return '#49fb35';
         default:
             return 'white';
     }

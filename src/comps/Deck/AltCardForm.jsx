@@ -97,9 +97,6 @@ const AltCardFormModal = props => {
 
     const mainAndSide = combineMainAndSideboard(props.deck);
 
-    console.log('\n', '\n', `mainAndSide = `, mainAndSide, '\n', '\n');
-    console.log('\n', '\n', `props.deck = `, props.deck, '\n', '\n');
-
     return (
         <Container>
             {loading && (
