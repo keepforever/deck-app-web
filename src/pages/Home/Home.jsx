@@ -1,9 +1,11 @@
 import React, { useContext } from 'react';
 import { Redirect } from 'react-router-dom';
 // locals
+import UserPlacard from '../../comps/Home/UserPlacard';
 import { Container } from './styled';
 import { AuthContext } from '../../context/auth';
 import DecksList from '../../comps/Home/DecksList';
+import Typography from '@material-ui/core/Typography';
 import CommunityDeckList from '../../comps/Home/CommunityDeckList';
 
 const Home = props => {
@@ -17,12 +19,10 @@ const Home = props => {
 
     return (
         <Container>
-            <h1>Welcome {name}</h1>
-            <h4>Handle: {arenaHandle}</h4>
-
+            <UserPlacard name={name} handle={arenaHandle} />
             {!!decks.length && (
                 <div>
-                    <h4>You're Decks</h4>
+                    <Typography variant="h3">You're Decks</Typography>
                     <DecksList decks={authContext.user.decks} />
                 </div>
             )}

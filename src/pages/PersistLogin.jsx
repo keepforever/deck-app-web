@@ -30,6 +30,7 @@ const PersistLogin = props => {
     /* eslint-disable-next-line */
     const { loading: meLoading /*, data */ } = useQuery(ME_QUERY, {
         onCompleted: data => {
+            console.log('\n', '\n', `data = `, data, '\n', '\n');
             authContext.persistLogin({
                 user: { ...data.me },
                 token: window.localStorage.getItem(
