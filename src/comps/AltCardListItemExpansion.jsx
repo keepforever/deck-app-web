@@ -1,4 +1,5 @@
 import React from 'react';
+import uuid from 'uuid';
 // material-ui
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
@@ -52,7 +53,7 @@ export default function AltCardListItemExpansion (props) {
                     {!!altCards.length &&
                         altCards.map(c => {
                             return (
-                                <Grid item key={c.lookup}>
+                                <Grid item key={uuid.v4()}>
                                     <CardItem {...c} />
                                 </Grid>
                             );

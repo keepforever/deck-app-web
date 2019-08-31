@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import uuid from 'uuid';
 import styled from 'styled-components';
 import utils from '../../utils';
 import Button from '@material-ui/core/Button';
@@ -110,8 +111,11 @@ const CardItem = props => {
                     ) => {
                         return (
                             <CardContainerTransform
-                                key={transformName}
-                                show={cardFaceToShow === index}
+                                key={uuid.v4()}
+                                style={{
+                                    display:
+                                        cardFaceToShow === index ? null : 'none'
+                                }}
                                 {...props}
                             >
                                 <Name>{transformName}</Name>
@@ -164,7 +168,6 @@ const CardItem = props => {
     // },
 
     if (layout === 'split') {
-        console.log('\n', '\n', `hello split = `, '\n', '\n');
         return (
             <>
                 {props.card_faces.map(
@@ -176,16 +179,9 @@ const CardItem = props => {
                         },
                         index
                     ) => {
-                        console.log(
-                            '\n',
-                            '\n',
-                            `cardFaceToShow === index = `,
-                            cardFaceToShow === index,
-                            '\n',
-                            '\n'
-                        );
                         return (
                             <CardContainerSplit
+                                key={uuid.v4()}
                                 style={{
                                     display:
                                         cardFaceToShow === index ? null : 'none'
