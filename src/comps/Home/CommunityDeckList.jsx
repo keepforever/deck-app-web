@@ -11,7 +11,9 @@ const CommunityDeckList = props => {
         loading,
         data: { feedDecks: decks }
         // fetchMore
-    } = useQuery(ALL_DECKS_QUERY);
+    } = useQuery(ALL_DECKS_QUERY, {
+        fetchPolicy: 'cache-and-network'
+    });
     // console.log('\n', '\n', `CommunityDecksList, decks = `, decks, '\n', '\n');
 
     if (loading) return <CircularProgress />;
