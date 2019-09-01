@@ -101,7 +101,8 @@ export const deckNavStyles = theme => ({
 
 export const deckCardStyles = theme => ({
     card: {
-        marginTop: '30px'
+        marginTop: '30px',
+        minWidth: '375px'
     },
     content: {
         marginTop: theme.spacing(1)

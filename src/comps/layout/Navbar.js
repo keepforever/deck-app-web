@@ -17,7 +17,7 @@ function Navbar (props) {
 
     return (
         <div className={classes.root}>
-            <AppBar className={classes.myAppBar} position="static">
+            <AppBar position="fixed">
                 <Toolbar>
                     <Typography
                         variant="h6"
@@ -42,11 +42,7 @@ function Navbar (props) {
                         </Button>
                     )}
                     {context.user && (
-                        <Button
-                            component={Link}
-                            to="/add"
-                            color="inherit"
-                        >
+                        <Button component={Link} to="/add" color="inherit">
                             Add Deck
                         </Button>
                     )}

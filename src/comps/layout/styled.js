@@ -1,14 +1,14 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  /* height: calc(100vh - 64px); */
-  height: 100%;
-  display: flex;
-  color: #282828;
-  /* background: lightgrey; */
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+    /* height: calc(100vh - 64px); */
+    height: 100%;
+    display: flex;
+    color: #282828;
+    /* background: lightgrey; */
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 `;
 
 export const layoutStyles = theme => ({
@@ -26,10 +26,8 @@ export const layoutStyles = theme => ({
 
 export const navbarStyles = {
     root: {
-        flexGrow: 1
-    },
-    myAppBar: {
-        background: '#282828'
+        flexGrow: 1,
+        marginBottom: '68px'
     },
     grow: {
         flexGrow: 1
