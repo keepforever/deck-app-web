@@ -2,6 +2,7 @@ import React, { useState, useContext } from 'react';
 import uuid from 'uuid';
 import { useQuery } from '@apollo/react-hooks';
 // material-ui
+import Typography from '@material-ui/core/Typography';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -15,7 +16,7 @@ import DECK_SINGLE_QUERY from '../../../graphql/q/DECK_SINGLE_QUERY';
 import { CardContext } from '../../../context/card';
 import DeckNav from '../../../comps/Deck/DeckNav';
 // utils
-import { useSummaryStyles } from './styled';
+import { useSummaryStyles, Container } from './styled';
 import utils from '../../../utils';
 
 const DeckTable = props => {
@@ -86,60 +87,16 @@ const DeckTable = props => {
     if (loading || !cardRows.length) return <CircularProgress />;
 
     // console.log('\n', '\n', `cardRows = `, cardRows, '\n', '\n');
-
     // console.log('\n', '\n', `sideCardRows = `, sideCardRows, '\n', '\n');
 
     return (
         <>
             <DeckNav {...props} copyDeckString={buildCopyDeckString(deck)} />
-            <Paper className={classes.root}>
-                <Table>
-                    <TableHead>
-                        <TableRow>
-                            {cardColumns.map((column, index) => (
-                                <TableCell
-                                    key={column.name}
-                                    align={column.numeric ? 'center' : 'center'}
-                                >
-                                    <TableSortLabel
-                                        active={column.active}
-                                        direction={column.order}
-                                        onClick={onCardSortClick(index)}
-                                    >
-                                        {column.name}
-                                    </TableSortLabel>
-                                </TableCell>
-                            ))}
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {cardRows.map(row => {
-                            return (
-                                <TableRow key={row.name}>
-                                    <TableCell component="th" scope="row">
-                                        {row.name}
-                                    </TableCell>
-                                    <TableCell className={classes.tableCell}>
-                                        {row.cmc || 0}
-                                    </TableCell>
-                                    <TableCell align="right">
-                                        {row.rarity}
-                                    </TableCell>
-                                    <TableCell align="right">
-                                        {row.color}
-                                    </TableCell>
-                                    <TableCell align="right">
-                                        {row.type_line}
-                                    </TableCell>
-                                </TableRow>
-                            );
-                        })}
-                    </TableBody>
-                </Table>
-            </Paper>
-            {deck.sideBoardList && deck.sideBoardList.length && (
+            <Container style={{ marginTop: '30px' }}>
                 <Paper className={classes.root}>
-                    <h2>Sideboard</h2>
+                    <Typography variant="h4">
+                        {deck.title} Main Board
+                    </Typography>
                     <Table>
                         <TableHead>
                             <TableRow>
@@ -162,9 +119,9 @@ const DeckTable = props => {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {sideCardRows.map(row => {
+                            {cardRows.map(row => {
                                 return (
-                                    <TableRow key={uuid.v4()}>
+                                    <TableRow key={row.name}>
                                         <TableCell component="th" scope="row">
                                             {row.name}
                                         </TableCell>
@@ -188,7 +145,66 @@ const DeckTable = props => {
                         </TableBody>
                     </Table>
                 </Paper>
-            )}
+                <br />
+                <br />
+                {deck.sideBoardList && deck.sideBoardList.length && (
+                    <Paper className={classes.root}>
+                        <Typography variant="h4">Side Board</Typography>
+                        <Table>
+                            <TableHead>
+                                <TableRow>
+                                    {cardColumns.map((column, index) => (
+                                        <TableCell
+                                            key={column.name}
+                                            align={
+                                                column.numeric
+                                                    ? 'center'
+                                                    : 'center'
+                                            }
+                                        >
+                                            <TableSortLabel
+                                                active={column.active}
+                                                direction={column.order}
+                                                onClick={onCardSortClick(index)}
+                                            >
+                                                {column.name}
+                                            </TableSortLabel>
+                                        </TableCell>
+                                    ))}
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                {sideCardRows.map(row => {
+                                    return (
+                                        <TableRow key={uuid.v4()}>
+                                            <TableCell
+                                                component="th"
+                                                scope="row"
+                                            >
+                                                {row.name}
+                                            </TableCell>
+                                            <TableCell
+                                                className={classes.tableCell}
+                                            >
+                                                {row.cmc || 0}
+                                            </TableCell>
+                                            <TableCell align="right">
+                                                {row.rarity}
+                                            </TableCell>
+                                            <TableCell align="right">
+                                                {row.color}
+                                            </TableCell>
+                                            <TableCell align="right">
+                                                {row.type_line}
+                                            </TableCell>
+                                        </TableRow>
+                                    );
+                                })}
+                            </TableBody>
+                        </Table>
+                    </Paper>
+                )}
+            </Container>
         </>
     );
 };

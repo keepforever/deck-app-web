@@ -8,6 +8,11 @@ import { setContext } from 'apollo-link-context';
 import { ApolloProvider } from '@apollo/react-hooks';
 import { onError } from 'apollo-link-error';
 import { ApolloLink } from 'apollo-link';
+// theme
+import { ThemeProvider } from '@material-ui/styles';
+import { createMuiTheme } from '@material-ui/core/styles';
+import purple from '@material-ui/core/colors/purple';
+import green from '@material-ui/core/colors/green';
 
 const httpLink = createHttpLink({
     uri: 'http://localhost:4000'
@@ -47,10 +52,22 @@ const client = new ApolloClient({
     cache: new InMemoryCache()
 });
 
+const theme = createMuiTheme({
+    palette: {
+        primary: purple,
+        secondary: green
+    },
+    status: {
+        danger: 'orange'
+    }
+});
+
 export default (
     <ApolloProvider client={client}>
         <Router>
-            <App />
+            <ThemeProvider theme={theme}>
+                <App />
+            </ThemeProvider>
         </Router>
     </ApolloProvider>
 );
