@@ -65,7 +65,7 @@ function DeckNav (props) {
                     >
                         <Button
                             style={{ marginRight: '30px' }}
-                            variant="outlined"
+                            variant="contained"
                             color="secondary"
                         >
                             Export to Arena

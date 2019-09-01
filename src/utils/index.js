@@ -252,7 +252,7 @@ function combineMainAndSideboard (deck) {
 }
 
 function buildCopyDeckString ({ sideBoardList = '', list = '' }) {
-    let isSideboard = sideBoardList.length;
+    let isSideboard = sideBoardList && sideBoardList.length;
 
     if (isSideboard) {
         return list.trim() + '\n' + '\n' + sideBoardList.trim();
