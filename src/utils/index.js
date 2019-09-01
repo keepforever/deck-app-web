@@ -251,6 +251,16 @@ function combineMainAndSideboard (deck) {
     return [...main, ...side];
 }
 
+function buildCopyDeckString ({ sideBoardList = '', list = '' }) {
+    let isSideboard = sideBoardList.length;
+
+    if (isSideboard) {
+        return list.trim() + '\n' + '\n' + sideBoardList.trim();
+    } else {
+        return list.trim();
+    }
+}
+
 export default {
     buildCardAlternateMap,
     rarityBorderColor,
@@ -264,5 +274,6 @@ export default {
     getCardByDirectLookup,
     buildAltCardItemsArray,
     validateAddDeckList,
-    combineMainAndSideboard
+    combineMainAndSideboard,
+    buildCopyDeckString
 };

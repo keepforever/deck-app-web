@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import uuid from 'uuid';
 import { useQuery } from '@apollo/react-hooks';
 // material-ui
 import Grid from '@material-ui/core/Grid';
@@ -15,7 +16,7 @@ import DECK_SINGLE_QUERY from '../../../graphql/q/DECK_SINGLE_QUERY';
 import utils from '../../../utils';
 
 const CardDetails = props => {
-    const { getCard } = utils;
+    const { getCard, buildCopyDeckString } = utils;
     const cardContext = useContext(CardContext);
 
     const {
@@ -29,7 +30,7 @@ const CardDetails = props => {
 
     return (
         <>
-            <DeckNav {...props} />
+            <DeckNav {...props} copyDeckString={buildCopyDeckString(deck)} />
             <div
                 style={{
                     display: 'flex',
@@ -83,7 +84,7 @@ const CardDetails = props => {
                             {deck.sideBoardList.split('\n').map(card => {
                                 const finalCard = getCard(card, cardContext);
                                 return (
-                                    <Grid item key={finalCard.name}>
+                                    <Grid item key={uuid.v4()}>
                                         <CardItem {...finalCard} />
                                     </Grid>
                                 );

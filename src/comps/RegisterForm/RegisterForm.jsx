@@ -40,11 +40,15 @@ const RegisterForm = props => {
         ],
         update: (_, { data: { signup: signupData } }) => {
             authContext.login(signupData);
-            authContext.addMessage('You\'ve registered! Welcome!');
+            authContext.addMessage("You've registered! Welcome!");
             props.history.push('/home');
         },
-        // Video on updating the cache manually with update
-        // https://www.youtube.com/watch?v=lQ7t20gFR14
+        onCompleted: ({ signup: { token } }) => {
+            window.localStorage.setItem(
+                process.env.REACT_APP_AUTH_TOKEN_KEY,
+                token
+            );
+        }
     });
 
     const register = () => {

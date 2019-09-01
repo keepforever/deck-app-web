@@ -1,4 +1,5 @@
 import React, { useState, useContext } from 'react';
+import uuid from 'uuid';
 import { useQuery } from '@apollo/react-hooks';
 // material-ui
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -41,7 +42,7 @@ const DeckTable = props => {
         );
     };
     const classes = useSummaryStyles();
-    const { getCard, comparator } = utils;
+    const { getCard, comparator, buildCopyDeckString } = utils;
 
     const cardContext = useContext(CardContext);
     const [cardRows, setCardRows] = useState([]);
@@ -90,7 +91,7 @@ const DeckTable = props => {
 
     return (
         <>
-            <DeckNav {...props} />
+            <DeckNav {...props} copyDeckString={buildCopyDeckString(deck)} />
             <Paper className={classes.root}>
                 <Table>
                     <TableHead>
@@ -163,7 +164,7 @@ const DeckTable = props => {
                         <TableBody>
                             {sideCardRows.map(row => {
                                 return (
-                                    <TableRow key={row.name}>
+                                    <TableRow key={uuid.v4()}>
                                         <TableCell component="th" scope="row">
                                             {row.name}
                                         </TableCell>

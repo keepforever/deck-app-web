@@ -16,7 +16,7 @@ import utils from '../../../utils';
 // import { getCard } from './utils';
 
 function Edit (props) {
-    const { buildCardAlternateMap } = utils;
+    const { buildCardAlternateMap, buildCopyDeckString } = utils;
     const {
         loading,
         data: { singleDeck: deck }
@@ -36,7 +36,7 @@ function Edit (props) {
 
     return (
         <>
-            <DeckNav {...props} />
+            <DeckNav {...props} copyDeckString={buildCopyDeckString(deck)} />
             <Container>
                 <Grid container justify="center" spacing={1}>
                     <Grid item xs={12} sm={12} md={12}>
