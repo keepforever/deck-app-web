@@ -16,6 +16,9 @@ const useStyles = makeStyles(theme => ({
     },
     paper: {
         margin: 0
+    },
+    button: {
+        margin: '0px 10px'
     }
 }));
 
@@ -26,27 +29,33 @@ export default function DecksList ({ decks }) {
     const rowRenderer = ({ index, isScrolling, key, style }) => {
         const item = items[index];
         return (
-            <ListItem button key={key} style={style}>
+            <ListItem key={key} style={style}>
                 <ListItemText
                     primary={item.title}
                     secondary={`By: ${item.author.arenaHandle}`}
                 />
                 <Button
-                    color="inherit"
+                    className={classes.button}
+                    variant="contained"
+                    color="primary"
                     component={Link}
                     to={`/deck/${item.id}/edit`}
                 >
                     Edit
                 </Button>
                 <Button
-                    color="inherit"
+                    className={classes.button}
+                    variant="contained"
+                    color="secondary"
                     component={Link}
                     to={`/deck/${item.id}/summary`}
                 >
                     Summary
                 </Button>
                 <Button
-                    color="inherit"
+                    className={classes.button}
+                    variant="contained"
+                    color="primary"
                     component={Link}
                     to={`/deck/${item.id}/card-details`}
                 >

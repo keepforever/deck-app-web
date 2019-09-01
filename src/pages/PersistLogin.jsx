@@ -21,23 +21,32 @@ const PersistLogin = props => {
 
     // REFRESH TOKEN USE EFFECT
     useEffect(() => {
-        // const token = window.localStorage.getItem(
-        //     process.env.REACT_APP_AUTH_TOKEN_KEY
-        // );
+        const token = window.localStorage.getItem(
+            process.env.REACT_APP_AUTH_TOKEN_KEY
+        );
+        if (!token) {
+            console.log('\n', '\n', `no token `, '\n', '\n');
+        } else {
+            console.log('\n', `There's a token `, '\n');
+            refreshTokenMutation();
+        }
         // console.log('\n', '\n', `useEffect, token = `, token, '\n', '\n');
-        refreshTokenMutation();
     }, []);
     /* eslint-disable-next-line */
     const { loading: meLoading /*, data */ } = useQuery(ME_QUERY, {
         onCompleted: data => {
-            console.log('\n', '\n', `data = `, data, '\n', '\n');
-            authContext.persistLogin({
-                user: { ...data.me },
-                token: window.localStorage.getItem(
-                    process.env.REACT_APP_AUTH_TOKEN_KEY
-                )
-            });
-            props.history.push('/home');
+            if (!data) {
+                console.log('\n', '\n', `!data = `, !data, '\n', '\n');
+            } else {
+                console.log('\n', '\n', `data = `, data, '\n', '\n');
+                authContext.persistLogin({
+                    user: { ...data.me },
+                    token: window.localStorage.getItem(
+                        process.env.REACT_APP_AUTH_TOKEN_KEY
+                    )
+                });
+                props.history.push('/home');
+            }
         },
         onError: error => {
             console.log(`PersistLogin.jsx, ME_QUERY error = `, error, '\n');

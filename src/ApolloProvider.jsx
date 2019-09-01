@@ -13,6 +13,7 @@ import { ThemeProvider } from '@material-ui/styles';
 import { createMuiTheme } from '@material-ui/core/styles';
 import purple from '@material-ui/core/colors/purple';
 import green from '@material-ui/core/colors/green';
+import red from '@material-ui/core/colors/red';
 
 const httpLink = createHttpLink({
     uri: 'http://localhost:4000'
@@ -56,7 +57,8 @@ const theme = createMuiTheme({
     palette: {
         type: 'dark',
         primary: purple,
-        secondary: green
+        secondary: green,
+        error: red
     },
     status: {
         danger: 'orange'

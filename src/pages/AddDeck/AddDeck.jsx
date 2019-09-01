@@ -20,7 +20,7 @@ import ALL_USERS_QUERY from '../../graphql/q/ALL_USERS';
 import ALL_DECKS_QUERY from '../../graphql/q/ALL_DECKS_QUERY';
 
 const testingDeckList =
-    "3 Fblthp, the Lost (WAR) 50\n2 Manifold Key (M20) 230\n\n1 Manifold Key (M20) 230\n1 Grafdigger's Cage (M20) 227";
+    "4 Tower Defense (RNA) 147\n4 Teferi, Time Raveler (WAR) 221\n4 High Alert (RNA) 182\n4 Arboreal Grazer (WAR) 149\n4 Yoked Ox (M20) 41\n3 Fblthp, the Lost (WAR) 50\n2 Manifold Key (M20) 230\n\n4 Hinterland Harbor (DAR) 240\n1 Grafdigger's Cage (M20) 227\n4 Snubhorn Sentry (RIX) 23";
 
 const RegisterForm = props => {
     const { makeLauremString } = utils;

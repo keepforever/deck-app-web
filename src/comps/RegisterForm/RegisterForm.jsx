@@ -31,8 +31,6 @@ const RegisterForm = props => {
 
     const [signup, { loading }] = useMutation(REGISTER_MUTATION, {
         variables: values,
-        // you can refetch multiple queries, along with any variables associated
-        // with them using the refetchQueries option on useMutation.
         refetchQueries: [
             /* eslint-disable-next-line */
             { query: ALL_USERS_QUERY /* variables: {...} */ },
@@ -40,14 +38,14 @@ const RegisterForm = props => {
         ],
         update: (_, { data: { signup: signupData } }) => {
             authContext.login(signupData);
-            authContext.addMessage("You've registered! Welcome!");
-            props.history.push('/home');
         },
         onCompleted: ({ signup: { token } }) => {
+            authContext.addMessage("You've registered! Welcome!");
             window.localStorage.setItem(
                 process.env.REACT_APP_AUTH_TOKEN_KEY,
                 token
             );
+            props.history.push('/home');
         }
     });
 
@@ -133,7 +131,10 @@ const RegisterForm = props => {
                             variant="outlined"
                             className={classes.loginButton}
                             fullWidth
-                            onClick={() => register()}
+                            onClick={() => {
+                                window.localStorage.removeItem(process.env.REACT_APP_AUTH_TOKEN_KEY);
+                                register();
+                            }}
                         >
                             Register New Account
                         </Button>
