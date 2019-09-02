@@ -15,6 +15,10 @@ const useStyles = makeStyles(theme => ({
     list: {
         height: null
     },
+    listItem: {
+        borderBottom: '1px solid black',
+        paddingBottom: '8px'
+    },
     paper: {
         margin: 0
     },
@@ -24,10 +28,10 @@ const useStyles = makeStyles(theme => ({
     responsive: {
         [theme.breakpoints.down('xs')]: {
             display: 'none'
-        },
-        [theme.breakpoints.down('sm')]: {
-            display: 'none'
         }
+        // [theme.breakpoints.down('sm')]: {
+        //     display: 'none'
+        // }
     }
 }));
 
@@ -44,13 +48,21 @@ export default function DecksList ({ decks, history }) {
         return (
             <ListItem
                 key={key}
+                className={classes.listItem}
                 style={style}
                 button
                 onClick={() => {
-                    handleNavigateToSummary(item.id);
+                    const mediaMatch = window.matchMedia('(max-width: 401px)')
+                        .matches;
+                    if (mediaMatch) {
+                        handleNavigateToSummary(item.id);
+                    }
                 }}
             >
                 <ListItemText
+                    primaryTypographyProps={{
+                        variant: 'h6'
+                    }}
                     primary={item.title}
                     secondary={`By: ${item.author.arenaHandle}`}
                 />
@@ -92,7 +104,7 @@ export default function DecksList ({ decks, history }) {
                         <VirtualList
                             width={width}
                             height={300}
-                            rowHeight={50}
+                            rowHeight={60}
                             rowCount={items.length}
                             rowRenderer={rowRenderer}
                         />
