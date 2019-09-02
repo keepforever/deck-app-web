@@ -64,7 +64,10 @@ const theme = createMuiTheme({
         danger: 'orange'
     },
     overrides: {
-        MuiCircularProgress: { root: { position: 'absolute', top: '50vh', left: '50vw' } }
+        MuiCircularProgress: {
+            root: { position: 'absolute', top: '50vh', left: '50vw' }
+        },
+        MuiTableCell: { root: { padding: '5px' } }
     }
 });
 

@@ -21,7 +21,7 @@ const CommunityDeckList = props => {
     // console.log('\n', '\n', `ComunityDeckList, props = `, props, '\n', '\n');
     return (
         <div>
-            <DeckList decks={decks} />
+            <DeckList history={props.history} decks={decks} />
         </div>
     );
 };

@@ -1,7 +1,11 @@
 import React, { useState, useContext } from 'react';
 import uuid from 'uuid';
 import { useQuery } from '@apollo/react-hooks';
+import clsx from 'clsx';
 // material-ui
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
 import Typography from '@material-ui/core/Typography';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Table from '@material-ui/core/Table';
@@ -93,7 +97,7 @@ const DeckTable = props => {
         <>
             <DeckNav {...props} copyDeckString={buildCopyDeckString(deck)} />
             <Container style={{ marginTop: '30px' }}>
-                <Paper className={classes.root}>
+                <Paper className={clsx(classes.root, classes.responsive)}>
                     <Typography variant="h4">
                         {deck.title} Main Board
                     </Typography>
@@ -148,7 +152,7 @@ const DeckTable = props => {
                 <br />
                 <br />
                 {deck.sideBoardList && deck.sideBoardList.length && (
-                    <Paper className={classes.root}>
+                    <Paper className={clsx(classes.root, classes.responsive)}>
                         <Typography variant="h4">Side Board</Typography>
                         <Table>
                             <TableHead>
@@ -204,6 +208,18 @@ const DeckTable = props => {
                         </Table>
                     </Paper>
                 )}
+                <Paper className={classes.hideWhenLarge}>
+                    <List>
+                        {[...cardRows, ...sideCardRows].map((item, index) => (
+                            <ListItem key={uuid.v4()}>
+                                <ListItemText
+                                    primary={`${item.name},   cmc: ${item.cmc}`}
+                                    secondary={item.type_line}
+                                />
+                            </ListItem>
+                        ))}{' '}
+                    </List>
+                </Paper>
             </Container>
         </>
     );

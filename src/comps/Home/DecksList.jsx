@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { List as VirtualList, AutoSizer } from 'react-virtualized';
+import clsx from 'clsx';
 // material-ui
 import { makeStyles } from '@material-ui/styles';
 import List from '@material-ui/core/List';
@@ -19,23 +20,42 @@ const useStyles = makeStyles(theme => ({
     },
     button: {
         margin: '0px 10px'
+    },
+    responsive: {
+        [theme.breakpoints.down('xs')]: {
+            display: 'none'
+        },
+        [theme.breakpoints.down('sm')]: {
+            display: 'none'
+        }
     }
 }));
 
-export default function DecksList ({ decks }) {
+export default function DecksList ({ decks, history }) {
     const classes = useStyles();
     const [items] = useState([...decks]);
+
+    function handleNavigateToSummary (id) {
+        history.push(`/deck/${id}/summary`);
+    }
 
     const rowRenderer = ({ index, isScrolling, key, style }) => {
         const item = items[index];
         return (
-            <ListItem key={key} style={style}>
+            <ListItem
+                key={key}
+                style={style}
+                button
+                onClick={() => {
+                    handleNavigateToSummary(item.id);
+                }}
+            >
                 <ListItemText
                     primary={item.title}
                     secondary={`By: ${item.author.arenaHandle}`}
                 />
                 <Button
-                    className={classes.button}
+                    className={clsx(classes.button, classes.responsive)}
                     variant="contained"
                     color="primary"
                     component={Link}
@@ -44,7 +64,7 @@ export default function DecksList ({ decks }) {
                     Edit
                 </Button>
                 <Button
-                    className={classes.button}
+                    className={clsx(classes.button, classes.responsive)}
                     variant="contained"
                     color="secondary"
                     component={Link}
@@ -53,7 +73,7 @@ export default function DecksList ({ decks }) {
                     Summary
                 </Button>
                 <Button
-                    className={classes.button}
+                    className={clsx(classes.button, classes.responsive)}
                     variant="contained"
                     color="primary"
                     component={Link}

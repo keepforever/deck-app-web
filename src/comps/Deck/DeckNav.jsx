@@ -47,6 +47,7 @@ function DeckNav (props) {
                             to={`/deck/${id}/summary`}
                         />
                         <Tab
+                            className={classes.responsive}
                             label="Edit"
                             component={Link}
                             to={`/deck/${id}/edit`}
@@ -58,6 +59,7 @@ function DeckNav (props) {
                         />
                     </Tabs>
                     <CopyToClipboard
+                        className={classes.responsive}
                         onCopy={() => {
                             // addMessage('Copied All Codes!', 'success');
                         }}

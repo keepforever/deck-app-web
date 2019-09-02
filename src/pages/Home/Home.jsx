@@ -24,7 +24,10 @@ const Home = props => {
             {!!decks.length && (
                 <div>
                     <GenericPlacard title="Your Decks" />
-                    <DecksList decks={authContext.user.decks} />
+                    <DecksList
+                        decks={authContext.user.decks}
+                        history={props.history}
+                    />
                 </div>
             )}
 

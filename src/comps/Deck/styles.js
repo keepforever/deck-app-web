@@ -96,6 +96,14 @@ export const deckNavStyles = theme => ({
     },
     tabContent: {
         padding: theme.spacing(2)
+    },
+    responsive: {
+        [theme.breakpoints.down('xs')]: {
+            display: 'none'
+        },
+        [theme.breakpoints.down('sm')]: {
+            display: 'none'
+        }
     }
 });
 
