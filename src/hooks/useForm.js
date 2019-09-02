@@ -6,7 +6,6 @@ export const useForm = initialValues => {
     return [
         values,
         e => {
-            console.log('\n', '\n', `e = `, e, '\n', '\n');
             setValues({
                 ...values,
                 [e.target.name]: e.target.value

@@ -62,6 +62,9 @@ const theme = createMuiTheme({
     },
     status: {
         danger: 'orange'
+    },
+    overrides: {
+        MuiCircularProgress: { root: { position: 'absolute', top: '50vh', left: '50vw' } }
     }
 });
 

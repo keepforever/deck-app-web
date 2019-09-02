@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import uuid from 'uuid';
 import { useQuery } from '@apollo/react-hooks';
 // material-ui
+import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -47,6 +48,7 @@ const CardDetails = props => {
                                 maxWidth: 'calc(100vw - 32px)'
                             }}
                         >
+                            <Typography style={{padding: '15px'}} align="center" variant="h4">Main Deck</Typography>
                             <Grid
                                 container
                                 style={{
@@ -72,24 +74,36 @@ const CardDetails = props => {
                         deck.sideBoardList &&
                         deck.sideBoardList.length && <h2>Side Board</h2>}
                     {deck && deck.sideBoardList && deck.sideBoardList.length && (
-                        <Grid
-                            container
+                        <Paper
                             style={{
-                                padding: 0,
-                                margin: 0,
+                                marginTop: 30,
                                 maxWidth: 'calc(100vw - 32px)'
                             }}
-                            spacing={4}
                         >
-                            {deck.sideBoardList.split('\n').map(card => {
-                                const finalCard = getCard(card, cardContext);
-                                return (
-                                    <Grid item key={uuid.v4()}>
-                                        <CardItem {...finalCard} />
-                                    </Grid>
-                                );
-                            })}
-                        </Grid>
+                            <Typography style={{padding: '15px'}} align="center" variant="h4">Side Board</Typography>
+
+                            <Grid
+                                container
+                                style={{
+                                    padding: 0,
+                                    margin: 0,
+                                    maxWidth: 'calc(100vw - 32px)'
+                                }}
+                                spacing={4}
+                            >
+                                {deck.sideBoardList.split('\n').map(card => {
+                                    const finalCard = getCard(
+                                        card,
+                                        cardContext
+                                    );
+                                    return (
+                                        <Grid item key={uuid.v4()}>
+                                            <CardItem {...finalCard} />
+                                        </Grid>
+                                    );
+                                })}
+                            </Grid>
+                        </Paper>
                     )}
                 </Container>
             </div>
