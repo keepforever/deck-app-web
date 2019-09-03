@@ -11,7 +11,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 // locals
 import { useForm } from '../../hooks/useForm';
 import { useRegisterFormStyles } from './styled';
-import utils from '../../utils';
+// import utils from '../../utils';
 // graphql
 import REGISTER_MUTATION from '../../graphql/m/REGISTER_MUTATION';
 import ALL_USERS_QUERY from '../../graphql/q/ALL_USERS';
