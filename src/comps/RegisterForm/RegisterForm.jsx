@@ -4,6 +4,7 @@ import { useMutation } from '@apollo/react-hooks';
 // material-ui
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
+import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -19,13 +20,21 @@ import { AuthContext } from '../../context/auth';
 
 const RegisterForm = props => {
     const authContext = useContext(AuthContext);
-    const { makeLauremString } = utils;
     const classes = useRegisterFormStyles();
+    // const { makeLauremString } = utils;
+    // const [values, handleChange] = useForm({
+    //     name: makeLauremString(5),
+    //     email: makeLauremString(5) + '@' + 'gmail.com',
+    //     password: 'a',
+    //     arenaHandle: makeLauremString(6),
+    //     isAdmin: false
+    // });
+
     const [values, handleChange] = useForm({
-        name: makeLauremString(5),
-        email: makeLauremString(5) + '@' + 'gmail.com',
-        password: 'a',
-        arenaHandle: makeLauremString(6),
+        name: '',
+        email: '',
+        password: '',
+        arenaHandle: '',
         isAdmin: false
     });
 
@@ -62,84 +71,81 @@ const RegisterForm = props => {
             )}
 
             {!loading && (
-                <Grid container spacing={1} className={classes.container}>
-                    <Grid item>
-                        <Grid container className={classes.headingContainer}>
-                            <Grid item>
-                                <Typography variant="h5">
-                                    {loading ? 'Loading...' : '☮️'}
-                                </Typography>
-                            </Grid>
+                <Paper
+                    style={{
+                        minWidth: '399px',
+                        padding: '15px',
+                        marginTop: '60px'
+                    }}
+                >
+                    <Grid container spacing={1} className={classes.container}>
+                        <Grid item className={classes.headingContainer}>
+                            <Typography variant="h3">
+                                {loading ? 'Loading...' : 'Register'}
+                            </Typography>
+                        </Grid>
+                        <Grid item>
+                            <TextField
+                                name="name"
+                                id="name"
+                                label="Name"
+                                value={values.name}
+                                fullWidth
+                                onChange={handleChange}
+                            />
+                        </Grid>
+                        <Grid item>
+                            <TextField
+                                name="email"
+                                id="email"
+                                type="email"
+                                label="Email"
+                                value={values.email}
+                                fullWidth
+                                onChange={handleChange}
+                            />
+                        </Grid>
+                        <Grid item>
+                            <TextField
+                                name="password"
+                                id="password"
+                                label="Password"
+                                type="password"
+                                value={values.password}
+                                fullWidth
+                                onChange={handleChange}
+                                // InputProps={{
+                                //     className: classes.input
+                                // }}
+                            />
+                        </Grid>
+                        <Grid item>
+                            <TextField
+                                name="arenaHandle"
+                                id="arenaHandle"
+                                label="Arena Handle"
+                                value={values.arenaHandle}
+                                fullWidth
+                                onChange={handleChange}
+                            />
+                        </Grid>
+                        <Grid item>
+                            <Button
+                                variant="outlined"
+                                className={classes.loginButton}
+                                fullWidth
+                                onClick={() => {
+                                    window.localStorage.removeItem(
+                                        process.env.REACT_APP_AUTH_TOKEN_KEY
+                                    );
+                                    register();
+                                }}
+                            >
+                                Register New Account
+                            </Button>
                         </Grid>
                     </Grid>
-                    <Grid item>
-                        <Grid container className={classes.headingContainer}>
-                            <Grid item>
-                                <Typography variant="h5">
-                                    Register Form
-                                </Typography>
-                            </Grid>
-                        </Grid>
-                    </Grid>
-                    <Grid item>
-                        <TextField
-                            name="name"
-                            id="name"
-                            label="Name"
-                            value={values.name}
-                            fullWidth
-                            onChange={handleChange}
-                        />
-                    </Grid>
-                    <Grid item>
-                        <TextField
-                            name="email"
-                            id="email"
-                            type="email"
-                            label="Email"
-                            value={values.email}
-                            fullWidth
-                            onChange={handleChange}
-                        />
-                    </Grid>
-                    <Grid item>
-                        <TextField
-                            name="password"
-                            id="password"
-                            label="Password"
-                            type="password"
-                            value={values.password}
-                            fullWidth
-                            onChange={handleChange}
-                            // InputProps={{
-                            //     className: classes.input
-                            // }}
-                        />
-                    </Grid>
-                    <Grid item>
-                        <TextField
-                            name="arenaHandle"
-                            id="arenaHandle"
-                            label="Arena Handle"
-                            value={values.arenaHandle}
-                            fullWidth
-                            onChange={handleChange}
-                        />
-                    </Grid>
-                    <Grid item>
-                        <Button
-                            variant="outlined"
-                            className={classes.loginButton}
-                            fullWidth
-                            onClick={() => {
-                                window.localStorage.removeItem(process.env.REACT_APP_AUTH_TOKEN_KEY);
-                                register();
-                            }}
-                        >
-                            Register New Account
-                        </Button>
-                    </Grid>
-                </Grid>
+                </Paper>
             )}
         </Fragment>
     );
