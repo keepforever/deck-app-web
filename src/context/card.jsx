@@ -19,19 +19,6 @@ const loadSet = (state, action) => {
     };
 };
 
-// const hideSnack = (state, action) => {
-//     return {
-//         ...state,
-//         user: {
-//             ...state.user
-//         },
-//         snackbar: {
-//             isOpen: false,
-//             message: ''
-//         }
-//     };
-// };
-
 function cardReducer (state = initialState, action) {
     switch (action.type) {
         case 'LOAD_SET':
@@ -47,12 +34,7 @@ function CardProvider (props) {
         dict: { ...dict }
     });
 
-    // function loadSet (setCode) {
-    //     dispatch({
-    //         type: 'LOAD_SET',
-    //         payload: setCode
-    //     });
-    // }
+    console.log('\n', '\n', `dispatch = `, dispatch, '\n', '\n');
 
     // must return the provider to use elsewhere
     return (
