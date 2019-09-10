@@ -137,36 +137,6 @@ const CardItem = props => {
         );
     }
 
-    // "xxx230rna": {
-    //     "name": "Warrant // Warden",
-    //     "lookup": "xxx230rna",
-    //     "cmc": 7,
-    //     "arena_id": 69376,
-    //     "collector_number": "230",
-    //     "set": "rna",
-    //     "mana_cost": "{W/U}{W/U} // {3}{W}{U}",
-    //     "rarity": "rare",
-    //     "pt": "undefined/undefined",
-    //     "color": "UW",
-    //     "layout": "split",
-    //     "card_faces": [
-    //         {
-    //             "name": "Warrant",
-    //             "type_line": "Instant",
-    //             "mana_cost": "{W/U}{W/U}",
-    //             "text": "Put target attacking or blocking creature on top of its owner's library.",
-    //             "color": null
-    //         },
-    //         {
-    //             "name": "Warden",
-    //             "type_line": "Sorcery",
-    //             "mana_cost": "{3}{W}{U}",
-    //             "text": "Create a 4/4 white and blue Sphinx creature token with flying and vigilance.",
-    //             "color": null
-    //         }
-    //     ]
-    // },
-
     if (layout === 'split') {
         return (
             <>
@@ -217,3 +187,33 @@ const CardItem = props => {
 };
 
 export default CardItem;
+
+// "xxx230rna": {
+//     "name": "Warrant // Warden",
+//     "lookup": "xxx230rna",
+//     "cmc": 7,
+//     "arena_id": 69376,
+//     "collector_number": "230",
+//     "set": "rna",
+//     "mana_cost": "{W/U}{W/U} // {3}{W}{U}",
+//     "rarity": "rare",
+//     "pt": "undefined/undefined",
+//     "color": "UW",
+//     "layout": "split",
+//     "card_faces": [
+//         {
+//             "name": "Warrant",
+//             "type_line": "Instant",
+//             "mana_cost": "{W/U}{W/U}",
+//             "text": "Put target attacking or blocking creature on top of its owner's library.",
+//             "color": null
+//         },
+//         {
+//             "name": "Warden",
+//             "type_line": "Sorcery",
+//             "mana_cost": "{3}{W}{U}",
+//             "text": "Create a 4/4 white and blue Sphinx creature token with flying and vigilance.",
+//             "color": null
+//         }
+//     ]
+// },
